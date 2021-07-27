@@ -170,7 +170,7 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into TableTimes (TimeInMs) VALUES (@TimeInMs) where ", con))
+                using (SqlCommand sc = new SqlCommand("insert into TableTimes (TimeInMs) VALUES (@TimeInMs)", con))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@TimeInMs", Time);
