@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace MyExample
 {
@@ -17,6 +19,7 @@ namespace MyExample
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormSkiCompetition());
+           
         }
     }
 }

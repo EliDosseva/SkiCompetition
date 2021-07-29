@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Boy.cs" />
+    <Compile Include="DataProvider.cs" />
     <Compile Include="FormSkiCompetition.cs">
       <SubType>Form</SubType>
     </Compile>
