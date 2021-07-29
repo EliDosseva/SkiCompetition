@@ -6,10 +6,27 @@ using System.Threading.Tasks;
 
 namespace MyExample
 {
-    abstract public class Skier
+    public class Skier
     {
+        private int id;
         private TimeSpan time;
-        public TimeSpan Time 
+        private string name;
+        private string lastName;
+        private string sex;
+
+
+        public Skier()
+        {
+        }
+        public int ID
+        {
+            get => id;
+            set
+            {
+                id = value;
+            }
+        }
+        public TimeSpan Time
         {
             get => time;
             set
@@ -17,9 +34,50 @@ namespace MyExample
                 time = value;
             }
         }
-        public abstract string Team { get; set; }
         
-        public abstract string Name { get; set; }
-        
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+            }
+        }
+        public string LastName
+        {
+            get => lastName;
+            set
+            {
+                lastName = value;
+            }
+        }
+        public string Sex
+        {
+            get => sex;
+            set
+            {
+                sex = value;
+            }
+        }
+        public Skier(string name, string lastName)
+        {
+            this.name = name;
+            this.lastName = lastName;
+        }
+
+
+
+        public string Team { get; set; }
+        public override string ToString()
+        {
+            return $"{this.name} {this.lastName}";
+        }
+        //public string Team { get; set; }
+
+        //public string Name { get; set; }
+        //public string LastName { get; set; }
+        //public string Sex { get; set; }
+
+
     }
 }

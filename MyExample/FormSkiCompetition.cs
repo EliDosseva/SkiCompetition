@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,137 +14,115 @@ namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
-        
-        private List<Boy> boys;
-        private List<Girl> girls;
-        private Dictionary<Team,List<Skier>> skiersByTeam;
+        private List<Skier> skiers;
+        //private Dictionary<Team,List<Skier>> skiersByTeam;
+        private DataProvider dataProvider;
         public FormSkiCompetition()
         {
             InitializeComponent();
-
+            string connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+            skiers = new List<Skier>();
+            //skiersByTeam = new Dictionary<Team, List<Skier>>();
             
-            skiersByTeam = new Dictionary<Team, List<Skier>>();
-            boys = new List<Boy>();
-            girls = new List<Girl>();
-            
+            this.dataProvider = new DataProvider(connection);
+
         }
-        public List<Skier> GetSkiersByTeam(Team key)
+
+        public List<Skier> GetSkiers()
         {
-            List<Skier> result = null;
-
-            if (skiersByTeam.ContainsKey(key))
-            {
-                result = skiersByTeam[key];
-            }
-            else
-            {
-                result = new List<Skier>();
-                skiersByTeam.Add(key, result);
-            }
-
-            return result;
+            return skiers;
         }
 
-        public List<Boy> GetBoys()
-        {
-            return boys;
-        }
-
-        public List<Girl> GetGirls()
-        {
-            return girls;
-        }
         private void buttonResults_Click(object sender, EventArgs e)
         {
-
-            listBoxResultsBoys.Items.Clear();
-            listBoxResultsGirls.Items.Clear();
-
 
             Random random = new Random();
             var start = TimeSpan.FromSeconds(20);
             var end = TimeSpan.FromMinutes(2);
             var difference = (int)(end.TotalMilliseconds - start.TotalMilliseconds);
 
-            var allSkiers = new List<Skier>(girls.Count + boys.Count);
-            allSkiers.AddRange(girls);
-            allSkiers.AddRange(boys);
+            List<Skier> all = dataProvider.GetCompetitors();
 
-            foreach (var item in allSkiers)
+
+            foreach (var item in all)
             {
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-
-                item.Time = randomTime;
-                if (item.GetType() == typeof(Boy))
-                {
-                    listBoxResultsBoys.Items.Add(item.Name);
-                    listBoxResultsBoys.Items.Add(randomTime);
-                }
-                else
-                {
-                    listBoxResultsGirls.Items.Add(item.Name);
-                    listBoxResultsGirls.Items.Add(randomTime);
-                }
-
+                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
             }
-        }
+            dataGridViewMale.DataSource = dataProvider.TimesMale();
+            dataGridViewFemale.DataSource = dataProvider.TimesFemale();
 
+        }
 
         private void buttonResultSort_Click(object sender, EventArgs e)
         {
-            listBoxRankBoys.Items.Clear();
-            listBoxRankGirls.Items.Clear();
+
+            List<Skier> females = dataProvider.GetFemales();
+            List<Skier> males = dataProvider.GetMales();
 
 
-            var resBoys = boys.OrderBy(x => x.Time).ToArray();
-            for (int i = 0; i < resBoys.Length; i++)
+            //var sorted = females.GroupBy(r => r.ID).Select(x => x.Select(v=>v.Time).ToList()).ToList();
+
+            listBoxRankFemale.Items.Add(dataProvider.SumResults());
+            listBoxRankMale.Items.Add(dataProvider.SumResults());
+
+
+            var resFemale = females.OrderBy(x => x.Time).ToArray();
+            for (int i = 0; i < resFemale.Length; i++)
             {                
-                listBoxRankBoys.Items.Add(i+1 + ". "+ resBoys[i].Name);
+                listBoxRankFemale.Items.Add(i+1 + ". "+ resFemale[i].Name +" " + resFemale[i].LastName);
             }
 
-            var resGirls = girls.OrderBy(x => x.Time).ToArray();
-            for (int i = 0; i < resGirls.Length; i++)
+            var resMale = males.OrderBy(x => x.Time).ToArray();
+            for (int i = 0; i < resMale.Length; i++)
             {
-
-                listBoxRankGirls.Items.Add(i + 1 + ". " + resGirls[i].Name);
+                listBoxRankMale.Items.Add(i+1 + ". "+ resMale[i].Name + " " + resMale[i].LastName);
             }
+
+            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
+            dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
+            dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
 
         }
-
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             var reg = new Register(this);
-            
-            if (reg.ShowDialog() == DialogResult.OK)
-            {
-                listBoxBoys.Items.Clear();
-                listBoxGirls.Items.Clear();
 
-                listBoxBoys.Items.AddRange(boys.ToArray());
-                listBoxGirls.Items.AddRange(girls.ToArray());
-
-            }
-
+            reg.ShowDialog();
         }
 
         private void buttonTeamRank_Click(object sender, EventArgs e)
         {
-            listBoxTeamRank.Items.Clear();
-            foreach (KeyValuePair<Team, List<Skier>> entry in skiersByTeam)
-            {
-                foreach (var skier in entry.Value)
-                {
-                    entry.Key.AverageTime += skier.Time;
-                }
-                entry.Key.AverageTime = new TimeSpan((long)(entry.Key.AverageTime.TotalMilliseconds / entry.Value.Count));
-            }
-            
-            foreach (var item in skiersByTeam.OrderBy(pair => pair.Key.AverageTime))
-            {
-                listBoxTeamRank.Items.Add(item.Key.Name);
-            }               
             
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[0].Value);
+            dataProvider.Delete(selected);
+            RefreshGrid();
+        }
+
+        private void FormSkiCompetition_Load(object sender, EventArgs e)
+        {
+            RefreshGrid();
+        }
+         public void RefreshGrid()
+        {
+            dataGridViewCompetitors.DataSource = dataProvider.Create();
+        }
+
+        private void dataGridViewCompetitors_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Delete)
+            {
+                int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[0].Value);
+                dataProvider.Delete(selected);
+                RefreshGrid();
+            }
+        }
+
     }
+
 }

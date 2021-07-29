@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace MyExample
 {
@@ -14,37 +15,47 @@ namespace MyExample
     {
         private FormSkiCompetition skierForm = null;
         private Skier skier = null;
+        private DataProvider dataProvider;
+
         public Register(FormSkiCompetition skierForm)
         {
             InitializeComponent();
             this.skierForm = skierForm;
+            var connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+            this.dataProvider = new DataProvider(connection);
+        }
+
+        public Register()
+        {
+            var connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+            this.dataProvider = new DataProvider(connection);
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            string sex = comboBoxSex.Text;
-            if (sex.Equals("male"))
-            {
-                skier = new Boy(textBoxName.Text);
+                skier = new Skier(textBoxName.Text, textBoxLastName.Text);
                 skier.Team = comboBoxTeam.Text;
-                skierForm.GetBoys().Add((Boy)skier);
 
-            }
-            else if(sex.Equals("female"))
-            {
-                skier = new Girl(textBoxName.Text);
-                skier.Team = comboBoxTeam.Text;
-                skierForm.GetGirls().Add((Girl)skier);
+            //List<Skier> skiers = skierForm.GetSkiersByTeam((Team)comboBoxTeam.SelectedItem);
+            //List<Skier> skiers = dataProvider.GetCompetitors();
+            //skiers.Add(skier);
 
-            }
-            else
-                return;
-            
-            List<Skier> skiers = skierForm.GetSkiersByTeam(((Team)comboBoxTeam.SelectedItem));
 
-            skiers.Add(skier);
+            var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
 
+            int team = ((KeyValuePair<int, string>)comboBoxTeam.SelectedItem).Key;
+
+            var isSuccess = dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team);
+            skierForm.RefreshGrid();
             DialogResult = DialogResult.OK;
         }
+
+        private void Register_Load(object sender, EventArgs e)
+        {
+            var combo = dataProvider.ComboBoxTeam();
+            comboBoxTeam.DataSource = combo;
+        }
+
     }
 }
+
