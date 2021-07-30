@@ -49,6 +49,12 @@
   <ItemGroup>
     <Compile Include="Boy.cs" />
     <Compile Include="DataProvider.cs" />
+    <Compile Include="FormRank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRank.Designer.cs">
+      <DependentUpon>FormRank.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSkiCompetition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     </Compile>
     <Compile Include="Skier.cs" />
     <Compile Include="Team.cs" />
+    <EmbeddedResource Include="FormRank.resx">
+      <DependentUpon>FormRank.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSkiCompetition.resx">
       <DependentUpon>FormSkiCompetition.cs</DependentUpon>
     </EmbeddedResource>

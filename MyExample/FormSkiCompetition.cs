@@ -15,16 +15,16 @@ namespace MyExample
     public partial class FormSkiCompetition : Form
     {
         private List<Skier> skiers;
-        //private Dictionary<Team,List<Skier>> skiersByTeam;
         private DataProvider dataProvider;
+        private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+
         public FormSkiCompetition()
         {
             InitializeComponent();
-            string connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
-            skiers = new List<Skier>();
-            //skiersByTeam = new Dictionary<Team, List<Skier>>();
             
-            this.dataProvider = new DataProvider(connection);
+            skiers = new List<Skier>();
+ 
+            this.dataProvider = new DataProvider(_connection);
 
         }
 
@@ -49,52 +49,14 @@ namespace MyExample
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
                 dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
             }
-            dataGridViewMale.DataSource = dataProvider.TimesMale();
-            dataGridViewFemale.DataSource = dataProvider.TimesFemale();
-
-        }
-
-        private void buttonResultSort_Click(object sender, EventArgs e)
-        {
-
-            List<Skier> females = dataProvider.GetFemales();
-            List<Skier> males = dataProvider.GetMales();
-
-
-            //var sorted = females.GroupBy(r => r.ID).Select(x => x.Select(v=>v.Time).ToList()).ToList();
-
-            listBoxRankFemale.Items.Add(dataProvider.SumResults());
-            listBoxRankMale.Items.Add(dataProvider.SumResults());
-
-
-            var resFemale = females.OrderBy(x => x.Time).ToArray();
-            for (int i = 0; i < resFemale.Length; i++)
-            {                
-                listBoxRankFemale.Items.Add(i+1 + ". "+ resFemale[i].Name +" " + resFemale[i].LastName);
-            }
-
-            var resMale = males.OrderBy(x => x.Time).ToArray();
-            for (int i = 0; i < resMale.Length; i++)
-            {
-                listBoxRankMale.Items.Add(i+1 + ". "+ resMale[i].Name + " " + resMale[i].LastName);
-            }
-
-            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
-            dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
-            dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
 
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            var reg = new Register(this);
+            var reg = new Register(this,_connection);
 
             reg.ShowDialog();
-        }
-
-        private void buttonTeamRank_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -107,8 +69,9 @@ namespace MyExample
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
             RefreshGrid();
+            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
         }
-         public void RefreshGrid()
+        public void RefreshGrid()
         {
             dataGridViewCompetitors.DataSource = dataProvider.Create();
         }
@@ -123,6 +86,15 @@ namespace MyExample
             }
         }
 
+        private void VitoshaCompetition_Click(object sender, EventArgs e)
+        {
+            var fr = new FormRank(_connection);
+
+            fr.ShowDialog();
+            
+            dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
+            dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
+        }
     }
 
 }
