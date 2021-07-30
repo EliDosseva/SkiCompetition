@@ -17,17 +17,11 @@ namespace MyExample
         private Skier skier = null;
         private DataProvider dataProvider;
 
-        public Register(FormSkiCompetition skierForm)
+        public Register(FormSkiCompetition skierForm, string connection)
         {
             InitializeComponent();
             this.skierForm = skierForm;
-            var connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
-            this.dataProvider = new DataProvider(connection);
-        }
-
-        public Register()
-        {
-            var connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+            
             this.dataProvider = new DataProvider(connection);
         }
 
@@ -35,10 +29,6 @@ namespace MyExample
         {
                 skier = new Skier(textBoxName.Text, textBoxLastName.Text);
                 skier.Team = comboBoxTeam.Text;
-
-            //List<Skier> skiers = skierForm.GetSkiersByTeam((Team)comboBoxTeam.SelectedItem);
-            //List<Skier> skiers = dataProvider.GetCompetitors();
-            //skiers.Add(skier);
 
 
             var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);

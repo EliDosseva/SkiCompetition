@@ -14,15 +14,15 @@ namespace MyExample
     {
         private DataProvider dataProvider;
 
-        public FormRank()
+        public FormRank(string connection)
         {
             InitializeComponent();
-            string connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
             this.dataProvider = new DataProvider(connection);
         }
 
         private void FormRank_Load(object sender, EventArgs e)
         {
+            
             Random random = new Random();
             var start = TimeSpan.FromSeconds(20);
             var end = TimeSpan.FromMinutes(2);

@@ -16,13 +16,15 @@ namespace MyExample
     {
         private List<Skier> skiers;
         private DataProvider dataProvider;
+        private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+
         public FormSkiCompetition()
         {
             InitializeComponent();
-            string connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
+            
             skiers = new List<Skier>();
  
-            this.dataProvider = new DataProvider(connection);
+            this.dataProvider = new DataProvider(_connection);
 
         }
 
@@ -50,23 +52,11 @@ namespace MyExample
 
         }
 
-        private void buttonResultSort_Click(object sender, EventArgs e)
-        {
-
-            
-
-        }
-
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            var reg = new Register(this);
+            var reg = new Register(this,_connection);
 
             reg.ShowDialog();
-        }
-
-        private void buttonTeamRank_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -79,8 +69,9 @@ namespace MyExample
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
             RefreshGrid();
+            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
         }
-         public void RefreshGrid()
+        public void RefreshGrid()
         {
             dataGridViewCompetitors.DataSource = dataProvider.Create();
         }
@@ -97,16 +88,10 @@ namespace MyExample
 
         private void VitoshaCompetition_Click(object sender, EventArgs e)
         {
-            var fr = new FormRank();
+            var fr = new FormRank(_connection);
 
             fr.ShowDialog();
-
-
-            //var sorted = females.GroupBy(r => r.ID).Select(x => x.Select(v=>v.Time).ToList()).ToList();
-
             
-
-            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
             dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
             dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
         }
