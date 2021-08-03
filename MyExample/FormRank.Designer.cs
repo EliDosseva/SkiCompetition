@@ -139,6 +139,7 @@ namespace MyExample
             this.Controls.Add(this.dataGridViewFemale);
             this.Controls.Add(this.Results);
             this.Controls.Add(this.dataGridViewMale);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormRank";
             this.Text = "FormRank";
             this.Load += new System.EventHandler(this.FormRank_Load);

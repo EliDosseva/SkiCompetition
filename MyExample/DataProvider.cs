@@ -151,17 +151,19 @@ namespace MyExample
             return dt;
         }
 
-        
-        public bool InsertResults(int id,TimeSpan time, string datetime)
+
+        public bool InsertResults(int id, TimeSpan time, string datetime, int competitionID)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into TableTimes (CompetitorID,TimeInMs, DateTime) VALUES (@CompetitorID,@TimeInMs,@DateTime) ", con))
+                using (SqlCommand sc = new SqlCommand("insert into TableTimes (CompetitorID,TimeInMs, DateTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@DateTime, @CompetitionID) ", con))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@CompetitorID", id);
                     sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
                     sc.Parameters.AddWithValue("@Datetime", datetime.ToString());
+                    sc.Parameters.AddWithValue("@CompetitionID", competitionID);
+
 
 
                     con.Open();
@@ -176,7 +178,7 @@ namespace MyExample
                 }
             }
         }
-        
+
         public DataTable TimesMale()
         {
             DataTable dt = new DataTable();
@@ -219,13 +221,13 @@ namespace MyExample
                 DataTable dt = new DataTable();
                 sc.Fill(dt);
                 females = (from DataRow dr in dt.Rows
-                         select new Skier()
-                         {
-                             ID = Convert.ToInt32(dr["ID"].ToString()),
-                             Name = dr["FirstName"].ToString(),
-                             LastName = dr["LastName"].ToString(),
-                             Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
-                         }).ToList();
+                           select new Skier()
+                           {
+                               ID = Convert.ToInt32(dr["ID"].ToString()),
+                               Name = dr["FirstName"].ToString(),
+                               LastName = dr["LastName"].ToString(),
+                               Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
+                           }).ToList();
             }
 
             return females;
@@ -315,6 +317,60 @@ namespace MyExample
             }
             return dt;
         }
+
+        public DataTable VitoshaCompetition()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (5) FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime from TableTimes " +
+                    "join competitors on competitors.id = tabletimes.competitorid " +
+                    "join tablecompetitions on CompetitionID = tablecompetitions.id " +
+                    "group by firstName order by SumTime", con);
+
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+
+        public bool InsertCompetitionID()
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand sc = new SqlCommand("insert into Competitors (CompetitionID) Select ID from TableCompetitions ", con))
+                {
+                    con.Open();
+                    if (sc.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public DataTable CompetitionTable()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT Id, CompetitionName from tablecompetitions", con);
+
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+
+       
     }
 }
 

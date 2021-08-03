@@ -14,6 +14,7 @@ namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
+        
         private List<Skier> skiers;
         private DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
@@ -21,9 +22,9 @@ namespace MyExample
         public FormSkiCompetition()
         {
             InitializeComponent();
-            
+
             skiers = new List<Skier>();
- 
+
             this.dataProvider = new DataProvider(_connection);
 
         }
@@ -35,7 +36,26 @@ namespace MyExample
 
         private void buttonResults_Click(object sender, EventArgs e)
         {
+            var id = int.Parse(listBox1.GetItemText(listBox1.SelectedValue));
+            Random random = new Random();
+            var start = TimeSpan.FromSeconds(20);
+            var end = TimeSpan.FromMinutes(2);
+            var difference = (int)(end.TotalMilliseconds - start.TotalMilliseconds);
 
+            List<Skier> all = dataProvider.GetCompetitors();
+
+            
+            foreach (var item in all)
+            {
+                var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
+                
+                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), id);
+            }
+
+        }
+
+        public void ListBox()
+        {
             Random random = new Random();
             var start = TimeSpan.FromSeconds(20);
             var end = TimeSpan.FromMinutes(2);
@@ -47,14 +67,15 @@ namespace MyExample
             foreach (var item in all)
             {
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
+                
+                var id = int.Parse(listBox1.GetItemText(listBox1.SelectedValue));
+                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),id);
             }
-
         }
-
+        
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            var reg = new Register(this,_connection);
+            var reg = new Register(this, _connection);
 
             reg.ShowDialog();
         }
@@ -68,7 +89,12 @@ namespace MyExample
 
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
+            listBox1.DataSource = dataProvider.CompetitionTable();
+            listBox1.ValueMember = "ID";
+            listBox1.DisplayMember = "CompetitionName";
+
             RefreshGrid();
+
             dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
         }
         public void RefreshGrid()
@@ -78,7 +104,7 @@ namespace MyExample
 
         private void dataGridViewCompetitors_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Delete)
+            if (e.KeyCode == Keys.Delete)
             {
                 int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[0].Value);
                 dataProvider.Delete(selected);
@@ -86,14 +112,26 @@ namespace MyExample
             }
         }
 
-        private void VitoshaCompetition_Click(object sender, EventArgs e)
+        private void BigFinal_Click(object sender, EventArgs e)
         {
-            var fr = new FormRank(_connection);
+            var csf = new CompetitionSelectForm(_connection);
+            csf.Show();
+        }
 
-            fr.ShowDialog();
-            
-            dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
-            dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                ListBox();
+                WaitForm wf = new WaitForm(_connection);
+                wf.Show(this);
+
+
+                dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
+                dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
+
+                dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
+            }
         }
     }
 

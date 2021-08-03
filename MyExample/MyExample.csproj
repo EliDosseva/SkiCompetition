@@ -47,7 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Boy.cs" />
+    <Compile Include="CompetitionSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompetitionSelectForm.Designer.cs">
+      <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataProvider.cs" />
     <Compile Include="FormRank.cs">
       <SubType>Form</SubType>
@@ -61,7 +66,6 @@
     <Compile Include="FormSkiCompetition.Designer.cs">
       <DependentUpon>FormSkiCompetition.cs</DependentUpon>
     </Compile>
-    <Compile Include="Girl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs">
@@ -70,8 +74,22 @@
     <Compile Include="Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkiCompetitionDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkiCompetitionDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Skier.cs" />
     <Compile Include="Team.cs" />
+    <Compile Include="WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CompetitionSelectForm.resx">
+      <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRank.resx">
       <DependentUpon>FormRank.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +108,9 @@
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,6 +120,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SkiCompetitionDataSet.xsc">
+      <DependentUpon>SkiCompetitionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SkiCompetitionDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SkiCompetitionDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SkiCompetitionDataSet.xss">
+      <DependentUpon>SkiCompetitionDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
