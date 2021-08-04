@@ -123,7 +123,7 @@ namespace MyExample
             this.buttonResultSort.TabIndex = 29;
             this.buttonResultSort.Text = "Rank";
             this.buttonResultSort.UseVisualStyleBackColor = true;
-            this.buttonResultSort.Click += new System.EventHandler(this.buttonResultSort_Click);
+            this.buttonResultSort.Click += new System.EventHandler(this.ButtonResultSort_Click);
             // 
             // FormRank
             // 
@@ -139,6 +139,7 @@ namespace MyExample
             this.Controls.Add(this.dataGridViewFemale);
             this.Controls.Add(this.Results);
             this.Controls.Add(this.dataGridViewMale);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormRank";
             this.Text = "FormRank";
             this.Load += new System.EventHandler(this.FormRank_Load);

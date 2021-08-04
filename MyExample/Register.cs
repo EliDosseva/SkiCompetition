@@ -25,7 +25,7 @@ namespace MyExample
             this.dataProvider = new DataProvider(connection);
         }
 
-        private void buttonRegister_Click(object sender, EventArgs e)
+        private void ButtonRegister_Click(object sender, EventArgs e)
         {
                 skier = new Skier(textBoxName.Text, textBoxLastName.Text);
                 skier.Team = comboBoxTeam.Text;

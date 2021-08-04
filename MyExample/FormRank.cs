@@ -22,27 +22,13 @@ namespace MyExample
 
         private void FormRank_Load(object sender, EventArgs e)
         {
-            
-            Random random = new Random();
-            var start = TimeSpan.FromSeconds(20);
-            var end = TimeSpan.FromMinutes(2);
-            var difference = (int)(end.TotalMilliseconds - start.TotalMilliseconds);
-
-            List<Skier> all = dataProvider.GetCompetitors();
-
-
-            foreach (var item in all)
-            {
-                var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
-            }
-
+           
             dataGridViewMale.DataSource = dataProvider.TimesMale();
             dataGridViewFemale.DataSource = dataProvider.TimesFemale();
             
         }
 
-        private void buttonResultSort_Click(object sender, EventArgs e)
+        private void ButtonResultSort_Click(object sender, EventArgs e)
         {
             List<Skier> females = dataProvider.GetFemales();
             List<Skier> males = dataProvider.GetMales();

@@ -19,7 +19,6 @@ namespace MyExample
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormSkiCompetition());
-           
         }
     }
 }

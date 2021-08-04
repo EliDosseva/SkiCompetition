@@ -29,6 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonRegister = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewCompetitors = new System.Windows.Forms.DataGridView();
@@ -40,19 +41,27 @@ namespace MyExample
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.TabPages = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.Leaderboard = new System.Windows.Forms.TabPage();
             this.TeamRank = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tableCompetitionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.skiCompetitionDataSet = new MyExample.SkiCompetitionDataSet();
+            this.BigFinal = new System.Windows.Forms.Button();
+            this.Leaderboard = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.VitoshaCompetition = new System.Windows.Forms.Button();
+            this.tableCompetitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tableCompetitionsTableAdapter = new MyExample.SkiCompetitionDataSetTableAdapters.TableCompetitionsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompetitors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeamRank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemaleAvg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).BeginInit();
             this.TabPages.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.Leaderboard.SuspendLayout();
             this.TeamRank.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.skiCompetitionDataSet)).BeginInit();
+            this.Leaderboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonRegister
@@ -65,7 +74,7 @@ namespace MyExample
             this.buttonRegister.TabIndex = 3;
             this.buttonRegister.Text = "Register competitor";
             this.buttonRegister.UseVisualStyleBackColor = false;
-            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
+            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegister_Click);
             // 
             // label1
             // 
@@ -85,7 +94,7 @@ namespace MyExample
             this.dataGridViewCompetitors.Name = "dataGridViewCompetitors";
             this.dataGridViewCompetitors.Size = new System.Drawing.Size(543, 265);
             this.dataGridViewCompetitors.TabIndex = 15;
-            this.dataGridViewCompetitors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewCompetitors_KeyDown);
+            this.dataGridViewCompetitors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewCompetitors_KeyDown);
             // 
             // buttonDelete
             // 
@@ -97,14 +106,14 @@ namespace MyExample
             this.buttonDelete.TabIndex = 17;
             this.buttonDelete.Text = "Delete competitor";
             this.buttonDelete.UseVisualStyleBackColor = false;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // dataGridViewTeamRank
             // 
             this.dataGridViewTeamRank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTeamRank.Location = new System.Drawing.Point(20, 20);
             this.dataGridViewTeamRank.Name = "dataGridViewTeamRank";
-            this.dataGridViewTeamRank.Size = new System.Drawing.Size(308, 116);
+            this.dataGridViewTeamRank.Size = new System.Drawing.Size(302, 169);
             this.dataGridViewTeamRank.TabIndex = 25;
             // 
             // dataGridViewFemaleAvg
@@ -163,9 +172,21 @@ namespace MyExample
             this.TabPages.Size = new System.Drawing.Size(633, 265);
             this.TabPages.TabIndex = 32;
             // 
+            // TeamRank
+            // 
+            this.TeamRank.Controls.Add(this.dataGridViewTeamRank);
+            this.TeamRank.Location = new System.Drawing.Point(4, 22);
+            this.TeamRank.Name = "TeamRank";
+            this.TeamRank.Padding = new System.Windows.Forms.Padding(3);
+            this.TeamRank.Size = new System.Drawing.Size(625, 239);
+            this.TeamRank.TabIndex = 0;
+            this.TeamRank.Text = "TeamRank";
+            this.TeamRank.UseVisualStyleBackColor = true;
+            // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.VitoshaCompetition);
+            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.BigFinal);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -173,6 +194,36 @@ namespace MyExample
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Competitions";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 3);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(258, 199);
+            this.listBox1.TabIndex = 3;
+            this.listBox1.ValueMember = "ID";
+            this.listBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
+            // 
+            // tableCompetitionsBindingSource1
+            // 
+            this.tableCompetitionsBindingSource1.DataMember = "TableCompetitions";
+            this.tableCompetitionsBindingSource1.DataSource = this.skiCompetitionDataSet;
+            // 
+            // skiCompetitionDataSet
+            // 
+            this.skiCompetitionDataSet.DataSetName = "SkiCompetitionDataSet";
+            this.skiCompetitionDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // BigFinal
+            // 
+            this.BigFinal.Location = new System.Drawing.Point(270, 93);
+            this.BigFinal.Name = "BigFinal";
+            this.BigFinal.Size = new System.Drawing.Size(136, 23);
+            this.BigFinal.TabIndex = 2;
+            this.BigFinal.Text = "BigFinal";
+            this.BigFinal.UseVisualStyleBackColor = true;
+            this.BigFinal.Click += new System.EventHandler(this.BigFinal_Click);
             // 
             // Leaderboard
             // 
@@ -188,17 +239,6 @@ namespace MyExample
             this.Leaderboard.Text = "Leaderboard";
             this.Leaderboard.UseVisualStyleBackColor = true;
             // 
-            // TeamRank
-            // 
-            this.TeamRank.Controls.Add(this.dataGridViewTeamRank);
-            this.TeamRank.Location = new System.Drawing.Point(4, 22);
-            this.TeamRank.Name = "TeamRank";
-            this.TeamRank.Padding = new System.Windows.Forms.Padding(3);
-            this.TeamRank.Size = new System.Drawing.Size(625, 239);
-            this.TeamRank.TabIndex = 0;
-            this.TeamRank.Text = "TeamRank";
-            this.TeamRank.UseVisualStyleBackColor = true;
-            // 
             // tabPage4
             // 
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -209,29 +249,30 @@ namespace MyExample
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // VitoshaCompetition
+            // tableCompetitionsBindingSource
             // 
-            this.VitoshaCompetition.BackColor = System.Drawing.Color.White;
-            this.VitoshaCompetition.Location = new System.Drawing.Point(18, 18);
-            this.VitoshaCompetition.Name = "VitoshaCompetition";
-            this.VitoshaCompetition.Size = new System.Drawing.Size(257, 26);
-            this.VitoshaCompetition.TabIndex = 0;
-            this.VitoshaCompetition.Text = "VitoshaCompetition";
-            this.VitoshaCompetition.UseVisualStyleBackColor = false;
-            this.VitoshaCompetition.Click += new System.EventHandler(this.VitoshaCompetition_Click);
+            this.tableCompetitionsBindingSource.DataMember = "TableCompetitions";
+            this.tableCompetitionsBindingSource.DataSource = this.skiCompetitionDataSet;
+            // 
+            // tableCompetitionsTableAdapter
+            // 
+            this.tableCompetitionsTableAdapter.ClearBeforeFill = true;
             // 
             // FormSkiCompetition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.ClientSize = new System.Drawing.Size(1338, 519);
+            this.ClientSize = new System.Drawing.Size(1287, 483);
             this.Controls.Add(this.TabPages);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.dataGridViewCompetitors);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonRegister);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormSkiCompetition";
             this.Text = "Competition";
             this.Load += new System.EventHandler(this.FormSkiCompetition_Load);
@@ -240,10 +281,13 @@ namespace MyExample
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemaleAvg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).EndInit();
             this.TabPages.ResumeLayout(false);
+            this.TeamRank.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.skiCompetitionDataSet)).EndInit();
             this.Leaderboard.ResumeLayout(false);
             this.Leaderboard.PerformLayout();
-            this.TeamRank.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,7 +309,12 @@ namespace MyExample
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage Leaderboard;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button VitoshaCompetition;
+        private System.Windows.Forms.Button BigFinal;
+        public System.Windows.Forms.ListBox listBox1;
+        private SkiCompetitionDataSet skiCompetitionDataSet;
+        private System.Windows.Forms.BindingSource tableCompetitionsBindingSource;
+        private SkiCompetitionDataSetTableAdapters.TableCompetitionsTableAdapter tableCompetitionsTableAdapter;
+        private System.Windows.Forms.BindingSource tableCompetitionsBindingSource1;
     }
 }
 
