@@ -74,7 +74,7 @@ namespace MyExample
             this.buttonRegister.TabIndex = 3;
             this.buttonRegister.Text = "Register competitor";
             this.buttonRegister.UseVisualStyleBackColor = false;
-            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
+            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegister_Click);
             // 
             // label1
             // 
@@ -94,7 +94,7 @@ namespace MyExample
             this.dataGridViewCompetitors.Name = "dataGridViewCompetitors";
             this.dataGridViewCompetitors.Size = new System.Drawing.Size(543, 265);
             this.dataGridViewCompetitors.TabIndex = 15;
-            this.dataGridViewCompetitors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewCompetitors_KeyDown);
+            this.dataGridViewCompetitors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewCompetitors_KeyDown);
             // 
             // buttonDelete
             // 
@@ -106,7 +106,7 @@ namespace MyExample
             this.buttonDelete.TabIndex = 17;
             this.buttonDelete.Text = "Delete competitor";
             this.buttonDelete.UseVisualStyleBackColor = false;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // dataGridViewTeamRank
             // 
@@ -203,7 +203,7 @@ namespace MyExample
             this.listBox1.Size = new System.Drawing.Size(258, 199);
             this.listBox1.TabIndex = 3;
             this.listBox1.ValueMember = "ID";
-            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.listBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
             // 
             // tableCompetitionsBindingSource1
             // 

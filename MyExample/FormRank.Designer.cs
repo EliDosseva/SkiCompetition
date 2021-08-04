@@ -123,7 +123,7 @@ namespace MyExample
             this.buttonResultSort.TabIndex = 29;
             this.buttonResultSort.Text = "Rank";
             this.buttonResultSort.UseVisualStyleBackColor = true;
-            this.buttonResultSort.Click += new System.EventHandler(this.buttonResultSort_Click);
+            this.buttonResultSort.Click += new System.EventHandler(this.ButtonResultSort_Click);
             // 
             // FormRank
             // 

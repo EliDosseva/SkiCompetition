@@ -28,7 +28,7 @@ namespace MyExample
             
         }
 
-        private void buttonResultSort_Click(object sender, EventArgs e)
+        private void ButtonResultSort_Click(object sender, EventArgs e)
         {
             List<Skier> females = dataProvider.GetFemales();
             List<Skier> males = dataProvider.GetMales();

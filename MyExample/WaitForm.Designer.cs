@@ -37,15 +37,10 @@ namespace MyExample
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(43, 39);
-            this.progressBar1.Maximum = 50;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(139, 49);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 3;
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // WaitForm
             // 
@@ -67,6 +62,6 @@ namespace MyExample
         #endregion
 
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer timer1;
     }
 }

@@ -336,25 +336,6 @@ namespace MyExample
             return dt;
         }
 
-        public bool InsertCompetitionID()
-        {
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                using (SqlCommand sc = new SqlCommand("insert into Competitors (CompetitionID) Select ID from TableCompetitions ", con))
-                {
-                    con.Open();
-                    if (sc.ExecuteNonQuery() > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-
         public DataTable CompetitionTable()
         {
             DataTable dt = new DataTable();

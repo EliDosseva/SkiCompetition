@@ -12,32 +12,32 @@ namespace MyExample
 {
     public partial class WaitForm : Form
     {
-        
-        private string _connection;
-        public WaitForm(string connection)
+        public WaitForm()
         {
             InitializeComponent();
-
-            this._connection = connection;
-            
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        public void Timer1_Tick(object sender, EventArgs e)
         {
-            progressBar1.Maximum = 20;
-            progressBar1.PerformStep();
-            if (progressBar1.Value == 20)
+            if (progressBar1.Value != 8)
             {
-                timer1.Enabled = false;
-                var fr = new FormRank(_connection);
-                fr.Show();
-                this.Hide();
+                progressBar1.Value++;
+            }
+            else
+            {
+                timer1.Stop();
+                this.Close();
             }
         }
 
         private void WaitForm_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            timer1.Start();
+            timer1.Interval = 800;
+            progressBar1.Maximum = 8;
+            timer1.Tick += new EventHandler(Timer1_Tick);
         }
+
     }
 }
