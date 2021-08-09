@@ -43,12 +43,11 @@ namespace MyExample
             this.TabPages = new System.Windows.Forms.TabControl();
             this.TeamRank = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.tableCompetitionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.skiCompetitionDataSet = new MyExample.SkiCompetitionDataSet();
+            this.listBoxCompetitions = new System.Windows.Forms.ListBox();
             this.BigFinal = new System.Windows.Forms.Button();
             this.Leaderboard = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tableCompetitionsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.skiCompetitionDataSet = new MyExample.SkiCompetitionDataSet();
             this.tableCompetitionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableCompetitionsTableAdapter = new MyExample.SkiCompetitionDataSetTableAdapters.TableCompetitionsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompetitors)).BeginInit();
@@ -58,9 +57,9 @@ namespace MyExample
             this.TabPages.SuspendLayout();
             this.TeamRank.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.Leaderboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skiCompetitionDataSet)).BeginInit();
-            this.Leaderboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +73,7 @@ namespace MyExample
             this.buttonRegister.TabIndex = 3;
             this.buttonRegister.Text = "Register competitor";
             this.buttonRegister.UseVisualStyleBackColor = false;
-            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegister_Click);
+            this.buttonRegister.Click += new System.EventHandler(this.ButtonRegisterNewCompetitor);
             // 
             // label1
             // 
@@ -106,7 +105,7 @@ namespace MyExample
             this.buttonDelete.TabIndex = 17;
             this.buttonDelete.Text = "Delete competitor";
             this.buttonDelete.UseVisualStyleBackColor = false;
-            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDeleteCompetitor);
             // 
             // dataGridViewTeamRank
             // 
@@ -165,7 +164,6 @@ namespace MyExample
             this.TabPages.Controls.Add(this.TeamRank);
             this.TabPages.Controls.Add(this.tabPage1);
             this.TabPages.Controls.Add(this.Leaderboard);
-            this.TabPages.Controls.Add(this.tabPage4);
             this.TabPages.Location = new System.Drawing.Point(619, 108);
             this.TabPages.Name = "TabPages";
             this.TabPages.SelectedIndex = 0;
@@ -185,7 +183,7 @@ namespace MyExample
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.listBoxCompetitions);
             this.tabPage1.Controls.Add(this.BigFinal);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -195,29 +193,20 @@ namespace MyExample
             this.tabPage1.Text = "Competitions";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // listBoxCompetitions
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 3);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(258, 199);
-            this.listBox1.TabIndex = 3;
-            this.listBox1.ValueMember = "ID";
-            this.listBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
-            // 
-            // tableCompetitionsBindingSource1
-            // 
-            this.tableCompetitionsBindingSource1.DataMember = "TableCompetitions";
-            this.tableCompetitionsBindingSource1.DataSource = this.skiCompetitionDataSet;
-            // 
-            // skiCompetitionDataSet
-            // 
-            this.skiCompetitionDataSet.DataSetName = "SkiCompetitionDataSet";
-            this.skiCompetitionDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.listBoxCompetitions.DisplayMember = "ID";
+            this.listBoxCompetitions.FormattingEnabled = true;
+            this.listBoxCompetitions.Location = new System.Drawing.Point(6, 3);
+            this.listBoxCompetitions.Name = "listBoxCompetitions";
+            this.listBoxCompetitions.Size = new System.Drawing.Size(258, 199);
+            this.listBoxCompetitions.TabIndex = 3;
+            this.listBoxCompetitions.ValueMember = "ID";
+            this.listBoxCompetitions.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
             // 
             // BigFinal
             // 
-            this.BigFinal.Location = new System.Drawing.Point(270, 93);
+            this.BigFinal.Location = new System.Drawing.Point(374, 104);
             this.BigFinal.Name = "BigFinal";
             this.BigFinal.Size = new System.Drawing.Size(136, 23);
             this.BigFinal.TabIndex = 2;
@@ -239,15 +228,15 @@ namespace MyExample
             this.Leaderboard.Text = "Leaderboard";
             this.Leaderboard.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tableCompetitionsBindingSource1
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(625, 239);
-            this.tabPage4.TabIndex = 2;
-            this.tabPage4.Text = "tabPage4";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tableCompetitionsBindingSource1.DataMember = "TableCompetitions";
+            this.tableCompetitionsBindingSource1.DataSource = this.skiCompetitionDataSet;
+            // 
+            // skiCompetitionDataSet
+            // 
+            this.skiCompetitionDataSet.DataSetName = "SkiCompetitionDataSet";
+            this.skiCompetitionDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tableCompetitionsBindingSource
             // 
@@ -283,10 +272,10 @@ namespace MyExample
             this.TabPages.ResumeLayout(false);
             this.TeamRank.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.skiCompetitionDataSet)).EndInit();
             this.Leaderboard.ResumeLayout(false);
             this.Leaderboard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.skiCompetitionDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tableCompetitionsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -299,7 +288,6 @@ namespace MyExample
         private System.Windows.Forms.DataGridView dataGridViewCompetitors;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.DataGridView dataGridViewTeamRank;
-        private System.Windows.Forms.DataGridView dataGridViewFemaleAvg;
         private System.Windows.Forms.DataGridView dataGridViewMaleAvg;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -308,13 +296,13 @@ namespace MyExample
         private System.Windows.Forms.TabPage TeamRank;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage Leaderboard;
-        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Button BigFinal;
-        public System.Windows.Forms.ListBox listBox1;
+        public System.Windows.Forms.ListBox listBoxCompetitions;
         private SkiCompetitionDataSet skiCompetitionDataSet;
         private System.Windows.Forms.BindingSource tableCompetitionsBindingSource;
         private SkiCompetitionDataSetTableAdapters.TableCompetitionsTableAdapter tableCompetitionsTableAdapter;
         private System.Windows.Forms.BindingSource tableCompetitionsBindingSource1;
+        public System.Windows.Forms.DataGridView dataGridViewFemaleAvg;
     }
 }
 

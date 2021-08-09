@@ -12,6 +12,7 @@ namespace MyExample
 {
     public partial class CompetitionSelectForm : Form
     {
+        
         private DataProvider dataProvider;
         public CompetitionSelectForm(string connection)
         {
@@ -19,22 +20,69 @@ namespace MyExample
             this.dataProvider = new DataProvider(connection);
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void CompetitionSelectForm_Load(object sender, EventArgs e)
         {
-            List<int> values = new List<int>();
+            listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
+            listBoxCompetitions.ValueMember = "ID";
+            listBoxCompetitions.DisplayMember = "CompetitionName";
+            listBoxCompetitions.SelectedIndex = -1;
+        }
 
-            foreach (var item in listBox1.SelectedItems)
-            {
-                values.Add(int.Parse(((DataRowView)item).Row["ID"].ToString()));
-            }
+        private void ButtonGetBigFinalCompetitors(object sender, EventArgs e)
+        {
+            WaitForm wf = new WaitForm();
+            wf.FormClosed += new FormClosedEventHandler(GetBigFinalCompetitors);
+            wf.Show(this);
             
         }
 
-        private void CompetitionSelectForm_Load(object sender, EventArgs e)
+        
+        private void GetBigFinalCompetitors(object sender, EventArgs e)
         {
-            listBox1.DataSource = dataProvider.CompetitionTable();
-            listBox1.ValueMember = "ID";
-            listBox1.DisplayMember = "CompetitionName";
+            List<int> competitionIDs = new List<int>();
+            foreach (var item in listBoxCompetitions.SelectedItems)
+            {
+                competitionIDs.Add(int.Parse(((DataRowView)item).Row["ID"].ToString()));
+            }
+
+            dataGridViewMale.DataSource = dataProvider.BigFinalMale(competitionIDs);
+            dataGridViewFemale.DataSource = dataProvider.BigFinalFemale(competitionIDs);
         }
+
+
+        private void ButtonStart_Click(object sender, EventArgs e)
+        {
+            List<int> IDs = new List<int>();
+            
+            Random random = new Random();
+            var start = TimeSpan.FromSeconds(20);
+            var end = TimeSpan.FromMinutes(2);
+            var difference = (int)(end.TotalMilliseconds - start.TotalMilliseconds);
+            foreach (var item in listBoxCompetitions.SelectedItems)
+            {
+                IDs.Add(int.Parse(((DataRowView)item).Row["ID"].ToString()));
+            }
+            var finalistsFemale = dataProvider.BigFinalCompetitorsFemale(IDs);
+            var finalistsMale = dataProvider.BigFinalCompetitorsMale(IDs);
+
+
+            foreach (var item in finalistsFemale)
+            {
+                
+                var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
+                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),10);
+            }
+
+            foreach (var item in finalistsMale)
+            {
+
+                var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
+                dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), 10);
+            }
+
+            dataGridViewResultsFemale.DataSource = dataProvider.TimesFemaleBigFinal();
+            dataGridViewResultsMale.DataSource = dataProvider.TimesMaleBigFinal();
+        }
+
     }
 }

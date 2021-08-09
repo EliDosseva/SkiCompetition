@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace MyExample
 {
@@ -25,6 +24,12 @@ namespace MyExample
             this.dataProvider = new DataProvider(connection);
         }
 
+        private void Register_Load(object sender, EventArgs e)
+        {
+            var combo = dataProvider.ComboBoxTeam();
+            comboBoxTeam.DataSource = combo;
+        }
+
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
                 skier = new Skier(textBoxName.Text, textBoxLastName.Text);
@@ -38,12 +43,6 @@ namespace MyExample
             var isSuccess = dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team);
             skierForm.RefreshGrid();
             DialogResult = DialogResult.OK;
-        }
-
-        private void Register_Load(object sender, EventArgs e)
-        {
-            var combo = dataProvider.ComboBoxTeam();
-            comboBoxTeam.DataSource = combo;
         }
 
     }

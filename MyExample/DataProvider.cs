@@ -65,8 +65,7 @@ namespace MyExample
                                    Name = dr["FirstName"].ToString(),
                                    LastName = dr["LastName"].ToString(),
                                    Sex = dr["Sex"].ToString(),
-                                   Team = dr["TeamID"].ToString(),
-                                   //Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
+                                   Team = dr["TeamID"].ToString()
                                }).ToList();
             }
             return competitors;
@@ -179,6 +178,70 @@ namespace MyExample
             }
         }
 
+        public List<Skier> BigFinalCompetitorsFemale(List<int> ID)
+        {
+            List<Skier> females = new List<Skier>();
+            SqlConnection con = new SqlConnection(_connectionString);
+            
+                using (SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) competitors.ID, [FirstName],[LastName], cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                    " from TableTimes join competitors on competitors.id = tabletimes.competitorid" +
+                    " join tablecompetitions on CompetitionID = tablecompetitions.id" +
+                    " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t" +
+                    " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where tablecompetitions.id in (" +
+                    string.Join(",", ID)
+                    + ")" +
+                    " and competitors.sex = 'female' " +
+                    " group by competitors.ID, [FirstName],[LastName]" +
+                    " order by SumTime ", con))
+                {
+                    DataTable dt = new DataTable();
+                    sc.Fill(dt);
+                    
+
+                    females = (from DataRow dr in dt.Rows
+                               select new Skier()
+                               {
+                                   ID = Convert.ToInt32(dr["ID"].ToString()),
+                                   Name = dr["FirstName"].ToString(),
+                                   LastName = dr["LastName"].ToString(),
+                               }).ToList();
+                }
+
+                return females;
+        }
+
+        public List<Skier> BigFinalCompetitorsMale(List<int> ID)
+        {
+            List<Skier> males = new List<Skier>();
+            SqlConnection con = new SqlConnection(_connectionString);
+
+            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) competitors.ID, [FirstName],[LastName], cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                " from TableTimes join competitors on competitors.id = tabletimes.competitorid" +
+                " join tablecompetitions on CompetitionID = tablecompetitions.id" +
+                " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t" +
+                " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where tablecompetitions.id in (" +
+                string.Join(",", ID)
+                + ")" +
+                " and competitors.sex = 'male' " +
+                " group by competitors.ID, [FirstName],[LastName]" +
+                " order by SumTime ", con))
+            {
+                DataTable dt = new DataTable();
+                sc.Fill(dt);
+
+
+                males = (from DataRow dr in dt.Rows
+                           select new Skier()
+                           {
+                               ID = Convert.ToInt32(dr["ID"].ToString()),
+                               Name = dr["FirstName"].ToString(),
+                               LastName = dr["LastName"].ToString(),
+                           }).ToList();
+            }
+
+            return males;
+        }
+
         public DataTable TimesMale()
         {
             DataTable dt = new DataTable();
@@ -204,6 +267,50 @@ namespace MyExample
                 con.Open();
                 SqlDataAdapter sc = new SqlDataAdapter("SELECT [FirstName],[LastName],tabletimes.TimeInMs FROM TableTimes join competitors on competitors.id = tabletimes.competitorid " +
                     "where competitors.sex = 'female'and datetime = (select max(datetime) from tabletimes)", con);
+
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+
+        public DataTable TimesFemaleBigFinal()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                    " from TableTimes join competitors on competitors.id = tabletimes.competitorid " +
+                    " join tablecompetitions on CompetitionID = tablecompetitions.id " +
+                    " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t " +
+                    " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where TableTimes.CompetitionID in(10)" +
+                    " and competitors.sex = 'female' " +
+                    " group by firstName " +
+                    " order by SumTime", con);
+
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+
+        public DataTable TimesMaleBigFinal()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                    " from TableTimes join competitors on competitors.id = tabletimes.competitorid " +
+                    " join tablecompetitions on CompetitionID = tablecompetitions.id " +
+                    " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t " +
+                    " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where TableTimes.CompetitionID in(10) " +
+                    " and competitors.sex = 'male' " +
+                    " group by firstName " +
+                    " order by SumTime", con);
 
                 sc.Fill(dt);
 
@@ -318,24 +425,58 @@ namespace MyExample
             return dt;
         }
 
-        public DataTable VitoshaCompetition()
+        public DataTable BigFinalMale(List<int> ID)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (5) FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime from TableTimes " +
-                    "join competitors on competitors.id = tabletimes.competitorid " +
-                    "join tablecompetitions on CompetitionID = tablecompetitions.id " +
-                    "group by firstName order by SumTime", con);
+                CompetitionSelectForm csf = new CompetitionSelectForm(_connectionString);
 
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                    " from TableTimes join competitors on competitors.id = tabletimes.competitorid" +
+                    " join tablecompetitions on CompetitionID = tablecompetitions.id" +
+                    " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t" +
+                    " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where tablecompetitions.id in (" +
+                    string.Join(",", ID)
+                    + ")"+
+                    " and competitors.sex = 'male'" +
+                    " group by firstName" +
+                    " order by SumTime", con);
+
+                con.Open();
                 sc.Fill(dt);
 
             }
             return dt;
         }
 
+        public DataTable BigFinalFemale(List<int> ID)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) FirstName, cast(cast(sum(cast(CAST(TableTimes.timeinms as datetime) as float)) as datetime) as time) SumTime" +
+                    " from TableTimes join competitors on competitors.id = tabletimes.competitorid" +
+                    " join tablecompetitions on CompetitionID = tablecompetitions.id" +
+                    " join ( select CompetitionID, max(DateTime) as max_dt from TableTimes group by CompetitionID) t" +
+                    " on TableTimes.CompetitionID = t.CompetitionID and TableTimes.DateTime = t.max_dt where tablecompetitions.id in (" +
+                    string.Join(",", ID)
+                    + ")" +
+                    " and competitors.sex = 'female'" +
+                    " group by firstName" +
+                    " order by SumTime", con);
+
+                con.Open();
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+
+
+        
         public DataTable CompetitionTable()
         {
             DataTable dt = new DataTable();
@@ -344,7 +485,7 @@ namespace MyExample
             {
                 con.Open();
                 SqlDataAdapter sc = new SqlDataAdapter("SELECT Id, CompetitionName from tablecompetitions", con);
-
+                
                 sc.Fill(dt);
 
             }
