@@ -14,8 +14,7 @@ namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
-        
-        private List<Skier> skiers;
+        public bool flag;
         private DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
 
@@ -23,26 +22,18 @@ namespace MyExample
         {
             InitializeComponent();
 
-            skiers = new List<Skier>();
-
             this.dataProvider = new DataProvider(_connection);
 
         }
 
-        public List<Skier> GetSkiers()
-        {
-            return skiers;
-        }
-
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
-            listBox1.DataSource = dataProvider.CompetitionTable();
-            listBox1.ValueMember = "ID";
-            listBox1.DisplayMember = "CompetitionName";
+            listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
+            listBoxCompetitions.ValueMember = "ID";
+            listBoxCompetitions.DisplayMember = "CompetitionName";
+            listBoxCompetitions.SelectedIndex = -1;
 
             RefreshGrid();
-
-            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
         }
 
         public void GetCompetitorTime()
@@ -59,7 +50,7 @@ namespace MyExample
             {
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
                 
-                var id = int.Parse(listBox1.GetItemText(listBox1.SelectedValue));
+                var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
                 dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),id);
             }
         }
@@ -68,6 +59,9 @@ namespace MyExample
         public void RefreshGrid()
         {
             dataGridViewCompetitors.DataSource = dataProvider.Create();
+            dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
+            dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
+            dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
         }
         #region Commands
         private void DataGridViewCompetitors_KeyDown(object sender, KeyEventArgs e)
@@ -82,11 +76,11 @@ namespace MyExample
 
         private void BigFinal_Click(object sender, EventArgs e)
         {
-            var csf = new CompetitionSelectForm(_connection);
-            csf.Show();
+              var csf = new CompetitionSelectForm(_connection);
+              csf.Show();
         }
 
-        private void NewFormRank(object sender, EventArgs e)
+        public void NewFormRank(object sender, EventArgs e)
         {
             var fr = new FormRank(_connection);
             fr.Show();
@@ -94,14 +88,12 @@ namespace MyExample
 
         private void ListBox1_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem != null)
+            if (listBoxCompetitions.SelectedItem != null)
             {
                 GetCompetitorTime();
                 WaitForm wf = new WaitForm();
-                wf.FormClosed += new System.Windows.Forms.FormClosedEventHandler(NewFormRank);
+                wf.FormClosed += new FormClosedEventHandler(NewFormRank);
                 wf.Show(this);
-               
-
 
                 dataGridViewMaleAvg.DataSource = dataProvider.AverageTimeMale();
                 dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
@@ -110,14 +102,14 @@ namespace MyExample
             }
         }
 
-        private void ButtonRegister_Click(object sender, EventArgs e)
+        private void ButtonRegisterNewCompetitor(object sender, EventArgs e)
         {
             var reg = new Register(this, _connection);
 
             reg.ShowDialog();
         }
 
-        private void ButtonDelete_Click(object sender, EventArgs e)
+        private void ButtonDeleteCompetitor(object sender, EventArgs e)
         {
             int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[0].Value);
             dataProvider.Delete(selected);
@@ -126,7 +118,7 @@ namespace MyExample
 
         private void ButtonResults_Click(object sender, EventArgs e)
         {
-            var id = int.Parse(listBox1.GetItemText(listBox1.SelectedValue));
+            var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
             Random random = new Random();
             var start = TimeSpan.FromSeconds(20);
             var end = TimeSpan.FromMinutes(2);
