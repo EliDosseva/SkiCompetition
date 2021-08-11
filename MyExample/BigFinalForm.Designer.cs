@@ -31,9 +31,9 @@ namespace MyExample
         {
             this.dataGridViewFemaleResults = new System.Windows.Forms.DataGridView();
             this.dataGridViewMaleResults = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelFinalHeader = new System.Windows.Forms.Label();
+            this.labelMale = new System.Windows.Forms.Label();
+            this.labelFemale = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemaleResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleResults)).BeginInit();
@@ -66,48 +66,48 @@ namespace MyExample
             this.dataGridViewMaleResults.Size = new System.Drawing.Size(403, 262);
             this.dataGridViewMaleResults.TabIndex = 1;
             // 
-            // label1
+            // labelFinalHeader
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(355, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Big Final Winners";
+            this.labelFinalHeader.AutoSize = true;
+            this.labelFinalHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFinalHeader.Location = new System.Drawing.Point(355, 23);
+            this.labelFinalHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelFinalHeader.Name = "labelFinalHeader";
+            this.labelFinalHeader.Size = new System.Drawing.Size(175, 24);
+            this.labelFinalHeader.TabIndex = 2;
+            this.labelFinalHeader.Text = "Big Final Winners";
             // 
-            // label2
+            // labelMale
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(180, 17);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Men\'s";
+            this.labelMale.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelMale.AutoSize = true;
+            this.labelMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMale.Location = new System.Drawing.Point(180, 17);
+            this.labelMale.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMale.Name = "labelMale";
+            this.labelMale.Size = new System.Drawing.Size(51, 20);
+            this.labelMale.TabIndex = 3;
+            this.labelMale.Text = "Men\'s";
             // 
-            // label3
+            // labelFemale
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(579, 17);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Women\'s";
+            this.labelFemale.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelFemale.AutoSize = true;
+            this.labelFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFemale.Location = new System.Drawing.Point(579, 17);
+            this.labelFemale.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelFemale.Name = "labelFemale";
+            this.labelFemale.Size = new System.Drawing.Size(75, 20);
+            this.labelFemale.TabIndex = 4;
+            this.labelFemale.Text = "Women\'s";
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelFemale, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelMale, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewMaleResults, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewFemaleResults, 1, 1);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -127,7 +127,7 @@ namespace MyExample
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(935, 409);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelFinalHeader);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "BigFinalForm";
@@ -146,9 +146,9 @@ namespace MyExample
 
         private System.Windows.Forms.DataGridView dataGridViewFemaleResults;
         private System.Windows.Forms.DataGridView dataGridViewMaleResults;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelFinalHeader;
+        private System.Windows.Forms.Label labelMale;
+        private System.Windows.Forms.Label labelFemale;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

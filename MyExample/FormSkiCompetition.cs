@@ -9,13 +9,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Data = System.Collections.Generic.KeyValuePair<int, string>;
 
 namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
-        BindingList<Data> data = new BindingList<Data>();
+        public bool waterMarkActive { get; private set; }
         private DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
 
@@ -30,8 +29,6 @@ namespace MyExample
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
             listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
-            listBoxCompetitions.ValueMember = "ID";
-            listBoxCompetitions.DisplayMember = "CompetitionName";
             listBoxCompetitions.SelectedIndex = -1;
 
             RefreshGrid();
@@ -50,8 +47,9 @@ namespace MyExample
             foreach (var item in all)
             {
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                
-                var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
+
+                //var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
+                int id = ((KeyValuePair<int, string>)listBoxCompetitions.SelectedItem).Key;
                 dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),id);
             }
         }
@@ -93,7 +91,7 @@ namespace MyExample
             bf.ShowDialog();
         }
 
-        private void listBoxCompetitions_DoubleClick(object sender, EventArgs e)
+        private void ListBoxCompetitions_DoubleClick(object sender, EventArgs e)
         {
             if (listBoxCompetitions.SelectedItem != null && !listBoxCompetitions.SelectedValue.Equals(10))
             {
@@ -151,8 +149,37 @@ namespace MyExample
         private void ButtonCreateCompetition_Click(object sender, EventArgs e)
         {
             
-            //listBoxCompetitions.Items.Add(dataProvider.CreateCompetition(textBoxCompetition.Text));
-            //data.Add((Data)listBoxCompetitions.Text);
+            dataProvider.CreateCompetition(textBoxCompetition.Text);
+            listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
+        }
+
+        private void listBoxCompetitions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.waterMarkActive = true;
+
+
+            this.textBoxCompetition.ForeColor = Color.Gray;
+            this.textBoxCompetition.Text = "Create new competition";
+
+            this.textBoxCompetition.GotFocus += (source, w) =>
+            {
+                if (this.waterMarkActive)
+                {
+                    this.waterMarkActive = false;
+                    this.textBoxCompetition.Text = "";
+                    this.textBoxCompetition.ForeColor = Color.Black;
+                }
+            };
+
+            this.textBoxCompetition.LostFocus += (source, w) =>
+            {
+                if (!this.waterMarkActive && string.IsNullOrEmpty(this.textBoxCompetition.Text))
+                {
+                    this.waterMarkActive = true;
+                    this.textBoxCompetition.Text = "Create new competition";
+                    this.textBoxCompetition.ForeColor = Color.Gray;
+                }
+            };
         }
     }
 

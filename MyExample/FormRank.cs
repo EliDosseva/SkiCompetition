@@ -50,7 +50,7 @@ namespace MyExample
             }
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOKCloseForm_Click(object sender, EventArgs e)
         {
             this.Close();
         }

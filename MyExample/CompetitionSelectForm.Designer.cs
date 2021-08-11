@@ -38,7 +38,7 @@ namespace MyExample
             this.tableLayoutPanelQualifiers = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewMale = new System.Windows.Forms.DataGridView();
             this.labelMale = new System.Windows.Forms.Label();
-            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonOKCloseForm = new System.Windows.Forms.Button();
             this.panelCompetitionSelectForm = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBoxCompetitions = new System.Windows.Forms.TableLayoutPanel();
@@ -172,16 +172,16 @@ namespace MyExample
             this.labelMale.TabIndex = 6;
             this.labelMale.Text = "Men";
             // 
-            // buttonOK
+            // buttonOKCloseForm
             // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(1218, 568);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(94, 29);
-            this.buttonOK.TabIndex = 2;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
+            this.buttonOKCloseForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOKCloseForm.Location = new System.Drawing.Point(1218, 568);
+            this.buttonOKCloseForm.Name = "buttonOKCloseForm";
+            this.buttonOKCloseForm.Size = new System.Drawing.Size(94, 29);
+            this.buttonOKCloseForm.TabIndex = 2;
+            this.buttonOKCloseForm.Text = "OK";
+            this.buttonOKCloseForm.UseVisualStyleBackColor = true;
+            this.buttonOKCloseForm.Click += new System.EventHandler(this.ButtonOKCloseForm_Click);
             // 
             // panelCompetitionSelectForm
             // 
@@ -190,7 +190,7 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelCompetitionSelectForm.BackColor = System.Drawing.Color.White;
             this.panelCompetitionSelectForm.Controls.Add(this.splitContainer);
-            this.panelCompetitionSelectForm.Controls.Add(this.buttonOK);
+            this.panelCompetitionSelectForm.Controls.Add(this.buttonOKCloseForm);
             this.panelCompetitionSelectForm.Location = new System.Drawing.Point(2, 4);
             this.panelCompetitionSelectForm.Name = "panelCompetitionSelectForm";
             this.panelCompetitionSelectForm.Size = new System.Drawing.Size(1325, 607);
@@ -286,7 +286,7 @@ namespace MyExample
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQualifiers;
         private System.Windows.Forms.DataGridView dataGridViewMale;
         private System.Windows.Forms.Label labelMale;
-        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonOKCloseForm;
         private System.Windows.Forms.Panel panelCompetitionSelectForm;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBoxCompetitions;
