@@ -9,12 +9,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Data = System.Collections.Generic.KeyValuePair<int, string>;
 
 namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
-        public bool flag;
+        BindingList<Data> data = new BindingList<Data>();
         private DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
 
@@ -86,9 +87,15 @@ namespace MyExample
             fr.Show();
         }
 
-        private void ListBox1_DoubleClick(object sender, EventArgs e)
+        public void BigFinalForm()
         {
-            if (listBoxCompetitions.SelectedItem != null)
+            var bf = new BigFinalForm(_connection);
+            bf.ShowDialog();
+        }
+
+        private void listBoxCompetitions_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBoxCompetitions.SelectedItem != null && !listBoxCompetitions.SelectedValue.Equals(10))
             {
                 GetCompetitorTime();
                 WaitForm wf = new WaitForm();
@@ -99,6 +106,10 @@ namespace MyExample
                 dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
 
                 dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
+            }
+            else if(listBoxCompetitions.SelectedValue.Equals(10))
+            {
+                MessageBox.Show("No results from the Big Final!");
             }
         }
 
@@ -136,6 +147,13 @@ namespace MyExample
 
         }
         #endregion
+
+        private void ButtonCreateCompetition_Click(object sender, EventArgs e)
+        {
+            
+            //listBoxCompetitions.Items.Add(dataProvider.CreateCompetition(textBoxCompetition.Text));
+            //data.Add((Data)listBoxCompetitions.Text);
+        }
     }
 
 }

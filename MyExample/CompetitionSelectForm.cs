@@ -79,10 +79,18 @@ namespace MyExample
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
                 dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), 10);
             }
+            var fsc = new FormSkiCompetition();
+            fsc.BigFinalForm();
 
-            dataGridViewResultsFemale.DataSource = dataProvider.TimesFemaleBigFinal();
-            dataGridViewResultsMale.DataSource = dataProvider.TimesMaleBigFinal();
+            //var fsc = new FormSkiCompetition();
+            //WaitForm wf = new WaitForm();
+            //wf.FormClosed += new FormClosedEventHandler(fsc.BigFinalForm);
+            //wf.Show(this);
         }
 
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
