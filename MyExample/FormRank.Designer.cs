@@ -64,9 +64,10 @@ namespace MyExample
             this.dataGridViewMale.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dataGridViewMale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMale.Location = new System.Drawing.Point(3, 79);
+            this.dataGridViewMale.Location = new System.Drawing.Point(4, 79);
+            this.dataGridViewMale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewMale.Name = "dataGridViewMale";
-            this.dataGridViewMale.Size = new System.Drawing.Size(388, 169);
+            this.dataGridViewMale.Size = new System.Drawing.Size(517, 163);
             this.dataGridViewMale.TabIndex = 19;
             // 
             // Results
@@ -76,11 +77,12 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Results.AutoSize = true;
             this.Results.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Results.Location = new System.Drawing.Point(3, 0);
+            this.Results.Location = new System.Drawing.Point(4, 0);
+            this.Results.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Results.Name = "Results";
-            this.Results.Size = new System.Drawing.Size(388, 76);
+            this.Results.Size = new System.Drawing.Size(517, 75);
             this.Results.TabIndex = 20;
-            this.Results.Text = "Male results";
+            this.Results.Text = "Men\'s results";
             this.Results.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridViewFemale
@@ -92,9 +94,10 @@ namespace MyExample
             this.dataGridViewFemale.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(240)))));
             this.dataGridViewFemale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemale.Location = new System.Drawing.Point(3, 69);
+            this.dataGridViewFemale.Location = new System.Drawing.Point(4, 71);
+            this.dataGridViewFemale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
-            this.dataGridViewFemale.Size = new System.Drawing.Size(391, 164);
+            this.dataGridViewFemale.Size = new System.Drawing.Size(513, 156);
             this.dataGridViewFemale.TabIndex = 21;
             // 
             // label2
@@ -104,21 +107,25 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Location = new System.Drawing.Point(4, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(391, 66);
+            this.label2.Size = new System.Drawing.Size(513, 67);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Female results";
+            this.label2.Text = "Women\'s results";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // listBoxRankMale
             // 
             this.listBoxRankMale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.listBoxRankMale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxRankMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBoxRankMale.FormattingEnabled = true;
-            this.listBoxRankMale.Location = new System.Drawing.Point(3, 93);
+            this.listBoxRankMale.ItemHeight = 18;
+            this.listBoxRankMale.Location = new System.Drawing.Point(4, 80);
+            this.listBoxRankMale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBoxRankMale.Name = "listBoxRankMale";
-            this.listBoxRankMale.Size = new System.Drawing.Size(373, 164);
+            this.listBoxRankMale.Size = new System.Drawing.Size(467, 173);
             this.listBoxRankMale.TabIndex = 25;
             // 
             // label3
@@ -128,22 +135,26 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Location = new System.Drawing.Point(4, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(373, 90);
+            this.label3.Size = new System.Drawing.Size(467, 76);
             this.label3.TabIndex = 26;
-            this.label3.Text = "Male rank";
+            this.label3.Text = "Men\'s rank";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // listBoxRankFemale
             // 
             this.listBoxRankFemale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(240)))));
             this.listBoxRankFemale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxRankFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBoxRankFemale.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listBoxRankFemale.FormattingEnabled = true;
-            this.listBoxRankFemale.Location = new System.Drawing.Point(3, 73);
+            this.listBoxRankFemale.ItemHeight = 18;
+            this.listBoxRankFemale.Location = new System.Drawing.Point(4, 72);
+            this.listBoxRankFemale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBoxRankFemale.Name = "listBoxRankFemale";
-            this.listBoxRankFemale.Size = new System.Drawing.Size(380, 169);
+            this.listBoxRankFemale.Size = new System.Drawing.Size(467, 166);
             this.listBoxRankFemale.TabIndex = 27;
             // 
             // label5
@@ -153,20 +164,22 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Location = new System.Drawing.Point(4, 0);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(380, 70);
+            this.label5.Size = new System.Drawing.Size(467, 68);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Female rank";
+            this.label5.Text = "Women\'s rank";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonResultSort
             // 
             this.buttonResultSort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonResultSort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonResultSort.Location = new System.Drawing.Point(390, 523);
+            this.buttonResultSort.Location = new System.Drawing.Point(505, 521);
+            this.buttonResultSort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonResultSort.Name = "buttonResultSort";
-            this.buttonResultSort.Size = new System.Drawing.Size(107, 35);
+            this.buttonResultSort.Size = new System.Drawing.Size(113, 43);
             this.buttonResultSort.TabIndex = 29;
             this.buttonResultSort.Text = "Rank";
             this.buttonResultSort.UseVisualStyleBackColor = true;
@@ -179,6 +192,7 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -193,9 +207,9 @@ namespace MyExample
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(245)))), ((int)(((byte)(240)))));
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanelFemaleRusults);
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanelFemaleRank);
-            this.splitContainer1.Size = new System.Drawing.Size(871, 515);
-            this.splitContainer1.SplitterDistance = 260;
-            this.splitContainer1.SplitterWidth = 10;
+            this.splitContainer1.Size = new System.Drawing.Size(1071, 511);
+            this.splitContainer1.SplitterDistance = 257;
+            this.splitContainer1.SplitterWidth = 12;
             this.splitContainer1.TabIndex = 3000;
             // 
             // tableLayoutMaleResults
@@ -206,12 +220,13 @@ namespace MyExample
             this.tableLayoutMaleResults.Controls.Add(this.dataGridViewMale, 0, 1);
             this.tableLayoutMaleResults.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutMaleResults.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutMaleResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutMaleResults.Name = "tableLayoutMaleResults";
             this.tableLayoutMaleResults.RowCount = 3;
-            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.34483F));
-            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.65517F));
-            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutMaleResults.Size = new System.Drawing.Size(394, 260);
+            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.67729F));
+            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.32271F));
+            this.tableLayoutMaleResults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutMaleResults.Size = new System.Drawing.Size(525, 257);
             this.tableLayoutMaleResults.TabIndex = 23;
             // 
             // tableLayoutMaleRank
@@ -221,12 +236,13 @@ namespace MyExample
             this.tableLayoutMaleRank.Controls.Add(this.listBoxRankMale, 0, 1);
             this.tableLayoutMaleRank.Controls.Add(this.label3, 0, 0);
             this.tableLayoutMaleRank.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutMaleRank.Location = new System.Drawing.Point(492, 0);
+            this.tableLayoutMaleRank.Location = new System.Drawing.Point(596, 0);
+            this.tableLayoutMaleRank.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutMaleRank.Name = "tableLayoutMaleRank";
             this.tableLayoutMaleRank.RowCount = 2;
-            this.tableLayoutMaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.81482F));
-            this.tableLayoutMaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.18519F));
-            this.tableLayoutMaleRank.Size = new System.Drawing.Size(379, 260);
+            this.tableLayoutMaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.61539F));
+            this.tableLayoutMaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.38461F));
+            this.tableLayoutMaleRank.Size = new System.Drawing.Size(475, 257);
             this.tableLayoutMaleRank.TabIndex = 21;
             // 
             // tableLayoutPanelFemaleRusults
@@ -237,12 +253,13 @@ namespace MyExample
             this.tableLayoutPanelFemaleRusults.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanelFemaleRusults.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanelFemaleRusults.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanelFemaleRusults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanelFemaleRusults.Name = "tableLayoutPanelFemaleRusults";
             this.tableLayoutPanelFemaleRusults.RowCount = 3;
-            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28F));
-            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72F));
-            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanelFemaleRusults.Size = new System.Drawing.Size(397, 245);
+            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.23729F));
+            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.76271F));
+            this.tableLayoutPanelFemaleRusults.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanelFemaleRusults.Size = new System.Drawing.Size(521, 242);
             this.tableLayoutPanelFemaleRusults.TabIndex = 30;
             // 
             // tableLayoutPanelFemaleRank
@@ -252,12 +269,13 @@ namespace MyExample
             this.tableLayoutPanelFemaleRank.Controls.Add(this.listBoxRankFemale, 0, 1);
             this.tableLayoutPanelFemaleRank.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanelFemaleRank.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanelFemaleRank.Location = new System.Drawing.Point(485, 0);
+            this.tableLayoutPanelFemaleRank.Location = new System.Drawing.Point(596, 0);
+            this.tableLayoutPanelFemaleRank.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanelFemaleRank.Name = "tableLayoutPanelFemaleRank";
             this.tableLayoutPanelFemaleRank.RowCount = 2;
-            this.tableLayoutPanelFemaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.7037F));
-            this.tableLayoutPanelFemaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.2963F));
-            this.tableLayoutPanelFemaleRank.Size = new System.Drawing.Size(386, 245);
+            this.tableLayoutPanelFemaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.16327F));
+            this.tableLayoutPanelFemaleRank.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 71.83673F));
+            this.tableLayoutPanelFemaleRank.Size = new System.Drawing.Size(475, 242);
             this.tableLayoutPanelFemaleRank.TabIndex = 29;
             // 
             // panel1
@@ -268,19 +286,21 @@ namespace MyExample
             this.panel1.Controls.Add(this.buttonOK);
             this.panel1.Controls.Add(this.buttonResultSort);
             this.panel1.Controls.Add(this.splitContainer1);
-            this.panel1.Location = new System.Drawing.Point(0, 4);
+            this.panel1.Location = new System.Drawing.Point(0, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(874, 566);
+            this.panel1.Size = new System.Drawing.Size(1075, 574);
             this.panel1.TabIndex = 21;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.buttonOK.Location = new System.Drawing.Point(780, 521);
+            this.buttonOK.Location = new System.Drawing.Point(954, 521);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonOK.Size = new System.Drawing.Size(85, 35);
+            this.buttonOK.Size = new System.Drawing.Size(113, 43);
             this.buttonOK.TabIndex = 31;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -288,11 +308,13 @@ namespace MyExample
             // 
             // FormRank
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(877, 574);
+            this.ClientSize = new System.Drawing.Size(1079, 583);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormRank";
             this.Text = "Results";
             this.Load += new System.EventHandler(this.FormRank_Load);

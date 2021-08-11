@@ -33,43 +33,45 @@ namespace MyExample
             this.ButtonCompetitions = new System.Windows.Forms.Button();
             this.dataGridViewFemale = new System.Windows.Forms.DataGridView();
             this.ButtonStart = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelQualifiersHeader = new System.Windows.Forms.Label();
+            this.labelFemale = new System.Windows.Forms.Label();
+            this.tableLayoutPanelQualifiers = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewMale = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelMale = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.panelCompetitionSelectForm = new System.Windows.Forms.Panel();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanelListBoxCompetitions = new System.Windows.Forms.TableLayoutPanel();
+            this.labelSelectCompetitions = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemale)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanelQualifiers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMale)).BeginInit();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.panelCompetitionSelectForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
+            this.tableLayoutPanelListBoxCompetitions.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBoxCompetitions
             // 
             this.listBoxCompetitions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.listBoxCompetitions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.listBoxCompetitions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBoxCompetitions.BackColor = System.Drawing.Color.Azure;
+            this.listBoxCompetitions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBoxCompetitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBoxCompetitions.FormattingEnabled = true;
-            this.listBoxCompetitions.Location = new System.Drawing.Point(37, 44);
+            this.listBoxCompetitions.ItemHeight = 16;
+            this.listBoxCompetitions.Location = new System.Drawing.Point(5, 75);
             this.listBoxCompetitions.Name = "listBoxCompetitions";
             this.listBoxCompetitions.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBoxCompetitions.Size = new System.Drawing.Size(291, 455);
+            this.listBoxCompetitions.Size = new System.Drawing.Size(357, 434);
             this.listBoxCompetitions.TabIndex = 0;
             // 
             // ButtonCompetitions
             // 
-            this.ButtonCompetitions.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ButtonCompetitions.Location = new System.Drawing.Point(130, 513);
+            this.ButtonCompetitions.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ButtonCompetitions.Location = new System.Drawing.Point(261, 527);
             this.ButtonCompetitions.Name = "ButtonCompetitions";
             this.ButtonCompetitions.Size = new System.Drawing.Size(104, 29);
             this.ButtonCompetitions.TabIndex = 1;
@@ -83,95 +85,97 @@ namespace MyExample
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewFemale.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewFemale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFemale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemale.Location = new System.Drawing.Point(438, 69);
+            this.dataGridViewFemale.Location = new System.Drawing.Point(451, 77);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
-            this.dataGridViewFemale.Size = new System.Drawing.Size(430, 346);
+            this.dataGridViewFemale.Size = new System.Drawing.Size(437, 351);
             this.dataGridViewFemale.TabIndex = 3;
             // 
             // ButtonStart
             // 
-            this.ButtonStart.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ButtonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButtonStart.Location = new System.Drawing.Point(396, 500);
+            this.ButtonStart.Location = new System.Drawing.Point(791, 527);
             this.ButtonStart.Name = "ButtonStart";
-            this.ButtonStart.Size = new System.Drawing.Size(129, 35);
+            this.ButtonStart.Size = new System.Drawing.Size(129, 29);
             this.ButtonStart.TabIndex = 4;
             this.ButtonStart.Text = "Start competition";
             this.ButtonStart.UseVisualStyleBackColor = true;
             this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
-            // label1
+            // labelQualifiersHeader
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(354, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(218, 20);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Qualifiers for the Big Final";
+            this.labelQualifiersHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelQualifiersHeader.AutoSize = true;
+            this.labelQualifiersHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelQualifiersHeader.Location = new System.Drawing.Point(358, 31);
+            this.labelQualifiersHeader.Name = "labelQualifiersHeader";
+            this.labelQualifiersHeader.Size = new System.Drawing.Size(218, 20);
+            this.labelQualifiersHeader.TabIndex = 5;
+            this.labelQualifiersHeader.Text = "Qualifiers for the Big Final";
             // 
-            // label3
+            // labelFemale
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(622, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 20);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Female";
+            this.labelFemale.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelFemale.AutoSize = true;
+            this.labelFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFemale.Location = new System.Drawing.Point(637, 27);
+            this.labelFemale.Name = "labelFemale";
+            this.labelFemale.Size = new System.Drawing.Size(64, 20);
+            this.labelFemale.TabIndex = 7;
+            this.labelFemale.Text = "Women";
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelQualifiers
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanelQualifiers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridViewFemale, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dataGridViewMale, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(26, 70);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(871, 418);
-            this.tableLayoutPanel1.TabIndex = 8;
+            this.tableLayoutPanelQualifiers.BackColor = System.Drawing.Color.Azure;
+            this.tableLayoutPanelQualifiers.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
+            this.tableLayoutPanelQualifiers.ColumnCount = 2;
+            this.tableLayoutPanelQualifiers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelQualifiers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelQualifiers.Controls.Add(this.labelFemale, 1, 0);
+            this.tableLayoutPanelQualifiers.Controls.Add(this.dataGridViewFemale, 1, 1);
+            this.tableLayoutPanelQualifiers.Controls.Add(this.dataGridViewMale, 0, 1);
+            this.tableLayoutPanelQualifiers.Controls.Add(this.labelMale, 0, 0);
+            this.tableLayoutPanelQualifiers.Location = new System.Drawing.Point(26, 75);
+            this.tableLayoutPanelQualifiers.Name = "tableLayoutPanelQualifiers";
+            this.tableLayoutPanelQualifiers.RowCount = 2;
+            this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84F));
+            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(894, 434);
+            this.tableLayoutPanelQualifiers.TabIndex = 8;
             // 
             // dataGridViewMale
             // 
             this.dataGridViewMale.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewMale.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dataGridViewMale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewMale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewMale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMale.Location = new System.Drawing.Point(3, 69);
+            this.dataGridViewMale.Location = new System.Drawing.Point(6, 77);
             this.dataGridViewMale.Name = "dataGridViewMale";
-            this.dataGridViewMale.Size = new System.Drawing.Size(429, 346);
+            this.dataGridViewMale.Size = new System.Drawing.Size(436, 351);
             this.dataGridViewMale.TabIndex = 2;
             // 
-            // label2
+            // labelMale
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(196, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 20);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Male";
+            this.labelMale.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelMale.AutoSize = true;
+            this.labelMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMale.Location = new System.Drawing.Point(204, 27);
+            this.labelMale.Name = "labelMale";
+            this.labelMale.Size = new System.Drawing.Size(40, 20);
+            this.labelMale.TabIndex = 6;
+            this.labelMale.Text = "Men";
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(1205, 559);
+            this.buttonOK.Location = new System.Drawing.Point(1218, 568);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(94, 29);
             this.buttonOK.TabIndex = 2;
@@ -179,71 +183,71 @@ namespace MyExample
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
-            // panel3
+            // panelCompetitionSelectForm
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panelCompetitionSelectForm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.Color.AliceBlue;
-            this.panel3.Controls.Add(this.splitContainer1);
-            this.panel3.Controls.Add(this.buttonOK);
-            this.panel3.Location = new System.Drawing.Point(12, 12);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1314, 596);
-            this.panel3.TabIndex = 10;
+            this.panelCompetitionSelectForm.BackColor = System.Drawing.Color.White;
+            this.panelCompetitionSelectForm.Controls.Add(this.splitContainer);
+            this.panelCompetitionSelectForm.Controls.Add(this.buttonOK);
+            this.panelCompetitionSelectForm.Location = new System.Drawing.Point(2, 4);
+            this.panelCompetitionSelectForm.Name = "panelCompetitionSelectForm";
+            this.panelCompetitionSelectForm.Size = new System.Drawing.Size(1325, 607);
+            this.panelCompetitionSelectForm.TabIndex = 10;
             // 
-            // splitContainer1
+            // splitContainer
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(-13, 3);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer.Location = new System.Drawing.Point(-13, 3);
+            this.splitContainer.Name = "splitContainer";
             // 
-            // splitContainer1.Panel1
+            // splitContainer.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
+            this.splitContainer.Panel1.Controls.Add(this.tableLayoutPanelListBoxCompetitions);
             // 
-            // splitContainer1.Panel2
+            // splitContainer.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Panel2.Controls.Add(this.ButtonStart);
-            this.splitContainer1.Panel2.Controls.Add(this.label1);
-            this.splitContainer1.Size = new System.Drawing.Size(1314, 548);
-            this.splitContainer1.SplitterDistance = 384;
-            this.splitContainer1.TabIndex = 9;
+            this.splitContainer.Panel2.BackColor = System.Drawing.Color.Azure;
+            this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelQualifiers);
+            this.splitContainer.Panel2.Controls.Add(this.ButtonStart);
+            this.splitContainer.Panel2.Controls.Add(this.labelQualifiersHeader);
+            this.splitContainer.Size = new System.Drawing.Size(1325, 559);
+            this.splitContainer.SplitterDistance = 387;
+            this.splitContainer.TabIndex = 9;
             // 
-            // tableLayoutPanel2
+            // tableLayoutPanelListBoxCompetitions
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanelListBoxCompetitions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.listBoxCompetitions, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.ButtonCompetitions, 0, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.072917F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 91.92709F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(365, 545);
-            this.tableLayoutPanel2.TabIndex = 3;
+            this.tableLayoutPanelListBoxCompetitions.BackColor = System.Drawing.Color.Azure;
+            this.tableLayoutPanelListBoxCompetitions.ColumnCount = 1;
+            this.tableLayoutPanelListBoxCompetitions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.listBoxCompetitions, 0, 1);
+            this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.ButtonCompetitions, 0, 2);
+            this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.labelSelectCompetitions, 0, 0);
+            this.tableLayoutPanelListBoxCompetitions.Location = new System.Drawing.Point(16, 0);
+            this.tableLayoutPanelListBoxCompetitions.Name = "tableLayoutPanelListBoxCompetitions";
+            this.tableLayoutPanelListBoxCompetitions.RowCount = 3;
+            this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.74046F));
+            this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.25954F));
+            this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanelListBoxCompetitions.Size = new System.Drawing.Size(368, 559);
+            this.tableLayoutPanelListBoxCompetitions.TabIndex = 3;
             // 
-            // label4
+            // labelSelectCompetitions
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(73, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(219, 18);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Select competitions for the Final";
+            this.labelSelectCompetitions.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelSelectCompetitions.AutoSize = true;
+            this.labelSelectCompetitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSelectCompetitions.Location = new System.Drawing.Point(3, 27);
+            this.labelSelectCompetitions.Name = "labelSelectCompetitions";
+            this.labelSelectCompetitions.Size = new System.Drawing.Size(347, 18);
+            this.labelSelectCompetitions.TabIndex = 2;
+            this.labelSelectCompetitions.Text = "Select competitions for the Final  from the list below";
             // 
             // CompetitionSelectForm
             // 
@@ -251,22 +255,22 @@ namespace MyExample
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(1328, 612);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panelCompetitionSelectForm);
             this.Name = "CompetitionSelectForm";
             this.Text = "SelectCompetitions";
             this.Load += new System.EventHandler(this.CompetitionSelectForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemale)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanelQualifiers.ResumeLayout(false);
+            this.tableLayoutPanelQualifiers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMale)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.panelCompetitionSelectForm.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
+            this.tableLayoutPanelListBoxCompetitions.ResumeLayout(false);
+            this.tableLayoutPanelListBoxCompetitions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -277,15 +281,15 @@ namespace MyExample
         private System.Windows.Forms.Button ButtonCompetitions;
         private System.Windows.Forms.DataGridView dataGridViewFemale;
         private System.Windows.Forms.Button ButtonStart;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label labelQualifiersHeader;
+        private System.Windows.Forms.Label labelFemale;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQualifiers;
         private System.Windows.Forms.DataGridView dataGridViewMale;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelMale;
         private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panelCompetitionSelectForm;
+        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBoxCompetitions;
+        private System.Windows.Forms.Label labelSelectCompetitions;
     }
 }
