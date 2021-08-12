@@ -14,7 +14,7 @@ namespace MyExample
 {
     public partial class FormSkiCompetition : Form
     {
-        public bool flag;
+        public bool waterMarkActive { get; private set; }
         private DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
 
@@ -29,8 +29,6 @@ namespace MyExample
         private void FormSkiCompetition_Load(object sender, EventArgs e)
         {
             listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
-            listBoxCompetitions.ValueMember = "ID";
-            listBoxCompetitions.DisplayMember = "CompetitionName";
             listBoxCompetitions.SelectedIndex = -1;
 
             RefreshGrid();
@@ -49,8 +47,9 @@ namespace MyExample
             foreach (var item in all)
             {
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                
-                var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
+
+                //var id = int.Parse(listBoxCompetitions.GetItemText(listBoxCompetitions.SelectedValue));
+                int id = ((KeyValuePair<int, string>)listBoxCompetitions.SelectedItem).Key;
                 dataProvider.InsertResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),id);
             }
         }
@@ -86,9 +85,15 @@ namespace MyExample
             fr.Show();
         }
 
-        private void ListBox1_DoubleClick(object sender, EventArgs e)
+        public void BigFinalForm()
         {
-            if (listBoxCompetitions.SelectedItem != null)
+            var bf = new BigFinalForm(_connection);
+            bf.ShowDialog();
+        }
+
+        private void ListBoxCompetitions_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBoxCompetitions.SelectedItem != null && !listBoxCompetitions.SelectedValue.Equals(10))
             {
                 GetCompetitorTime();
                 WaitForm wf = new WaitForm();
@@ -99,6 +104,10 @@ namespace MyExample
                 dataGridViewFemaleAvg.DataSource = dataProvider.AverageTimeFemale();
 
                 dataGridViewTeamRank.DataSource = dataProvider.AverageTimeByTeam();
+            }
+            else if(listBoxCompetitions.SelectedValue.Equals(10))
+            {
+                MessageBox.Show("No results from the Big Final!");
             }
         }
 
@@ -136,6 +145,42 @@ namespace MyExample
 
         }
         #endregion
+
+        private void ButtonCreateCompetition_Click(object sender, EventArgs e)
+        {
+            
+            dataProvider.CreateCompetition(textBoxCompetition.Text);
+            listBoxCompetitions.DataSource = dataProvider.CompetitionTable();
+        }
+
+        private void listBoxCompetitions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.waterMarkActive = true;
+
+
+            this.textBoxCompetition.ForeColor = Color.Gray;
+            this.textBoxCompetition.Text = "Create new competition";
+
+            this.textBoxCompetition.GotFocus += (source, w) =>
+            {
+                if (this.waterMarkActive)
+                {
+                    this.waterMarkActive = false;
+                    this.textBoxCompetition.Text = "";
+                    this.textBoxCompetition.ForeColor = Color.Black;
+                }
+            };
+
+            this.textBoxCompetition.LostFocus += (source, w) =>
+            {
+                if (!this.waterMarkActive && string.IsNullOrEmpty(this.textBoxCompetition.Text))
+                {
+                    this.waterMarkActive = true;
+                    this.textBoxCompetition.Text = "Create new competition";
+                    this.textBoxCompetition.ForeColor = Color.Gray;
+                }
+            };
+        }
     }
 
 }

@@ -49,5 +49,10 @@ namespace MyExample
                 listBoxRankMale.Items.Add(i + 1 + ". " + resMale[i].Name + " " + resMale[i].LastName);
             }
         }
+
+        private void ButtonOKCloseForm_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
