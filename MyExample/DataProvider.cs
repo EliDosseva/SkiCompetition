@@ -12,6 +12,29 @@ using Data = System.Collections.Generic.KeyValuePair<int, string>;
 
 namespace MyExample
 {
+    public class Result
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public TimeSpan TimeInMs { get; set; }
+    }
+
+    public class Competition
+    {
+        public int ID { get; set; }
+        public string CompetitionName { get; set; }
+        public string Location { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
+        public bool Finished { get; set; }
+    }
+
+    public class Team
+    {
+        public int TeamID { get; set; }
+        public string TeamName { get; set; }
+    }
+
     public class DataProvider
     {
         private readonly string _connectionString;
@@ -20,7 +43,7 @@ namespace MyExample
         {
             _connectionString = connectionString;
         }
-
+        #region Competitors
         public bool CreateCompetitor(string firstName, string lastName, string sex, int ID)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -48,20 +71,24 @@ namespace MyExample
                 }
             }
         }
-
-        public bool CreateCompetition(string competitionName)
+        public bool EditCompetitor(int ID, string firstName, string lastName, string sex, int teamId)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Competitions (CompetitionName) VALUES (@CompetitionName)"))
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitors set FirstName = @FirstName, LastName = @LastName, Sex = @Sex, TeamID = @TeamID " +
+                    " where ID = @ID SET ROWCOUNT 0"))
                 {
                     sc.Connection = con;
-                    sc.Parameters.AddWithValue("@CompetitionName", competitionName);
+                    sc.Parameters.AddWithValue("@ID", ID);
+                    sc.Parameters.AddWithValue("@FirstName", firstName);
+                    sc.Parameters.AddWithValue("@LastName", lastName);
+                    sc.Parameters.AddWithValue("@Sex", sex);
+                    sc.Parameters.AddWithValue("@TeamID", teamId);
 
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Competition has been registered");
+                        MessageBox.Show("Competitor's data has been edited");
                         return true;
                     }
                     else
@@ -74,7 +101,7 @@ namespace MyExample
             }
         }
 
-            public List<Skier> GetCompetitors()
+        public List<Skier> GetCompetitors()
         {
             List<Skier> competitors = new List<Skier>();
 
@@ -97,29 +124,8 @@ namespace MyExample
             return competitors;
         }
 
-        public Skier GetCompetitor()
-        {
-            Skier skier = null;
-            SqlConnection con = new SqlConnection(_connectionString);
-            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT * FROM Competitors", con))
-            {
-                DataTable dt = new DataTable();
-                sc.Fill(dt);
-                skier = (from DataRow dr in dt.Rows
-                         select new Skier()
-                         {
-                             Name = dr["FirstName"].ToString(),
-                             LastName = dr["LastName"].ToString(),
-                             Sex = dr["Sex"].ToString(),
-                             Team = dr["TeamID"].ToString()
-                         }).FirstOrDefault();
-            }
 
-            return skier;
-        }
-
-
-        public bool Delete(int insert)
+        public bool DeleteCompetitor(int insert)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -138,30 +144,7 @@ namespace MyExample
             }
         }
 
-
-        public List<Data> ComboBoxTeam()
-        {
-            var teams = new List<Data>();
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                SqlCommand sc = new SqlCommand("SELECT ID,[teamname] FROM Teams", con);
-
-                con.Open();
-
-                SqlDataReader reader = sc.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    var id = reader.GetInt32(0);
-                    var teamName = reader.GetString(1);
-                    teams.Add(new Data(id, teamName));
-                }
-                reader.Close();
-            }
-            return teams;
-        }
-
-        public DataTable Create()
+        public DataTable Competitors()
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -175,34 +158,292 @@ namespace MyExample
             }
             return dt;
         }
+        #endregion
 
-
-        public bool InsertResults(int id, TimeSpan time, string datetime, int competitionID)
+        #region Competitions
+        public bool CreateCompetition(Guid id, string competitionName, string location, SelectionRange date)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID) ", con))
+                using (SqlCommand sc = new SqlCommand("insert into Competitions (Guid, CompetitionName, Location, DateStart, DateEnd, Finished) VALUES (@Guid, @CompetitionName, @Location, @DateStart, @DateEnd, @Finished)"))
                 {
                     sc.Connection = con;
-                    sc.Parameters.AddWithValue("@CompetitorID", id);
-                    sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
-                    sc.Parameters.AddWithValue("@StartTime", datetime.ToString());
-                    sc.Parameters.AddWithValue("@CompetitionID", competitionID);
-
-
+                    sc.Parameters.AddWithValue("@Guid", id);
+                    sc.Parameters.AddWithValue("@CompetitionName", competitionName);
+                    sc.Parameters.AddWithValue("@Location", location);
+                    sc.Parameters.AddWithValue("@DateStart", date.Start);
+                    sc.Parameters.AddWithValue("@DateEnd", date.End);
+                    sc.Parameters.AddWithValue("@Finished", 0);
 
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
+                        MessageBox.Show("Competition has been registered");
                         return true;
                     }
                     else
                     {
+                        MessageBox.Show("Record failed");
                         return false;
                     }
+
                 }
             }
         }
+
+        public List<Competition> GetCompetition()
+        {
+            List<Competition> competitions = new List<Competition>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT Id, CompetitionName,Location, DateStart, DateEnd, Finished from Competitions";
+
+                using (var command = new SqlCommand(query, con))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            competitions.Add(new Competition()
+                            {
+                                ID = (int)reader[0],
+                                CompetitionName = (string)reader[1],
+                                Location = (string)reader[2],
+                                DateStart = DateTime.Parse(reader[3].ToString()),
+                                DateEnd = DateTime.Parse(reader[4].ToString()),
+                                Finished = reader.GetBoolean(5)
+                            });
+                        }
+                    }
+                }
+
+            }
+            return competitions;
+        }
+
+        public bool IsFinished(int ID)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand sc = new SqlCommand("update Competitions set finished = 1 where ID = @ID"))
+                    
+                {
+                    sc.Connection = con;
+                    sc.Parameters.AddWithValue("@ID", ID);
+                    con.Open();
+                    if (sc.ExecuteNonQuery() > 0)
+                    {
+                        
+                        return true;
+                    }
+                    else
+                    {
+                        
+                        return false;
+                    }
+
+                }
+            }
+        }
+
+        public BindingList<Data> CompetitionTable()
+        {
+            var competitions = new BindingList<Data>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlCommand sc = new SqlCommand("SELECT Id, CompetitionName from Competitions", con);
+
+                con.Open();
+
+                SqlDataReader reader = sc.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var id = reader.GetInt32(0);
+                    var competitionName = reader.GetString(1);
+                    competitions.Add(new Data(id, competitionName));
+                }
+                reader.Close();
+            }
+            return competitions;
+        }
+        #endregion
+
+        #region Teams
+        public DataTable ComboBoxTeam()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT ID,[teamname] FROM Teams", con);
+
+                con.Open();
+
+                sc.Fill(dt);
+            }
+            return dt;
+        }
+
+        public List<Team> TeamSelection()
+        {
+            List<Team> team = new List<Team>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT ID, TeamName FROM Teams";
+
+                using (var command = new SqlCommand(query, con))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            team.Add(new Team()
+                            {
+                                TeamID = (int)reader[0],
+                                TeamName = (string)reader[1],
+                            });
+                        }
+                    }
+                }
+
+            }
+            return team;
+        }
+
+        public List<Skier> GetTeamMembers(int id)
+        {
+            List<Skier> competitors = new List<Skier>();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlDataAdapter sc = new SqlDataAdapter("select [FirstName],[LastName] from Competitors join Teams on Competitors.teamid = Teams.id where teamID = @ID", con);
+
+                sc.SelectCommand.Parameters.AddWithValue("@ID", id);
+                con.Open();
+                sc.Fill(dt);
+                competitors = (from DataRow dr in dt.Rows
+                               select new Skier()
+                               {
+                                   Name = dr["FirstName"].ToString(),
+                                   LastName = dr["LastName"].ToString()
+                               }).ToList();
+            }
+            return competitors;
+        }
+        #endregion
+
+        #region Results
+        public List<Result> GetResults(int competitionId, string sex)
+        {
+            List<Result> results = new List<Result>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT [FirstName],[LastName], Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
+                    " join competitions on competitions.id = CompetitionID " +
+                    " where CompetitionID = @CompetitionID and competitors.sex = @Sex";
+
+                using (var command = new SqlCommand(query,con))
+                {
+                    command.Parameters.AddWithValue("@CompetitionID", competitionId);
+                    command.Parameters.AddWithValue("@Sex", sex);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(new Result
+                            {
+                                FirstName = (string)reader[0],
+                                LastName = reader[1].ToString(),
+                                TimeInMs = TimeSpan.Parse(reader[2].ToString())
+                            });
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+
+
+        public bool InsertResults(int id, TimeSpan time, string datetime, int competitionID)
+        {
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID)", con))
+                    {
+                        sc.Connection = con;
+                        sc.Parameters.AddWithValue("@CompetitorID", id);
+                        sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
+                        sc.Parameters.AddWithValue("@StartTime", datetime.ToString());
+                        sc.Parameters.AddWithValue("@CompetitionID", competitionID);
+
+                        con.Open();
+
+                        if (sc.ExecuteNonQuery() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                      
+                    }
+
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 2627)
+                    {
+                    }
+
+                }
+                return true;
+            }
+        }
+
+        public List<Skier> GetSkiersByTime(int competitionID, string sex)
+        {
+            List<Skier> skiers = new List<Skier>();
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT [ID],[FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
+                    "where competitors.sex = @Sex and competitionID = @CompetitionID order by timeinms", con);
+
+                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
+                sc.SelectCommand.Parameters.AddWithValue("@CompetitionID", competitionID);
+
+                DataTable dt = new DataTable();
+                sc.Fill(dt);
+                skiers = (from DataRow dr in dt.Rows
+                          select new Skier()
+                          {
+                              ID = Convert.ToInt32(dr["ID"].ToString()),
+                              Name = dr["FirstName"].ToString(),
+                              LastName = dr["LastName"].ToString(),
+                              Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
+                          }).ToList();
+
+            }
+
+
+            return skiers;
+        }
+        #endregion
+
+        #region BigFinal
         public bool InsertBigFinalResults(int id, TimeSpan time, string datetime, int competitionID)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -230,103 +471,41 @@ namespace MyExample
             }
         }
 
-        public List<Skier> BigFinalCompetitorsFemale(List<int> ID)
+        public List<Skier> BigFinalCompetitors(List<int> ID, string sex)
         {
-            List<Skier> females = new List<Skier>();
+            List<Skier> competitors = new List<Skier>();
             SqlConnection con = new SqlConnection(_connectionString);
-            
-                using (SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) Competitors.ID, [FirstName],[LastName], cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime " +
-                    " from Results join Competitors on Competitors.id = Results.CompetitorID " +
-                    " join Competitions on CompetitionID = Competitions.id " +
-                    " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
-                    " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
-                    string.Join(",", ID)
-                    + ")" +
-                    " and competitors.sex = 'female' " +
-                    " group by competitors.ID, [FirstName],[LastName]" +
-                    " order by AverageTime ", con))
-                {
-                    DataTable dt = new DataTable();
-                    sc.Fill(dt);
-                    
 
-                    females = (from DataRow dr in dt.Rows
+            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) Competitors.ID, [FirstName],[LastName], cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime " +
+                " from Results join Competitors on Competitors.id = Results.CompetitorID " +
+                " join Competitions on CompetitionID = Competitions.id " +
+                " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
+                " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
+                string.Join(",", ID)
+                + ")" +
+                " and competitors.sex = @Sex " +
+                " group by competitors.ID, [FirstName],[LastName]" +
+                " order by AverageTime ", con))
+            {
+                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
+                DataTable dt = new DataTable();
+                sc.Fill(dt);
+
+
+                competitors = (from DataRow dr in dt.Rows
                                select new Skier()
                                {
                                    ID = Convert.ToInt32(dr["ID"].ToString()),
                                    Name = dr["FirstName"].ToString(),
                                    LastName = dr["LastName"].ToString(),
                                }).ToList();
-                }
-
-                return females;
-        }
-
-        public List<Skier> BigFinalCompetitorsMale(List<int> ID)
-        {
-            List<Skier> males = new List<Skier>();
-            SqlConnection con = new SqlConnection(_connectionString);
-
-            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) Competitors.ID, [FirstName],[LastName], cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime" +
-                " from Results join Competitors on competitors.id = Results.competitorid" +
-                " join Competitions on CompetitionID = Competitions.id" +
-                " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t" +
-                " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
-                string.Join(",", ID)
-                + ")" +
-                " and competitors.sex = 'male' " +
-                " group by competitors.ID, [FirstName],[LastName]" +
-                " order by AverageTime ", con))
-            {
-                DataTable dt = new DataTable();
-                sc.Fill(dt);
-
-
-                males = (from DataRow dr in dt.Rows
-                           select new Skier()
-                           {
-                               ID = Convert.ToInt32(dr["ID"].ToString()),
-                               Name = dr["FirstName"].ToString(),
-                               LastName = dr["LastName"].ToString(),
-                           }).ToList();
             }
 
-            return males;
+            return competitors;
         }
 
-        public DataTable TimesMale()
-        {
-            DataTable dt = new DataTable();
 
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT [FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = 'male' and StartTime = (select max(StartTime) from Results)", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-
-        public DataTable TimesFemale()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT [FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = 'female'and StartTime = (select max(StartTime) from Results)", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-
-        public DataTable TimesFemaleBigFinal()
+        public DataTable BigFinalResults(string sex)
         {
             DataTable dt = new DataTable();
 
@@ -338,146 +517,18 @@ namespace MyExample
                     " join BigFinal on CompetitionID = BigFinal.id " +
                     " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
                     " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Results.CompetitionID in(0)" +
-                    " and competitors.sex = 'female' " +
+                    " and competitors.sex = @Sex " +
                     " group by FirstName, LastName " +
                     " order by Result", con);
 
+                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
                 sc.Fill(dt);
 
             }
             return dt;
         }
 
-        public DataTable TimesMaleBigFinal()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) Result" +
-                    " from Results join competitors on competitors.id = Results.competitorid " +
-                    " join BigFinal on CompetitionID = BigFinal.id " +
-                    " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
-                    " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Results.CompetitionID in(0) " +
-                    " and competitors.sex = 'male' " +
-                    " group by FirstName, LastName " +
-                    " order by Result", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-
-        public List<Skier> GetFemales()
-        {
-            List<Skier> females = new List<Skier>();
-            SqlConnection con = new SqlConnection(_connectionString);
-            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT [ID],[FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = 'female' and StartTime = (select max(StartTime) from Results)", con))
-            {
-                DataTable dt = new DataTable();
-                sc.Fill(dt);
-                females = (from DataRow dr in dt.Rows
-                           select new Skier()
-                           {
-                               ID = Convert.ToInt32(dr["ID"].ToString()),
-                               Name = dr["FirstName"].ToString(),
-                               LastName = dr["LastName"].ToString(),
-                               Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
-                           }).ToList();
-            }
-
-            return females;
-        }
-
-        public List<Skier> GetMales()
-        {
-            List<Skier> females = new List<Skier>();
-            SqlConnection con = new SqlConnection(_connectionString);
-            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT [ID],[FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = 'male'and StartTime = (select max(StartTime) from Results)", con))
-            {
-                DataTable dt = new DataTable();
-                sc.Fill(dt);
-                females = (from DataRow dr in dt.Rows
-                           select new Skier()
-                           {
-                               ID = Convert.ToInt32(dr["ID"].ToString()),
-                               Name = dr["FirstName"].ToString(),
-                               LastName = dr["LastName"].ToString(),
-                               Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
-                           }).ToList();
-            }
-
-            return females;
-        }
-        public DataTable SumResults()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT [CompetitorID],(TimeInMs) FROM Results", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-
-        public DataTable AverageTimeByTeam()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT TeamName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
-                    "join competitors on competitors.id = Results.competitorid " +
-                    "join Teams on competitors.teamid = Teams.id group by teamname order by [AverageTime]", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-        public DataTable AverageTimeMale()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
-                    "join competitors on competitors.id = Results.competitorid where competitors.sex = 'male'" +
-                    "group by ID,FirstName, LastName order by [AverageTime]", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-        public DataTable AverageTimeFemale()
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
-                    "join competitors on competitors.id = Results.competitorid where competitors.sex = 'female'" +
-                    "group by ID,FirstName, LastName order by [AverageTime]", con);
-
-                sc.Fill(dt);
-
-            }
-            return dt;
-        }
-
-        public DataTable BigFinalMale(List<int> ID)
+        public DataTable BigFinalQualifiers(List<int> ID, string sex)
         {
             DataTable dt = new DataTable();
 
@@ -491,64 +542,70 @@ namespace MyExample
                     " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t" +
                     " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
                     string.Join(",", ID)
-                    + ")"+
-                    " and competitors.sex = 'male'" +
+                    + ")" +
+                    " and competitors.sex = @Sex" +
                     " group by FirstName, LastName" +
                     " order by AverageTime", con);
-
+                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
                 con.Open();
                 sc.Fill(dt);
 
             }
             return dt;
         }
+        #endregion
 
-        public DataTable BigFinalFemale(List<int> ID)
+        #region AverageTimes
+        public DataTable AverageTimeByTeam()
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime" +
-                    " from Results join competitors on competitors.id = Results.competitorid" +
-                    " join Competitions on CompetitionID = Competitions.id" +
-                    " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t" +
-                    " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
-                    string.Join(",", ID)
-                    + ")" +
-                    " and competitors.sex = 'female'" +
-                    " group by FirstName, LastName" +
-                    " order by AverageTime", con);
-
                 con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT TeamID, TeamName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
+                    "join competitors on competitors.id = Results.competitorid " +
+                    "join Teams on competitors.teamid = Teams.id group by teamID, TeamName order by [AverageTime]", con);
+
                 sc.Fill(dt);
 
             }
             return dt;
         }
 
-        public BindingList<Data> CompetitionTable()
+        public DataTable AverageTime(string sex)
         {
-            var competitions = new BindingList<Data>();
+            DataTable dt = new DataTable();
+
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                SqlCommand sc = new SqlCommand("SELECT Id, CompetitionName from Competitions", con);
+                con.Open();
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
+                    "join competitors on competitors.id = Results.competitorid where competitors.sex = @Sex " +
+                    "group by ID,FirstName, LastName order by [AverageTime]", con);
+
+                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
+                sc.Fill(dt);
+
+            }
+            return dt;
+        }
+        #endregion
+        public DataTable TrackBar()
+        {
+
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT * FROM Competitors", con);
 
                 con.Open();
 
-                SqlDataReader reader = sc.ExecuteReader();
+                sc.Fill(dt);
 
-                while (reader.Read())
-                {
-                    var id = reader.GetInt32(0);
-                    var competitionName = reader.GetString(1);
-                    competitions.Add(new Data(id, competitionName));
-                }
-                reader.Close();
             }
-            return competitions;
+            return dt;
         }
-
 
     }
 }

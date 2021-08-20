@@ -21,8 +21,8 @@ namespace MyExample
 
         private void BigFinalForm_Load(object sender, EventArgs e)
         {
-            dataGridViewFemaleResults.DataSource = dataProvider.TimesFemaleBigFinal();
-            dataGridViewMaleResults.DataSource = dataProvider.TimesMaleBigFinal();
+            dataGridViewFemaleResults.DataSource = dataProvider.BigFinalResults("female");
+            dataGridViewMaleResults.DataSource = dataProvider.BigFinalResults("male");
         }
     }
 }
