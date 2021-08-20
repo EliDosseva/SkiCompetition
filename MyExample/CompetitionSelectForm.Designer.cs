@@ -59,21 +59,23 @@ namespace MyExample
             this.listBoxCompetitions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.listBoxCompetitions.BackColor = System.Drawing.Color.Azure;
             this.listBoxCompetitions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBoxCompetitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBoxCompetitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBoxCompetitions.FormattingEnabled = true;
-            this.listBoxCompetitions.ItemHeight = 16;
-            this.listBoxCompetitions.Location = new System.Drawing.Point(5, 75);
+            this.listBoxCompetitions.ItemHeight = 20;
+            this.listBoxCompetitions.Location = new System.Drawing.Point(3, 69);
+            this.listBoxCompetitions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBoxCompetitions.Name = "listBoxCompetitions";
             this.listBoxCompetitions.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBoxCompetitions.Size = new System.Drawing.Size(357, 434);
+            this.listBoxCompetitions.Size = new System.Drawing.Size(386, 402);
             this.listBoxCompetitions.TabIndex = 0;
             // 
             // ButtonCompetitions
             // 
-            this.ButtonCompetitions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ButtonCompetitions.Location = new System.Drawing.Point(261, 527);
+            this.ButtonCompetitions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButtonCompetitions.Location = new System.Drawing.Point(291, 485);
+            this.ButtonCompetitions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ButtonCompetitions.Name = "ButtonCompetitions";
-            this.ButtonCompetitions.Size = new System.Drawing.Size(104, 29);
+            this.ButtonCompetitions.Size = new System.Drawing.Size(98, 34);
             this.ButtonCompetitions.TabIndex = 1;
             this.ButtonCompetitions.Text = "OK";
             this.ButtonCompetitions.UseVisualStyleBackColor = true;
@@ -88,18 +90,20 @@ namespace MyExample
             this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewFemale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFemale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemale.Location = new System.Drawing.Point(451, 77);
+            this.dataGridViewFemale.Location = new System.Drawing.Point(472, 72);
+            this.dataGridViewFemale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
-            this.dataGridViewFemale.Size = new System.Drawing.Size(437, 351);
+            this.dataGridViewFemale.Size = new System.Drawing.Size(457, 323);
             this.dataGridViewFemale.TabIndex = 3;
             // 
             // ButtonStart
             // 
             this.ButtonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButtonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButtonStart.Location = new System.Drawing.Point(791, 527);
+            this.ButtonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonStart.Location = new System.Drawing.Point(768, 485);
+            this.ButtonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ButtonStart.Name = "ButtonStart";
-            this.ButtonStart.Size = new System.Drawing.Size(129, 29);
+            this.ButtonStart.Size = new System.Drawing.Size(170, 34);
             this.ButtonStart.TabIndex = 4;
             this.ButtonStart.Text = "Start competition";
             this.ButtonStart.UseVisualStyleBackColor = true;
@@ -110,7 +114,7 @@ namespace MyExample
             this.labelQualifiersHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelQualifiersHeader.AutoSize = true;
             this.labelQualifiersHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelQualifiersHeader.Location = new System.Drawing.Point(358, 31);
+            this.labelQualifiersHeader.Location = new System.Drawing.Point(362, 24);
             this.labelQualifiersHeader.Name = "labelQualifiersHeader";
             this.labelQualifiersHeader.Size = new System.Drawing.Size(218, 20);
             this.labelQualifiersHeader.TabIndex = 5;
@@ -121,7 +125,7 @@ namespace MyExample
             this.labelFemale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelFemale.AutoSize = true;
             this.labelFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFemale.Location = new System.Drawing.Point(637, 27);
+            this.labelFemale.Location = new System.Drawing.Point(668, 24);
             this.labelFemale.Name = "labelFemale";
             this.labelFemale.Size = new System.Drawing.Size(64, 20);
             this.labelFemale.TabIndex = 7;
@@ -141,12 +145,13 @@ namespace MyExample
             this.tableLayoutPanelQualifiers.Controls.Add(this.dataGridViewFemale, 1, 1);
             this.tableLayoutPanelQualifiers.Controls.Add(this.dataGridViewMale, 0, 1);
             this.tableLayoutPanelQualifiers.Controls.Add(this.labelMale, 0, 0);
-            this.tableLayoutPanelQualifiers.Location = new System.Drawing.Point(26, 75);
+            this.tableLayoutPanelQualifiers.Location = new System.Drawing.Point(3, 69);
+            this.tableLayoutPanelQualifiers.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanelQualifiers.Name = "tableLayoutPanelQualifiers";
             this.tableLayoutPanelQualifiers.RowCount = 2;
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84F));
-            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(894, 434);
+            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(935, 402);
             this.tableLayoutPanelQualifiers.TabIndex = 8;
             // 
             // dataGridViewMale
@@ -156,9 +161,10 @@ namespace MyExample
             this.dataGridViewMale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewMale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewMale.Location = new System.Drawing.Point(6, 77);
+            this.dataGridViewMale.Location = new System.Drawing.Point(6, 72);
+            this.dataGridViewMale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewMale.Name = "dataGridViewMale";
-            this.dataGridViewMale.Size = new System.Drawing.Size(436, 351);
+            this.dataGridViewMale.Size = new System.Drawing.Size(457, 323);
             this.dataGridViewMale.TabIndex = 2;
             // 
             // labelMale
@@ -166,7 +172,7 @@ namespace MyExample
             this.labelMale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMale.AutoSize = true;
             this.labelMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMale.Location = new System.Drawing.Point(204, 27);
+            this.labelMale.Location = new System.Drawing.Point(214, 24);
             this.labelMale.Name = "labelMale";
             this.labelMale.Size = new System.Drawing.Size(40, 20);
             this.labelMale.TabIndex = 6;
@@ -175,9 +181,10 @@ namespace MyExample
             // buttonOKCloseForm
             // 
             this.buttonOKCloseForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOKCloseForm.Location = new System.Drawing.Point(1218, 568);
+            this.buttonOKCloseForm.Location = new System.Drawing.Point(1255, 549);
+            this.buttonOKCloseForm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonOKCloseForm.Name = "buttonOKCloseForm";
-            this.buttonOKCloseForm.Size = new System.Drawing.Size(94, 29);
+            this.buttonOKCloseForm.Size = new System.Drawing.Size(98, 28);
             this.buttonOKCloseForm.TabIndex = 2;
             this.buttonOKCloseForm.Text = "OK";
             this.buttonOKCloseForm.UseVisualStyleBackColor = true;
@@ -191,9 +198,10 @@ namespace MyExample
             this.panelCompetitionSelectForm.BackColor = System.Drawing.Color.White;
             this.panelCompetitionSelectForm.Controls.Add(this.splitContainer);
             this.panelCompetitionSelectForm.Controls.Add(this.buttonOKCloseForm);
-            this.panelCompetitionSelectForm.Location = new System.Drawing.Point(2, 4);
+            this.panelCompetitionSelectForm.Location = new System.Drawing.Point(2, 6);
+            this.panelCompetitionSelectForm.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelCompetitionSelectForm.Name = "panelCompetitionSelectForm";
-            this.panelCompetitionSelectForm.Size = new System.Drawing.Size(1325, 607);
+            this.panelCompetitionSelectForm.Size = new System.Drawing.Size(1359, 588);
             this.panelCompetitionSelectForm.TabIndex = 10;
             // 
             // splitContainer
@@ -201,7 +209,8 @@ namespace MyExample
             this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer.Location = new System.Drawing.Point(-13, 3);
+            this.splitContainer.Location = new System.Drawing.Point(-19, 4);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -214,8 +223,9 @@ namespace MyExample
             this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelQualifiers);
             this.splitContainer.Panel2.Controls.Add(this.ButtonStart);
             this.splitContainer.Panel2.Controls.Add(this.labelQualifiersHeader);
-            this.splitContainer.Size = new System.Drawing.Size(1325, 559);
-            this.splitContainer.SplitterDistance = 387;
+            this.splitContainer.Size = new System.Drawing.Size(1375, 523);
+            this.splitContainer.SplitterDistance = 420;
+            this.splitContainer.SplitterWidth = 7;
             this.splitContainer.TabIndex = 9;
             // 
             // tableLayoutPanelListBoxCompetitions
@@ -229,13 +239,14 @@ namespace MyExample
             this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.listBoxCompetitions, 0, 1);
             this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.ButtonCompetitions, 0, 2);
             this.tableLayoutPanelListBoxCompetitions.Controls.Add(this.labelSelectCompetitions, 0, 0);
-            this.tableLayoutPanelListBoxCompetitions.Location = new System.Drawing.Point(16, 0);
+            this.tableLayoutPanelListBoxCompetitions.Location = new System.Drawing.Point(25, 0);
+            this.tableLayoutPanelListBoxCompetitions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanelListBoxCompetitions.Name = "tableLayoutPanelListBoxCompetitions";
             this.tableLayoutPanelListBoxCompetitions.RowCount = 3;
             this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.74046F));
             this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.25954F));
-            this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanelListBoxCompetitions.Size = new System.Drawing.Size(368, 559);
+            this.tableLayoutPanelListBoxCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanelListBoxCompetitions.Size = new System.Drawing.Size(392, 523);
             this.tableLayoutPanelListBoxCompetitions.TabIndex = 3;
             // 
             // labelSelectCompetitions
@@ -243,7 +254,7 @@ namespace MyExample
             this.labelSelectCompetitions.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelSelectCompetitions.AutoSize = true;
             this.labelSelectCompetitions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSelectCompetitions.Location = new System.Drawing.Point(3, 27);
+            this.labelSelectCompetitions.Location = new System.Drawing.Point(3, 23);
             this.labelSelectCompetitions.Name = "labelSelectCompetitions";
             this.labelSelectCompetitions.Size = new System.Drawing.Size(347, 18);
             this.labelSelectCompetitions.TabIndex = 2;
@@ -251,11 +262,13 @@ namespace MyExample
             // 
             // CompetitionSelectForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1328, 612);
+            this.ClientSize = new System.Drawing.Size(1363, 596);
             this.Controls.Add(this.panelCompetitionSelectForm);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "CompetitionSelectForm";
             this.Text = "SelectCompetitions";
             this.Load += new System.EventHandler(this.CompetitionSelectForm_Load);

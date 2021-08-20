@@ -47,7 +47,7 @@ namespace MyExample
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxName.Location = new System.Drawing.Point(3, 28);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(307, 20);
+            this.textBoxName.Size = new System.Drawing.Size(214, 20);
             this.textBoxName.TabIndex = 0;
             // 
             // label1
@@ -57,7 +57,7 @@ namespace MyExample
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(307, 16);
+            this.label1.Size = new System.Drawing.Size(214, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "First name";
             // 
@@ -68,7 +68,7 @@ namespace MyExample
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(3, 119);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(307, 16);
+            this.label2.Size = new System.Drawing.Size(214, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Team";
             // 
@@ -76,7 +76,7 @@ namespace MyExample
             // 
             this.buttonRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRegister.Location = new System.Drawing.Point(208, 232);
+            this.buttonRegister.Location = new System.Drawing.Point(115, 247);
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(102, 27);
             this.buttonRegister.TabIndex = 4;
@@ -91,7 +91,7 @@ namespace MyExample
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(3, 174);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(307, 16);
+            this.label3.Size = new System.Drawing.Size(214, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Sex";
             // 
@@ -102,7 +102,7 @@ namespace MyExample
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(3, 64);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(307, 16);
+            this.label4.Size = new System.Drawing.Size(214, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Last name";
             // 
@@ -111,7 +111,7 @@ namespace MyExample
             this.textBoxLastName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxLastName.Location = new System.Drawing.Point(3, 83);
             this.textBoxLastName.Name = "textBoxLastName";
-            this.textBoxLastName.Size = new System.Drawing.Size(307, 20);
+            this.textBoxLastName.Size = new System.Drawing.Size(214, 20);
             this.textBoxLastName.TabIndex = 8;
             // 
             // comboBoxSex
@@ -123,7 +123,7 @@ namespace MyExample
             "male"});
             this.comboBoxSex.Location = new System.Drawing.Point(3, 193);
             this.comboBoxSex.Name = "comboBoxSex";
-            this.comboBoxSex.Size = new System.Drawing.Size(307, 21);
+            this.comboBoxSex.Size = new System.Drawing.Size(214, 21);
             this.comboBoxSex.TabIndex = 5;
             // 
             // comboBoxTeam
@@ -132,7 +132,7 @@ namespace MyExample
             this.comboBoxTeam.FormattingEnabled = true;
             this.comboBoxTeam.Location = new System.Drawing.Point(3, 138);
             this.comboBoxTeam.Name = "comboBoxTeam";
-            this.comboBoxTeam.Size = new System.Drawing.Size(307, 21);
+            this.comboBoxTeam.Size = new System.Drawing.Size(214, 21);
             this.comboBoxTeam.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -161,14 +161,14 @@ namespace MyExample
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(313, 262);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(220, 277);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 262);
+            this.ClientSize = new System.Drawing.Size(220, 277);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Register";
@@ -187,10 +187,10 @@ namespace MyExample
         private System.Windows.Forms.Button buttonRegister;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxLastName;
-        private System.Windows.Forms.ComboBox comboBoxSex;
-        private System.Windows.Forms.ComboBox comboBoxTeam;
-        public System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        internal System.Windows.Forms.TextBox textBoxLastName;
+        internal System.Windows.Forms.ComboBox comboBoxSex;
+        internal System.Windows.Forms.ComboBox comboBoxTeam;
+        internal System.Windows.Forms.TextBox textBoxName;
     }
 }

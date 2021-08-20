@@ -54,7 +54,7 @@ namespace MyExample
             this.MinimizeBox = false;
             this.Name = "WaitForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Loading";
+            this.Text = "Getting competitors";
             this.Load += new System.EventHandler(this.WaitForm_Load);
             this.ResumeLayout(false);
 

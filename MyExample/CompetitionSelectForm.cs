@@ -46,8 +46,8 @@ namespace MyExample
                 competitionIDs.Add(items);
             }
 
-            dataGridViewMale.DataSource = dataProvider.BigFinalMale(competitionIDs);
-            dataGridViewFemale.DataSource = dataProvider.BigFinalFemale(competitionIDs);
+            dataGridViewMale.DataSource = dataProvider.BigFinalQualifiers(competitionIDs, "male");
+            dataGridViewFemale.DataSource = dataProvider.BigFinalQualifiers(competitionIDs, "female");
         }
 
 
@@ -64,8 +64,10 @@ namespace MyExample
                 var items = ((KeyValuePair<int, string>)item).Key;
                 IDs.Add(items);
             }
-            var finalistsFemale = dataProvider.BigFinalCompetitorsFemale(IDs);
-            var finalistsMale = dataProvider.BigFinalCompetitorsMale(IDs);
+            var finalistsFemale = dataProvider.BigFinalCompetitors(IDs, "female");
+            var finalistsMale = dataProvider.BigFinalCompetitors(IDs, "male");
+
+            //var finalistsMale = dataProvider.BigFinalCompetitorsMale(IDs);
 
 
             foreach (var item in finalistsFemale)

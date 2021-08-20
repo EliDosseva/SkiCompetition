@@ -54,6 +54,12 @@
     <Compile Include="BigFinalForm.Designer.cs">
       <DependentUpon>BigFinalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CompetitionRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompetitionRegister.Designer.cs">
+      <DependentUpon>CompetitionRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="CompetitionSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,12 @@
       <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataProvider.cs" />
+    <Compile Include="EditCompetitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCompetitor.Designer.cs">
+      <DependentUpon>EditCompetitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRank.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,8 +98,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SkiCompetitionDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SkiCompetitionDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkiCompetitionDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Skier.cs" />
     <Compile Include="Team.cs" />
+    <Compile Include="TeamMembers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamMembers.Designer.cs">
+      <DependentUpon>TeamMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,8 +120,14 @@
     <EmbeddedResource Include="BigFinalForm.resx">
       <DependentUpon>BigFinalForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CompetitionRegister.resx">
+      <DependentUpon>CompetitionRegister.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CompetitionSelectForm.resx">
       <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditCompetitor.resx">
+      <DependentUpon>EditCompetitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRank.resx">
       <DependentUpon>FormRank.cs</DependentUpon>
@@ -117,6 +146,9 @@
     </Compile>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeamMembers.resx">
+      <DependentUpon>TeamMembers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>
@@ -140,6 +172,17 @@
     </None>
     <None Include="SkiCompetitionDataSet.xss">
       <DependentUpon>SkiCompetitionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SkiCompetitionDataSet1.xsc">
+      <DependentUpon>SkiCompetitionDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="SkiCompetitionDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SkiCompetitionDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SkiCompetitionDataSet1.xss">
+      <DependentUpon>SkiCompetitionDataSet1.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ namespace MyExample
 {
     public partial class Register : Form
     {
+
         private FormSkiCompetition skierForm = null;
         private Skier skier = null;
         private DataProvider dataProvider;
@@ -26,23 +27,26 @@ namespace MyExample
 
         private void Register_Load(object sender, EventArgs e)
         {
-            var combo = dataProvider.ComboBoxTeam();
-            comboBoxTeam.DataSource = combo;
+
+            
+            comboBoxTeam.ValueMember = "ID";
+            comboBoxTeam.DisplayMember = "TeamName";
+            comboBoxTeam.SelectedIndex = -1;
+            comboBoxTeam.DataSource = dataProvider.TeamSelection();
         }
 
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
-                skier = new Skier(textBoxName.Text, textBoxLastName.Text);
-                skier.Team = comboBoxTeam.Text;
+          skier = new Skier(textBoxName.Text, textBoxLastName.Text);
+          skier.Team = comboBoxTeam.Text;
 
+          var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
 
-            var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
+          int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
 
-            int team = ((KeyValuePair<int, string>)comboBoxTeam.SelectedItem).Key;
-
-            var isSuccess = dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team);
-            skierForm.RefreshGrid();
-            DialogResult = DialogResult.OK;
+          dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team);
+          skierForm.RefreshGrid();
+          DialogResult = DialogResult.OK;
         }
 
     }
