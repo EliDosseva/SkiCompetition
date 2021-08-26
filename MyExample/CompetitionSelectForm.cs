@@ -30,14 +30,14 @@ namespace MyExample
 
         private void ButtonGetBigFinalCompetitors(object sender, EventArgs e)
         {
-            WaitForm wf = new WaitForm();
-            wf.FormClosed += new FormClosedEventHandler(GetBigFinalCompetitors);
-            wf.Show(this);
-            
+            //WaitForm wf = new WaitForm();
+            //wf.FormClosed += new FormClosedEventHandler(GetBigFinalCompetitors);
+            //wf.Show(this);
+            GetBigFinalCompetitors();
         }
 
         
-        private void GetBigFinalCompetitors(object sender, EventArgs e)
+        private void GetBigFinalCompetitors()
         {
             List<int> competitionIDs = new List<int>();
             foreach (var item in listBoxCompetitions.SelectedItems)

@@ -80,7 +80,7 @@ namespace MyExample
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TeamMembers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TeamMembers";
+            this.Text = "Team members";
             this.Load += new System.EventHandler(this.TeamMembers_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

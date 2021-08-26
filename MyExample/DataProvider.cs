@@ -21,20 +21,42 @@ namespace MyExample
 
     public class Competition
     {
-        public int ID { get; set; }
+        public int CompetitionId { get; set; }
         public string CompetitionName { get; set; }
         public string Location { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public bool Finished { get; set; }
+        public int Competitors { get; set; }
     }
+    public class Competitor
+    {
+        public int CompetitorId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Sex { get; set; }
+        public string Team { get; set; }
+        public int TeamId { get; set; }
+        public TimeSpan Time { get; set; }
+        public int Position { get; set; }
+        public int Points { get; set; }
 
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", FirstName, LastName);
+        }
+    }
     public class Team
     {
         public int TeamID { get; set; }
         public string TeamName { get; set; }
     }
 
+    public class Location
+    {
+        public int LocationID { get; set; }
+        public string CompetitionLocation { get; set; }
+    }
     public class DataProvider
     {
         private readonly string _connectionString;
@@ -44,22 +66,23 @@ namespace MyExample
             _connectionString = connectionString;
         }
         #region Competitors
-        public bool CreateCompetitor(string firstName, string lastName, string sex, int ID)
+        public bool CreateCompetitor(string firstName, string lastName, string sex, int ID, int points)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Competitors (FirstName, LastName, Sex, TeamID) VALUES (@FirstName, @LastName, @Sex, @TeamID)"))
+                using (SqlCommand sc = new SqlCommand("insert into Competitors (FirstName, LastName, Sex, TeamID, Points) VALUES (@FirstName, @LastName, @Sex, @TeamID, @Points)"))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@FirstName", firstName);
                     sc.Parameters.AddWithValue("@LastName", lastName);
                     sc.Parameters.AddWithValue("@Sex", sex);
                     sc.Parameters.AddWithValue("@TeamID", ID);
+                    sc.Parameters.AddWithValue("@Points", points);
 
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Competitor has been registered");
+                        MessageBox.Show("Competitor has been registered", "Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return true;
                     }
                     else
@@ -88,7 +111,6 @@ namespace MyExample
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Competitor's data has been edited");
                         return true;
                     }
                     else
@@ -101,29 +123,87 @@ namespace MyExample
             }
         }
 
-        public List<Skier> GetCompetitors()
+        public bool UpdatePoints(int ID, int points)
         {
-            List<Skier> competitors = new List<Skier>();
-
-            SqlConnection con = new SqlConnection(_connectionString);
-            using (SqlDataAdapter sc = new SqlDataAdapter("SELECT * FROM Competitors", con))
+            using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                DataTable dt = new DataTable();
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitors set Points = Points + @Points " +
+                    " where ID = @ID SET ROWCOUNT 0"))
+                {
+                    sc.Connection = con;
+                    sc.Parameters.AddWithValue("@ID", ID);
+                    sc.Parameters.AddWithValue("@Points", points);
 
-                sc.Fill(dt);
-                competitors = (from DataRow dr in dt.Rows
-                               select new Skier()
-                               {
-                                   ID = Convert.ToInt32(dr["ID"].ToString()),
-                                   Name = dr["FirstName"].ToString(),
-                                   LastName = dr["LastName"].ToString(),
-                                   Sex = dr["Sex"].ToString(),
-                                   Team = dr["TeamID"].ToString()
-                               }).ToList();
+                    con.Open();
+                    if (sc.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record failed");
+                        return false;
+                    }
+
+                }
+            }
+        }
+
+        public List<Competitor> GetCompetitors(int number)
+        {
+            List<Competitor> competitors = new List<Competitor>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT top (@ID) Competitors.ID, FirstName, LastName, Sex, Teams.TeamName FROM Competitors " +
+                    " join Teams on Competitors.teamid = Teams.id order by newID()";
+                using (var command = new SqlCommand(query, con))
+                {
+                    command.Parameters.AddWithValue("@Id", number);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            competitors.Add(new Competitor()
+                            {
+                                CompetitorId = (int)reader[0],
+                                FirstName = (string)reader[1],
+                                LastName = (string)reader[2],
+                                Sex = (string)reader[3],
+                                Team = (string)reader[4]
+                            });
+                        }
+                    }
+                }
             }
             return competitors;
         }
 
+        public bool IfExist(string firstName, string lastName)
+        {
+            List<Competitor> competitors = new List<Competitor>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT firstName,LastName FROM Competitors where firstName = @Firstname and LastName = @LastName";
+                using (var command = new SqlCommand(query, con))
+                {
+                    command.Parameters.AddWithValue("@Firstname", firstName);
+                    command.Parameters.AddWithValue("@LastName", lastName);
+
+                    if (command.ExecuteScalar() != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
 
         public bool DeleteCompetitor(int insert)
         {
@@ -161,19 +241,21 @@ namespace MyExample
         #endregion
 
         #region Competitions
-        public bool CreateCompetition(Guid id, string competitionName, string location, SelectionRange date)
+        public bool CreateCompetition(Guid id, string competitionName, string location, DateTime dateStart, DateTime dateEnd, int competitors)
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Competitions (Guid, CompetitionName, Location, DateStart, DateEnd, Finished) VALUES (@Guid, @CompetitionName, @Location, @DateStart, @DateEnd, @Finished)"))
+                using (SqlCommand sc = new SqlCommand("insert into Competitions (Guid, CompetitionName, Location,  DateStart, DateEnd, Finished, Competitors) " +
+                    "VALUES (@Guid, @CompetitionName, @Location, @DateStart, @DateEnd, @Finished, @Competitors)"))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@Guid", id);
                     sc.Parameters.AddWithValue("@CompetitionName", competitionName);
                     sc.Parameters.AddWithValue("@Location", location);
-                    sc.Parameters.AddWithValue("@DateStart", date.Start);
-                    sc.Parameters.AddWithValue("@DateEnd", date.End);
+                    sc.Parameters.AddWithValue("@DateStart", dateStart);
+                    sc.Parameters.AddWithValue("@DateEnd", dateEnd);
                     sc.Parameters.AddWithValue("@Finished", 0);
+                    sc.Parameters.AddWithValue("@Competitors", competitors);
 
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
@@ -198,7 +280,7 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT Id, CompetitionName,Location, DateStart, DateEnd, Finished from Competitions";
+                string query = "SELECT Id, CompetitionName,Location, DateStart, DateEnd, Finished, Competitors from Competitions";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -208,12 +290,13 @@ namespace MyExample
                         {
                             competitions.Add(new Competition()
                             {
-                                ID = (int)reader[0],
+                                CompetitionId = (int)reader[0],
                                 CompetitionName = (string)reader[1],
                                 Location = (string)reader[2],
                                 DateStart = DateTime.Parse(reader[3].ToString()),
                                 DateEnd = DateTime.Parse(reader[4].ToString()),
-                                Finished = reader.GetBoolean(5)
+                                Finished = reader.GetBoolean(5),
+                                Competitors = (int)reader[6]
                             });
                         }
                     }
@@ -269,6 +352,38 @@ namespace MyExample
                 reader.Close();
             }
             return competitions;
+        }
+
+        public bool EditCompetition(int ID, string competitionName, string location, DateTime dateStart, DateTime dateEnd, int competitors)
+        {
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitions set CompetitionName = @CompetitionName, Location = @Location, " +
+                    "  DateStart = @DateStart, DateEnd = @DateEnd, Finished = @Finished, Competitors = @Competitors " +
+                    " where ID = @ID SET ROWCOUNT 0"))
+                {
+                    sc.Connection = con;
+                    sc.Parameters.AddWithValue("@ID", ID);
+                    sc.Parameters.AddWithValue("@CompetitionName", competitionName);
+                    sc.Parameters.AddWithValue("@Location", location);
+                    sc.Parameters.AddWithValue("@DateStart", dateStart);
+                    sc.Parameters.AddWithValue("@DateEnd", dateEnd);
+                    sc.Parameters.AddWithValue("@Finished", 0);
+                    sc.Parameters.AddWithValue("@Competitors", competitors);
+
+                    con.Open();
+                    if (sc.ExecuteNonQuery() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record failed");
+                        return false;
+                    }
+
+                }
+            }
         }
         #endregion
 
@@ -338,15 +453,17 @@ namespace MyExample
         #endregion
 
         #region Results
-        public List<Result> GetResults(int competitionId, string sex)
+        public List<Competitor> GetResults(int competitionId, string sex)
         {
-            List<Result> results = new List<Result>();
+            List<Competitor> competitors = new List<Competitor>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT [FirstName],[LastName], Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
+                string query = "SELECT [FirstName],[LastName], sex, TeamId, Results.TimeInMs, TeamName, Competitors.ID " +
+                    " FROM Results join competitors on competitors.id = Results.competitorid " +
                     " join competitions on competitions.id = CompetitionID " +
+                    " join Teams on Competitors.teamid = Teams.id " +
                     " where CompetitionID = @CompetitionID and competitors.sex = @Sex";
 
                 using (var command = new SqlCommand(query,con))
@@ -358,35 +475,41 @@ namespace MyExample
                     {
                         while (reader.Read())
                         {
-                            results.Add(new Result
+                            competitors.Add(new Competitor
                             {
+                                TeamId = (int)reader[3],
+                                CompetitorId = (int)reader[6],
                                 FirstName = (string)reader[0],
                                 LastName = reader[1].ToString(),
-                                TimeInMs = TimeSpan.Parse(reader[2].ToString())
+                                Sex = (string)reader[2],
+                                Team = (string)reader[5],
+                                Time = TimeSpan.Parse(reader[4].ToString())
                             });
                         }
                     }
                 }
             }
 
-            return results;
+            return competitors;
         }
 
 
-        public bool InsertResults(int id, TimeSpan time, string datetime, int competitionID)
+        public bool InsertResults(int id, TimeSpan time, string datetime, int competitionID, int position)
         {
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 try
                 {
-                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID)", con))
+                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID, Position) " +
+                        "VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID, @Position)", con))
                     {
                         sc.Connection = con;
                         sc.Parameters.AddWithValue("@CompetitorID", id);
                         sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
                         sc.Parameters.AddWithValue("@StartTime", datetime.ToString());
                         sc.Parameters.AddWithValue("@CompetitionID", competitionID);
+                        sc.Parameters.AddWithValue("@Position", position);
 
                         con.Open();
 
@@ -398,7 +521,6 @@ namespace MyExample
                         {
                             return false;
                         }
-                      
                     }
 
                 }
@@ -406,35 +528,41 @@ namespace MyExample
                 {
                     if (ex.Number == 2627)
                     {
+                        MessageBox.Show("Error");
                     }
-
                 }
                 return true;
             }
         }
 
-        public List<Skier> GetSkiersByTime(int competitionID, string sex)
+        public List<Competitor> GetSkiersByTime(int competitionID, string sex)
         {
-            List<Skier> skiers = new List<Skier>();
+            List<Competitor> skiers = new List<Competitor>();
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT [ID],[FirstName],[LastName],Results.TimeInMs FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = @Sex and competitionID = @CompetitionID order by timeinms", con);
+                string query = "SELECT [ID],[FirstName],[LastName], dense_rank() over (order by Results.timeinms asc) " +
+                    "FROM Results join competitors on competitors.id = Results.competitorid " +
+                    "where competitors.sex = @Sex and competitionID = @CompetitionID order by timeinms";
+                using (var command = new SqlCommand(query, con))
+                {
+                    command.Parameters.AddWithValue("@Sex", sex);
+                    command.Parameters.AddWithValue("@CompetitionID", competitionID);
 
-                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
-                sc.SelectCommand.Parameters.AddWithValue("@CompetitionID", competitionID);
-
-                DataTable dt = new DataTable();
-                sc.Fill(dt);
-                skiers = (from DataRow dr in dt.Rows
-                          select new Skier()
-                          {
-                              ID = Convert.ToInt32(dr["ID"].ToString()),
-                              Name = dr["FirstName"].ToString(),
-                              LastName = dr["LastName"].ToString(),
-                              Time = TimeSpan.Parse(dr["TimeInMs"].ToString())
-                          }).ToList();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            skiers.Add(new Competitor
+                            {
+                                CompetitorId = (int)reader[0],
+                                FirstName = (string)reader[1],
+                                LastName = reader[2].ToString(),
+                                Position = int.Parse(reader[3].ToString())
+                            });
+                        }
+                    }
+                }
 
             }
 
@@ -448,26 +576,26 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID) ", con))
-                {
-                    sc.Connection = con;
-                    sc.Parameters.AddWithValue("@CompetitorID", id);
-                    sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
-                    sc.Parameters.AddWithValue("@StartTime", datetime.ToString());
-                    sc.Parameters.AddWithValue("@CompetitionID", competitionID);
-
-
-
-                    con.Open();
-                    if (sc.ExecuteNonQuery() > 0)
+                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID) ", con))
                     {
-                        return true;
+                        sc.Connection = con;
+                        sc.Parameters.AddWithValue("@CompetitorID", id);
+                        sc.Parameters.AddWithValue("@TimeInMs", time.ToString());
+                        sc.Parameters.AddWithValue("@StartTime", datetime.ToString());
+                        sc.Parameters.AddWithValue("@CompetitionID", competitionID);
+
+
+
+                        con.Open();
+                        if (sc.ExecuteNonQuery() > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
-                }
             }
         }
 
@@ -563,9 +691,8 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT TeamID, TeamName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
-                    "join competitors on competitors.id = Results.competitorid " +
-                    "join Teams on competitors.teamid = Teams.id group by teamID, TeamName order by [AverageTime]", con);
+                SqlDataAdapter sc = new SqlDataAdapter("select dense_rank() over (order by sum(points) desc) as ' ', teamID, TeamName, sum(points) Points from Competitors " +
+                    "join Teams on teams.id = teamid group by TeamID, TeamName", con);
 
                 sc.Fill(dt);
 
@@ -580,9 +707,9 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime from Results " +
-                    "join competitors on competitors.id = Results.competitorid where competitors.sex = @Sex " +
-                    "group by ID,FirstName, LastName order by [AverageTime]", con);
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT dense_rank() over (order by Points desc) as ' ', FirstName, LastName, Points from Competitors " +
+                    " where competitors.sex = @Sex " +
+                    "group by Points, ID,FirstName, LastName", con);
 
                 sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
                 sc.Fill(dt);
@@ -607,6 +734,33 @@ namespace MyExample
             return dt;
         }
 
+        public List<Location> Locations()
+        {
+            List<Location> locations = new List<Location>();
+
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                con.Open();
+                string query = "SELECT LocationID, Location FROM Locations";
+
+                using (var command = new SqlCommand(query, con))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            locations.Add(new Location()
+                            {
+                                LocationID = (int)reader[0],
+                                CompetitionLocation = (string)reader[1],
+                            });
+                        }
+                    }
+                }
+
+            }
+            return locations;
+        }
     }
 }
 

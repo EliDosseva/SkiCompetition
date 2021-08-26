@@ -25,7 +25,7 @@ namespace MyExample
 
         private void TeamMembers_Load(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(skierForm.dataGridViewTeamRank.SelectedRows[0].Cells[0].Value);
+            int id = Convert.ToInt32(skierForm.dataGridViewTeamRank.SelectedRows[0].Cells[1].Value);
             foreach (var item in dataProvider.GetTeamMembers(id))
             {
                 ListBoxTeamMembers.Items.Add(item);

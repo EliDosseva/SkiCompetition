@@ -68,6 +68,7 @@ namespace MyExample
             // 
             // dataGridViewMale
             // 
+            this.dataGridViewMale.AllowUserToAddRows = false;
             this.dataGridViewMale.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewMale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewMale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -75,8 +76,11 @@ namespace MyExample
             this.dataGridViewMale.Location = new System.Drawing.Point(4, 73);
             this.dataGridViewMale.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewMale.Name = "dataGridViewMale";
+            this.dataGridViewMale.ReadOnly = true;
+            this.dataGridViewMale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMale.Size = new System.Drawing.Size(517, 150);
             this.dataGridViewMale.TabIndex = 19;
+            this.dataGridViewMale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMale_CellDoubleClick);
             // 
             // labelMaleResults
             // 
@@ -95,6 +99,7 @@ namespace MyExample
             // 
             // dataGridViewFemale
             // 
+            this.dataGridViewFemale.AllowUserToAddRows = false;
             this.dataGridViewFemale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -105,8 +110,11 @@ namespace MyExample
             this.dataGridViewFemale.Location = new System.Drawing.Point(4, 66);
             this.dataGridViewFemale.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
+            this.dataGridViewFemale.ReadOnly = true;
+            this.dataGridViewFemale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFemale.Size = new System.Drawing.Size(513, 143);
             this.dataGridViewFemale.TabIndex = 21;
+            this.dataGridViewFemale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFemale_CellDoubleClick);
             // 
             // labelFemaleResults
             // 
@@ -294,25 +302,25 @@ namespace MyExample
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.textBoxLocation);
-            this.panel1.Location = new System.Drawing.Point(929, 3);
+            this.panel1.Location = new System.Drawing.Point(910, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 72);
+            this.panel1.Size = new System.Drawing.Size(203, 72);
             this.panel1.TabIndex = 3006;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 89F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel1.Controls.Add(this.textBoxDateStart, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBoxDateEnd, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 36);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 36);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(181, 33);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(197, 33);
             this.tableLayoutPanel1.TabIndex = 3006;
             // 
             // textBoxDateStart
@@ -323,7 +331,7 @@ namespace MyExample
             this.textBoxDateStart.Location = new System.Drawing.Point(3, 3);
             this.textBoxDateStart.Name = "textBoxDateStart";
             this.textBoxDateStart.ReadOnly = true;
-            this.textBoxDateStart.Size = new System.Drawing.Size(68, 15);
+            this.textBoxDateStart.Size = new System.Drawing.Size(83, 15);
             this.textBoxDateStart.TabIndex = 3002;
             this.textBoxDateStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -335,7 +343,7 @@ namespace MyExample
             this.textBoxDateEnd.Location = new System.Drawing.Point(110, 3);
             this.textBoxDateEnd.Name = "textBoxDateEnd";
             this.textBoxDateEnd.ReadOnly = true;
-            this.textBoxDateEnd.Size = new System.Drawing.Size(68, 15);
+            this.textBoxDateEnd.Size = new System.Drawing.Size(84, 15);
             this.textBoxDateEnd.TabIndex = 3004;
             this.textBoxDateEnd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -343,9 +351,9 @@ namespace MyExample
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(77, 0);
+            this.label1.Location = new System.Drawing.Point(92, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 33);
+            this.label1.Size = new System.Drawing.Size(12, 33);
             this.label1.TabIndex = 3005;
             this.label1.Text = "-";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -359,7 +367,7 @@ namespace MyExample
             this.textBoxLocation.Location = new System.Drawing.Point(0, 0);
             this.textBoxLocation.Name = "textBoxLocation";
             this.textBoxLocation.ReadOnly = true;
-            this.textBoxLocation.Size = new System.Drawing.Size(184, 17);
+            this.textBoxLocation.Size = new System.Drawing.Size(203, 17);
             this.textBoxLocation.TabIndex = 3003;
             this.textBoxLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -401,6 +409,7 @@ namespace MyExample
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormRank";
             this.Text = "Results";
+            this.Load += new System.EventHandler(this.FormRank_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemale)).EndInit();
             this.splitContainer.Panel1.ResumeLayout(false);
