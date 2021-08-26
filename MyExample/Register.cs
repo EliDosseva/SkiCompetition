@@ -27,25 +27,46 @@ namespace MyExample
 
         private void Register_Load(object sender, EventArgs e)
         {
-
-            
-            comboBoxTeam.ValueMember = "ID";
+            comboBoxTeam.ValueMember = "TeamID";
             comboBoxTeam.DisplayMember = "TeamName";
-            comboBoxTeam.SelectedIndex = -1;
             comboBoxTeam.DataSource = dataProvider.TeamSelection();
+            comboBoxTeam.SelectedIndex = -1;
         }
 
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
-          skier = new Skier(textBoxName.Text, textBoxLastName.Text);
-          skier.Team = comboBoxTeam.Text;
+          //skier = new Skier(textBoxName.Text, textBoxLastName.Text);
+          //skier.Team = comboBoxTeam.Text;
+          var ifExist = dataProvider.IfExist(textBoxName.Text,textBoxLastName.Text);
 
-          var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
+          if (textBoxName.Text == "" || textBoxLastName.Text == "" || comboBoxSex.Text == "" || comboBoxTeam.Text == "")
+          {
+                MessageBox.Show("Please fill in all fields", "Error",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+          }
+            var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
 
-          int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
+            int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
 
-          dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team);
-          skierForm.RefreshGrid();
+            if (ifExist)
+            {
+                {
+                    DialogResult dialogResult = MessageBox.Show(string.Format("Competitor {0} {1} already exist! Do you want to register new competitor with these names?",
+                        textBoxName.Text, textBoxLastName.Text), "Allert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+            }
+
+          dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team, 0);
+            
+            skierForm.RefreshGrid();
           DialogResult = DialogResult.OK;
         }
 

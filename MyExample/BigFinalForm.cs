@@ -24,5 +24,6 @@ namespace MyExample
             dataGridViewFemaleResults.DataSource = dataProvider.BigFinalResults("female");
             dataGridViewMaleResults.DataSource = dataProvider.BigFinalResults("male");
         }
+
     }
 }

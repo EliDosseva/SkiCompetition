@@ -117,6 +117,7 @@ namespace MyExample
             // comboBoxSex
             // 
             this.comboBoxSex.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSex.FormattingEnabled = true;
             this.comboBoxSex.Items.AddRange(new object[] {
             "female",
@@ -129,6 +130,7 @@ namespace MyExample
             // comboBoxTeam
             // 
             this.comboBoxTeam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBoxTeam.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTeam.FormattingEnabled = true;
             this.comboBoxTeam.Location = new System.Drawing.Point(3, 138);
             this.comboBoxTeam.Name = "comboBoxTeam";

@@ -13,6 +13,7 @@ namespace MyExample
         private string name;
         private string lastName;
         private string sex;
+        private string team;
 
 
         public Skier()
@@ -65,10 +66,16 @@ namespace MyExample
             this.lastName = lastName;
         }
 
-
-
-        public string Team { get; set; }
-        public override string ToString()
+        public string Team
+        {
+            get => team;
+            set
+            {
+                team = value;
+            }
+        }
+           
+    public override string ToString()
         {
             return $"{this.name} {this.lastName}";
         }

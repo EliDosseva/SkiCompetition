@@ -83,6 +83,7 @@ namespace MyExample
             // 
             // dataGridViewFemale
             // 
+            this.dataGridViewFemale.AllowUserToAddRows = false;
             this.dataGridViewFemale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -90,17 +91,18 @@ namespace MyExample
             this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewFemale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFemale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemale.Location = new System.Drawing.Point(472, 72);
+            this.dataGridViewFemale.Location = new System.Drawing.Point(467, 72);
             this.dataGridViewFemale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
-            this.dataGridViewFemale.Size = new System.Drawing.Size(457, 323);
+            this.dataGridViewFemale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFemale.Size = new System.Drawing.Size(453, 323);
             this.dataGridViewFemale.TabIndex = 3;
             // 
             // ButtonStart
             // 
             this.ButtonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButtonStart.Location = new System.Drawing.Point(768, 485);
+            this.ButtonStart.Location = new System.Drawing.Point(759, 485);
             this.ButtonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ButtonStart.Name = "ButtonStart";
             this.ButtonStart.Size = new System.Drawing.Size(170, 34);
@@ -114,7 +116,7 @@ namespace MyExample
             this.labelQualifiersHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelQualifiersHeader.AutoSize = true;
             this.labelQualifiersHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelQualifiersHeader.Location = new System.Drawing.Point(362, 24);
+            this.labelQualifiersHeader.Location = new System.Drawing.Point(359, 24);
             this.labelQualifiersHeader.Name = "labelQualifiersHeader";
             this.labelQualifiersHeader.Size = new System.Drawing.Size(218, 20);
             this.labelQualifiersHeader.TabIndex = 5;
@@ -125,7 +127,7 @@ namespace MyExample
             this.labelFemale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelFemale.AutoSize = true;
             this.labelFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFemale.Location = new System.Drawing.Point(668, 24);
+            this.labelFemale.Location = new System.Drawing.Point(661, 24);
             this.labelFemale.Name = "labelFemale";
             this.labelFemale.Size = new System.Drawing.Size(64, 20);
             this.labelFemale.TabIndex = 7;
@@ -151,11 +153,12 @@ namespace MyExample
             this.tableLayoutPanelQualifiers.RowCount = 2;
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84F));
-            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(935, 402);
+            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(926, 402);
             this.tableLayoutPanelQualifiers.TabIndex = 8;
             // 
             // dataGridViewMale
             // 
+            this.dataGridViewMale.AllowUserToAddRows = false;
             this.dataGridViewMale.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewMale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewMale.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -164,7 +167,8 @@ namespace MyExample
             this.dataGridViewMale.Location = new System.Drawing.Point(6, 72);
             this.dataGridViewMale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewMale.Name = "dataGridViewMale";
-            this.dataGridViewMale.Size = new System.Drawing.Size(457, 323);
+            this.dataGridViewMale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewMale.Size = new System.Drawing.Size(452, 323);
             this.dataGridViewMale.TabIndex = 2;
             // 
             // labelMale
@@ -172,7 +176,7 @@ namespace MyExample
             this.labelMale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMale.AutoSize = true;
             this.labelMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMale.Location = new System.Drawing.Point(214, 24);
+            this.labelMale.Location = new System.Drawing.Point(212, 24);
             this.labelMale.Name = "labelMale";
             this.labelMale.Size = new System.Drawing.Size(40, 20);
             this.labelMale.TabIndex = 6;
@@ -270,7 +274,8 @@ namespace MyExample
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "CompetitionSelectForm";
-            this.Text = "SelectCompetitions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Competitions selector";
             this.Load += new System.EventHandler(this.CompetitionSelectForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemale)).EndInit();
             this.tableLayoutPanelQualifiers.ResumeLayout(false);
