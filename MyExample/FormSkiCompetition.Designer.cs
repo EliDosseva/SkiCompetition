@@ -32,9 +32,12 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSkiCompetition));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelCompetitors = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewCompetitors = new System.Windows.Forms.DataGridView();
+            this.ImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.labelListOfCompetitors = new System.Windows.Forms.Label();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.Teams = new System.Windows.Forms.TabPage();
@@ -56,9 +59,6 @@ namespace MyExample
             this.dataGridViewFemaleAvg = new System.Windows.Forms.DataGridView();
             this.dataGridViewMaleAvg = new System.Windows.Forms.DataGridView();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.competitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.competitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerCompetitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.competotorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,12 +69,15 @@ namespace MyExample
             this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.competitorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.registerCompetitorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItemCompetitor = new System.Windows.Forms.ToolStripMenuItem();
-            this.competitionToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItemCompetition = new System.Windows.Forms.ToolStripMenuItem();
-            this.ImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ToolStripMenuCompetitor = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuCompetitorRegister = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuCompetitorEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuCompetition = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuCompetitionEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuCompetitionResults = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuStripEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuStripResults = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -93,6 +96,7 @@ namespace MyExample
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemaleAvg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.ContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
@@ -156,6 +160,16 @@ namespace MyExample
             this.dataGridViewCompetitors.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCompetitors_CellClick);
             this.dataGridViewCompetitors.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCompetitors_CellDoubleClick);
             this.dataGridViewCompetitors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewCompetitors_KeyDown);
+            // 
+            // ImageColumn
+            // 
+            this.ImageColumn.FillWeight = 30F;
+            this.ImageColumn.HeaderText = "";
+            this.ImageColumn.Image = global::MyExample.Properties.Resources.delete;
+            this.ImageColumn.Name = "ImageColumn";
+            this.ImageColumn.ReadOnly = true;
+            this.ImageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ImageColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // labelListOfCompetitors
             // 
@@ -275,9 +289,9 @@ namespace MyExample
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(254, 20);
+            this.label1.Size = new System.Drawing.Size(234, 20);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Double click to choose competition";
+            this.label1.Text = "Double click to start competition";
             // 
             // listBoxCompetitions
             // 
@@ -426,6 +440,7 @@ namespace MyExample
             this.dataGridViewFemaleAvg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFemaleAvg.Size = new System.Drawing.Size(350, 424);
             this.dataGridViewFemaleAvg.TabIndex = 26;
+            this.dataGridViewFemaleAvg.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewFemaleAvg_CellDoubleClick);
             // 
             // dataGridViewMaleAvg
             // 
@@ -443,30 +458,13 @@ namespace MyExample
             this.dataGridViewMaleAvg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMaleAvg.Size = new System.Drawing.Size(349, 424);
             this.dataGridViewMaleAvg.TabIndex = 28;
+            this.dataGridViewMaleAvg.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMaleAvg_CellDoubleClick);
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // competitorToolStripMenuItem
-            // 
-            this.competitorToolStripMenuItem.Name = "competitorToolStripMenuItem";
-            this.competitorToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
-            this.competitorToolStripMenuItem.Text = "&Competitor";
-            // 
-            // competitionToolStripMenuItem
-            // 
-            this.competitionToolStripMenuItem.Name = "competitionToolStripMenuItem";
-            this.competitionToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
-            this.competitionToolStripMenuItem.Text = "&Competition";
-            // 
-            // registerCompetitorToolStripMenuItem
-            // 
-            this.registerCompetitorToolStripMenuItem.Name = "registerCompetitorToolStripMenuItem";
-            this.registerCompetitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.registerCompetitorToolStripMenuItem.Text = "Register competitor";
             // 
             // editToolStripMenuItem
             // 
@@ -520,8 +518,8 @@ namespace MyExample
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem3,
-            this.competitorToolStripMenuItem1,
-            this.competitionToolStripMenuItem2});
+            this.ToolStripMenuCompetitor,
+            this.ToolStripMenuCompetition});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1426, 24);
@@ -534,55 +532,75 @@ namespace MyExample
             this.fileToolStripMenuItem3.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem3.Text = "&File";
             // 
-            // competitorToolStripMenuItem1
+            // ToolStripMenuCompetitor
             // 
-            this.competitorToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registerCompetitorToolStripMenuItem2,
-            this.editToolStripMenuItemCompetitor});
-            this.competitorToolStripMenuItem1.Name = "competitorToolStripMenuItem1";
-            this.competitorToolStripMenuItem1.Size = new System.Drawing.Size(80, 20);
-            this.competitorToolStripMenuItem1.Text = "&Competitor";
-            this.competitorToolStripMenuItem1.DropDownOpening += new System.EventHandler(this.CompetitorToolStripMenuItem1_DropDownOpening);
+            this.ToolStripMenuCompetitor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuCompetitorRegister,
+            this.ToolStripMenuCompetitorEdit});
+            this.ToolStripMenuCompetitor.Name = "ToolStripMenuCompetitor";
+            this.ToolStripMenuCompetitor.Size = new System.Drawing.Size(80, 20);
+            this.ToolStripMenuCompetitor.Text = "&Competitor";
+            this.ToolStripMenuCompetitor.DropDownOpening += new System.EventHandler(this.ToolStripMenuCompetitor_DropDownOpening);
             // 
-            // registerCompetitorToolStripMenuItem2
+            // ToolStripMenuCompetitorRegister
             // 
-            this.registerCompetitorToolStripMenuItem2.Name = "registerCompetitorToolStripMenuItem2";
-            this.registerCompetitorToolStripMenuItem2.Size = new System.Drawing.Size(178, 22);
-            this.registerCompetitorToolStripMenuItem2.Text = "Register competitor";
-            this.registerCompetitorToolStripMenuItem2.Click += new System.EventHandler(this.RegisterCompetitorToolStripMenuItem2_Click);
+            this.ToolStripMenuCompetitorRegister.Name = "ToolStripMenuCompetitorRegister";
+            this.ToolStripMenuCompetitorRegister.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitorRegister.Text = "Register competitor";
+            this.ToolStripMenuCompetitorRegister.Click += new System.EventHandler(this.ToolStripMenuCompetitorRegister_Click);
             // 
-            // editToolStripMenuItemCompetitor
+            // ToolStripMenuCompetitorEdit
             // 
-            this.editToolStripMenuItemCompetitor.Name = "editToolStripMenuItemCompetitor";
-            this.editToolStripMenuItemCompetitor.Size = new System.Drawing.Size(178, 22);
-            this.editToolStripMenuItemCompetitor.Text = "Edit";
-            this.editToolStripMenuItemCompetitor.Click += new System.EventHandler(this.EditToolStripMenuItemCompetitor_Click);
+            this.ToolStripMenuCompetitorEdit.Name = "ToolStripMenuCompetitorEdit";
+            this.ToolStripMenuCompetitorEdit.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitorEdit.Text = "Edit";
+            this.ToolStripMenuCompetitorEdit.Click += new System.EventHandler(this.ToolStripMenuCompetitorEdit_Click);
             // 
-            // competitionToolStripMenuItem2
+            // ToolStripMenuCompetition
             // 
-            this.competitionToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItemCompetition});
-            this.competitionToolStripMenuItem2.Name = "competitionToolStripMenuItem2";
-            this.competitionToolStripMenuItem2.Size = new System.Drawing.Size(86, 20);
-            this.competitionToolStripMenuItem2.Text = "&Competition";
-            this.competitionToolStripMenuItem2.DropDownOpening += new System.EventHandler(this.CompetitionToolStripMenuItem2_DropDownOpening);
+            this.ToolStripMenuCompetition.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuCompetitionEdit,
+            this.ToolStripMenuCompetitionResults});
+            this.ToolStripMenuCompetition.Name = "ToolStripMenuCompetition";
+            this.ToolStripMenuCompetition.Size = new System.Drawing.Size(86, 20);
+            this.ToolStripMenuCompetition.Text = "&Competition";
+            this.ToolStripMenuCompetition.DropDownOpening += new System.EventHandler(this.ToolStripMenuCompetition_DropDownOpening);
             // 
-            // editToolStripMenuItemCompetition
+            // ToolStripMenuCompetitionEdit
             // 
-            this.editToolStripMenuItemCompetition.Name = "editToolStripMenuItemCompetition";
-            this.editToolStripMenuItemCompetition.Size = new System.Drawing.Size(180, 22);
-            this.editToolStripMenuItemCompetition.Text = "Edit";
-            this.editToolStripMenuItemCompetition.Click += new System.EventHandler(this.EditToolStripMenuItemCompetition_Click);
+            this.ToolStripMenuCompetitionEdit.Name = "ToolStripMenuCompetitionEdit";
+            this.ToolStripMenuCompetitionEdit.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitionEdit.Text = "Edit";
+            this.ToolStripMenuCompetitionEdit.Click += new System.EventHandler(this.ToolStripMenuCompetitionEdit_Click);
             // 
-            // ImageColumn
+            // ToolStripMenuCompetitionResults
             // 
-            this.ImageColumn.FillWeight = 30F;
-            this.ImageColumn.HeaderText = "";
-            this.ImageColumn.Image = global::MyExample.Properties.Resources.delete;
-            this.ImageColumn.Name = "ImageColumn";
-            this.ImageColumn.ReadOnly = true;
-            this.ImageColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ImageColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ToolStripMenuCompetitionResults.Name = "ToolStripMenuCompetitionResults";
+            this.ToolStripMenuCompetitionResults.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitionResults.Text = "Results";
+            this.ToolStripMenuCompetitionResults.Click += new System.EventHandler(this.ToolStripMenuCompetitionResults_Click);
+            // 
+            // ContextMenuStrip
+            // 
+            this.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuStripEdit,
+            this.ContextMenuStripResults});
+            this.ContextMenuStrip.Name = "contextMenuStrip1";
+            this.ContextMenuStrip.Size = new System.Drawing.Size(112, 48);
+            // 
+            // ContextMenuStripEdit
+            // 
+            this.ContextMenuStripEdit.Name = "ContextMenuStripEdit";
+            this.ContextMenuStripEdit.Size = new System.Drawing.Size(111, 22);
+            this.ContextMenuStripEdit.Text = "Edit";
+            this.ContextMenuStripEdit.Click += new System.EventHandler(this.ContextMenuStripEdit_Click);
+            // 
+            // ContextMenuStripResults
+            // 
+            this.ContextMenuStripResults.Name = "ContextMenuStripResults";
+            this.ContextMenuStripResults.Size = new System.Drawing.Size(111, 22);
+            this.ContextMenuStripResults.Text = "Results";
+            this.ContextMenuStripResults.Click += new System.EventHandler(this.ContextMenuStripResults_Click);
             // 
             // FormSkiCompetition
             // 
@@ -593,6 +611,7 @@ namespace MyExample
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -623,6 +642,7 @@ namespace MyExample
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.ContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -653,9 +673,6 @@ namespace MyExample
         private Panel panel1;
         private ListBox listBox1;
         private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem competitorToolStripMenuItem;
-        private ToolStripMenuItem registerCompetitorToolStripMenuItem;
-        private ToolStripMenuItem competitionToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem fileToolStripMenuItem1;
         private ToolStripMenuItem competotorToolStripMenuItem;
@@ -666,12 +683,16 @@ namespace MyExample
         private ToolStripMenuItem fileToolStripMenuItem2;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem3;
-        private ToolStripMenuItem competitorToolStripMenuItem1;
-        private ToolStripMenuItem registerCompetitorToolStripMenuItem2;
-        private ToolStripMenuItem editToolStripMenuItemCompetitor;
-        private ToolStripMenuItem competitionToolStripMenuItem2;
-        private ToolStripMenuItem editToolStripMenuItemCompetition;
+        private ToolStripMenuItem ToolStripMenuCompetitor;
+        private ToolStripMenuItem ToolStripMenuCompetitorRegister;
+        private ToolStripMenuItem ToolStripMenuCompetitorEdit;
+        private ToolStripMenuItem ToolStripMenuCompetition;
+        private ToolStripMenuItem ToolStripMenuCompetitionEdit;
         private DataGridViewImageColumn ImageColumn;
+        private ToolStripMenuItem ToolStripMenuCompetitionResults;
+        private ContextMenuStrip ContextMenuStrip;
+        private ToolStripMenuItem ContextMenuStripEdit;
+        private ToolStripMenuItem ContextMenuStripResults;
     }
 }
 

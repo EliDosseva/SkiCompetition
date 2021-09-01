@@ -30,6 +30,7 @@ namespace MyExample
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCompetition));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendarEdit = new System.Windows.Forms.MonthCalendar();
@@ -71,7 +72,7 @@ namespace MyExample
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(239, 424);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(245, 414);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // label1
@@ -80,7 +81,7 @@ namespace MyExample
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(233, 13);
+            this.label1.Size = new System.Drawing.Size(239, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Name of competition";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -100,7 +101,7 @@ namespace MyExample
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label3.Location = new System.Drawing.Point(3, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(233, 13);
+            this.label3.Size = new System.Drawing.Size(239, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Period";
             // 
@@ -109,7 +110,7 @@ namespace MyExample
             this.textBoxEditCompetitionName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxEditCompetitionName.Location = new System.Drawing.Point(3, 23);
             this.textBoxEditCompetitionName.Name = "textBoxEditCompetitionName";
-            this.textBoxEditCompetitionName.Size = new System.Drawing.Size(233, 20);
+            this.textBoxEditCompetitionName.Size = new System.Drawing.Size(239, 20);
             this.textBoxEditCompetitionName.TabIndex = 0;
             // 
             // label2
@@ -118,7 +119,7 @@ namespace MyExample
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label2.Location = new System.Drawing.Point(3, 57);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(233, 13);
+            this.label2.Size = new System.Drawing.Size(239, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Location";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -126,9 +127,9 @@ namespace MyExample
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Location = new System.Drawing.Point(142, 387);
+            this.buttonOK.Location = new System.Drawing.Point(148, 387);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(94, 34);
+            this.buttonOK.Size = new System.Drawing.Size(94, 24);
             this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -148,7 +149,7 @@ namespace MyExample
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label4.Location = new System.Drawing.Point(3, 320);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(233, 13);
+            this.label4.Size = new System.Drawing.Size(239, 13);
             this.label4.TabIndex = 12;
             this.label4.Text = "Number of competitors";
             // 
@@ -164,8 +165,10 @@ namespace MyExample
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 424);
+            this.ClientSize = new System.Drawing.Size(245, 414);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditCompetition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditCompetition";

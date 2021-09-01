@@ -215,7 +215,7 @@ namespace MyExample
                 int rows = command.ExecuteNonQuery();
                 if (rows > 0)
                 {
-                    MessageBox.Show("Deletion Successfull");
+                    MessageBox.Show("Deletion Successfull", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
                 else
@@ -700,22 +700,61 @@ namespace MyExample
             return dt;
         }
 
-        public DataTable AverageTime(string sex)
+        //public DataTable AverageTime(string sex)
+        //{
+        //    DataTable dt = new DataTable();
+
+        //    using (SqlConnection con = new SqlConnection(_connectionString))
+        //    {
+        //        con.Open();
+        //        SqlDataAdapter sc = new SqlDataAdapter("SELECT dense_rank() over (order by Points desc) as ' ', FirstName, LastName, Points from Competitors " +
+        //            " where competitors.sex = @Sex " +
+        //            "group by Points, ID,FirstName, LastName", con);
+
+        //        sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
+        //        sc.Fill(dt);
+
+        //    }
+        //    return dt;
+        //}
+
+        public List<Competitor> AverageTime(string sex)
         {
-            DataTable dt = new DataTable();
+            List<Competitor> competitors = new List<Competitor>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT dense_rank() over (order by Points desc) as ' ', FirstName, LastName, Points from Competitors " +
-                    " where competitors.sex = @Sex " +
-                    "group by Points, ID,FirstName, LastName", con);
+                string query = "SELECT dense_rank() over (order by Points desc) as ' ', Competitors.ID, [FirstName],[LastName], sex, TeamId, TeamName,  " +
+                    " Points from Competitors " +
+                    " join Teams on Competitors.teamid = Teams.id " +
+                    " where competitors.sex = @Sex";
 
-                sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
-                sc.Fill(dt);
+                using (var command = new SqlCommand(query, con))
+                {
+                    command.Parameters.AddWithValue("@Sex", sex);
 
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            competitors.Add(new Competitor
+                            {
+                                Position = int.Parse(reader[0].ToString()),
+                                CompetitorId = (int)reader[1],
+                                TeamId = (int)reader[5],
+                                FirstName = (string)reader[2],
+                                LastName = reader[3].ToString(),
+                                Sex = (string)reader[4],
+                                Team = (string)reader[6],
+                                Points = (int)reader[7]
+                            });
+                        }
+                    }
+                }
             }
-            return dt;
+
+            return competitors;
         }
         #endregion
         public DataTable TrackBar()

@@ -52,7 +52,7 @@ namespace MyExample
             {
                 {
                     DialogResult dialogResult = MessageBox.Show(string.Format("Competitor {0} {1} already exist! Do you want to register new competitor with these names?",
-                        textBoxName.Text, textBoxLastName.Text), "Allert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                        textBoxName.Text, textBoxLastName.Text), "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (dialogResult == DialogResult.Yes)
                     {
                         this.Close();

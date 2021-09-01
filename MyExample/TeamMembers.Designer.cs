@@ -29,6 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeamMembers));
             this.ListBoxTeamMembers = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonOK = new System.Windows.Forms.Button();
@@ -78,6 +79,7 @@ namespace MyExample
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(270, 227);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeamMembers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Team members";
