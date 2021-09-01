@@ -29,6 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRank));
             this.dataGridViewMale = new System.Windows.Forms.DataGridView();
             this.labelMaleResults = new System.Windows.Forms.Label();
             this.dataGridViewFemale = new System.Windows.Forms.DataGridView();
@@ -80,7 +81,7 @@ namespace MyExample
             this.dataGridViewMale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewMale.Size = new System.Drawing.Size(517, 150);
             this.dataGridViewMale.TabIndex = 19;
-            this.dataGridViewMale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMale_CellDoubleClick);
+            this.dataGridViewMale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMale_CellDoubleClick);
             // 
             // labelMaleResults
             // 
@@ -114,7 +115,7 @@ namespace MyExample
             this.dataGridViewFemale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFemale.Size = new System.Drawing.Size(513, 143);
             this.dataGridViewFemale.TabIndex = 21;
-            this.dataGridViewFemale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFemale_CellDoubleClick);
+            this.dataGridViewFemale.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewFemale_CellDoubleClick);
             // 
             // labelFemaleResults
             // 
@@ -406,6 +407,7 @@ namespace MyExample
             this.ClientSize = new System.Drawing.Size(1117, 608);
             this.Controls.Add(this.panelFormRank);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormRank";
             this.Text = "Results";

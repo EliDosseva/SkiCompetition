@@ -26,10 +26,11 @@ namespace MyExample
 
         private void ButtonEditCompetitor_Click(object sender, EventArgs e)
         {
+            skierForm.RefreshGrid();
             this.Close();
         }
 
-        private void buttonApply_Click(object sender, EventArgs e)
+        private void ButtonApply_Click(object sender, EventArgs e)
         {
             skier = new Skier(textBoxName.Text, textBoxLastName.Text);
             skier.Team = comboBoxTeam.Text;
@@ -39,7 +40,6 @@ namespace MyExample
             int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
             int id = Convert.ToInt32(skierForm.dataGridViewCompetitors.SelectedRows[0].Cells[1].Value);
             dataProvider.EditCompetitor(id, textBoxName.Text, textBoxLastName.Text, sex, team);
-            skierForm.RefreshGrid();
         }
     }
 }

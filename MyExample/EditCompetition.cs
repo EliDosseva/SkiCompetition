@@ -44,13 +44,14 @@ namespace MyExample
             comboBoxEditLocation.DataSource = dataProvider.Locations();
             comboBoxEditLocation.Text = ((Competition)skierForm.listBoxCompetitions.SelectedItem).Location;
             var dataset = dataProvider.TrackBar();
-            this.trackBarEditNumberOfCompetitors.Maximum = this.BindingContext[dataset].Count;
+            trackBarEditNumberOfCompetitors.Maximum = BindingContext[dataset].Count;
+            trackBarEditNumberOfCompetitors.Value = ((Competition)skierForm.listBoxCompetitions.SelectedItem).Competitors;
         }
 
         private void TrackBarEditNumberOfCompetitors_Scroll(object sender, EventArgs e)
         {
             var dataset = dataProvider.TrackBar();
-            this.trackBarEditNumberOfCompetitors.Maximum = this.BindingContext[dataset].Count;
+            trackBarEditNumberOfCompetitors.Maximum = BindingContext[dataset].Count;
             toolTipEditCompetition.SetToolTip(trackBarEditNumberOfCompetitors, trackBarEditNumberOfCompetitors.Value.ToString());
         }
 
