@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyExample
@@ -13,9 +6,8 @@ namespace MyExample
     public partial class Register : Form
     {
 
-        private FormSkiCompetition skierForm = null;
-        private Skier skier = null;
-        private DataProvider dataProvider;
+        private readonly FormSkiCompetition skierForm;
+        private readonly DataProvider dataProvider;
 
         public Register(FormSkiCompetition skierForm, string connection)
         {
@@ -35,8 +27,6 @@ namespace MyExample
 
         private void ButtonRegister_Click(object sender, EventArgs e)
         {
-          //skier = new Skier(textBoxName.Text, textBoxLastName.Text);
-          //skier.Team = comboBoxTeam.Text;
           var ifExist = dataProvider.IfExist(textBoxName.Text,textBoxLastName.Text);
 
           if (textBoxName.Text == "" || textBoxLastName.Text == "" || comboBoxSex.Text == "" || comboBoxTeam.Text == "")
@@ -44,25 +34,25 @@ namespace MyExample
                 MessageBox.Show("Please fill in all fields", "Error",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
           }
-            var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
+          var sex = comboBoxSex.GetItemText(comboBoxSex.SelectedItem);
 
-            int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
+          int team = int.Parse(comboBoxTeam.SelectedValue.ToString());
 
-            if (ifExist)
-            {
-                {
-                    DialogResult dialogResult = MessageBox.Show(string.Format("Competitor {0} {1} already exist! Do you want to register new competitor with these names?",
-                        textBoxName.Text, textBoxLastName.Text), "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        this.Close();
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-            }
+          if (ifExist)
+          {
+              {
+                  DialogResult dialogResult = MessageBox.Show(string.Format("Competitor {0} {1} already exist! Do you want to register new competitor with these names?",
+                      textBoxName.Text, textBoxLastName.Text), "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                  if (dialogResult == DialogResult.Yes)
+                  {
+                      this.Close();
+                  }
+                  else if (dialogResult == DialogResult.No)
+                  {
+                      return;
+                  }
+              }
+          }
 
           dataProvider.CreateCompetitor(textBoxName.Text, textBoxLastName.Text, sex, team, 0);
             

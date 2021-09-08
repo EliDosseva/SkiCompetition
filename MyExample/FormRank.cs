@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyExample
@@ -16,7 +8,7 @@ namespace MyExample
     [Serializable]
     public partial class FormRank : Form
     {
-        private FormSkiCompetition skierForm = null;
+        private FormSkiCompetition skierForm;
         private DataProvider dataProvider;
 
         public FormRank(FormSkiCompetition skierForm, string connection)
@@ -34,7 +26,7 @@ namespace MyExample
             dataGridViewFemale.Columns[5].Visible = false;
             dataGridViewFemale.Columns[7].Visible = false;
             dataGridViewFemale.Columns[8].Visible = false;
-
+            
             dataGridViewFemale.Columns[1].HeaderText = "First name";
             dataGridViewFemale.Columns[2].HeaderText = "Last name";
 
@@ -50,8 +42,6 @@ namespace MyExample
 
             dataGridViewFemale.ClearSelection();
             dataGridViewMale.ClearSelection();
-
-            //listBoxRankFemale.ValueMember = "FirstName";
         }
 
         private void ButtonOKCloseForm_Click(object sender, EventArgs e)
@@ -65,8 +55,7 @@ namespace MyExample
             int competitionId = int.Parse(skierForm.listBoxCompetitions.SelectedValue.ToString());
             int competitorsCount = ((Competition)skierForm.listBoxCompetitions.SelectedItem).Competitors;
 
-
-            if (((Competition)skierForm.listBoxCompetitions.SelectedItem).Finished == true)
+            if (((Competition)skierForm.listBoxCompetitions.SelectedItem).Finished)
             {
                 dataGridViewMale.DataSource = dataProvider.GetResults(competitionId, "male");
                 dataGridViewFemale.DataSource = dataProvider.GetResults(competitionId, "female");
@@ -92,8 +81,6 @@ namespace MyExample
 
                 dataGridViewMale.DataSource = dataProvider.GetResults(competitionId, "male");
                 dataGridViewFemale.DataSource = dataProvider.GetResults(competitionId, "female");
-
-                
 
                 List<Competitor> males = dataProvider.GetSkiersByTime(competitionId, "male");
                 List<Competitor> females = dataProvider.GetSkiersByTime(competitionId, "female");
@@ -142,7 +129,6 @@ namespace MyExample
             }
             listBoxRankFemale.DataSource = dataProvider.GetSkiersByTime(competitionId, "female");
             listBoxRankMale.DataSource = dataProvider.GetSkiersByTime(competitionId, "male");
-
         }
 
         private void DataGridViewMale_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
