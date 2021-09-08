@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyExample
@@ -14,9 +7,7 @@ namespace MyExample
     [Serializable]
     public partial class FormSkiCompetition : Form
     {
-        public static string competitionName;
-        public List<Competition> competitions;
-        private DataProvider dataProvider;
+        private readonly DataProvider dataProvider;
         private readonly string _connection = @"Data Source=EADOSSEVADW;Initial Catalog=SkiCompetition;Integrated Security=True";
 
         public FormSkiCompetition()
@@ -109,7 +100,7 @@ namespace MyExample
         {
             if (e.KeyCode == Keys.Delete)
             {
-                int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[0].Value);
+                int selected = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[1].Value);
                 DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this competitor", "Delete competitor", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -119,7 +110,6 @@ namespace MyExample
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    return;
                 }
             }
         }
@@ -138,7 +128,8 @@ namespace MyExample
             reg.comboBoxTeam.DisplayMember = "TeamName";
             reg.comboBoxTeam.DataSource = dataProvider.TeamSelection();
             reg.comboBoxTeam.SelectedIndex = -1;
-            reg.comboBoxTeam.Text = dataGridViewCompetitors.CurrentRow.Cells[5].Value.ToString();
+            if (dataGridViewCompetitors.CurrentRow != null)
+                reg.comboBoxTeam.Text = dataGridViewCompetitors.CurrentRow.Cells[5].Value.ToString();
 
             reg.ShowDialog();
         }
@@ -150,8 +141,8 @@ namespace MyExample
                 try
                 {
                     int id = Convert.ToInt32(dataGridViewCompetitors.SelectedRows[0].Cells[1].Value);
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this competitor", "Delete competitor",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this competitor?", "Delete competitor",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult == DialogResult.Yes)
                     {
                         dataProvider.DeleteCompetitor(id);
@@ -159,7 +150,6 @@ namespace MyExample
                     }
                     else if (dialogResult == DialogResult.No)
                     {
-                        return;
                     }
                 }
                 catch (Exception ex)
@@ -217,12 +207,7 @@ namespace MyExample
             Competition comp = (Competition)lbx.Items[e.Index];
             Brush brush;
 
-            if (comp.Finished)
-            {
-                brush = SystemBrushes.Highlight;
-            }
-            else
-                brush = new SolidBrush(e.ForeColor);
+            brush = comp.Finished ? SystemBrushes.Highlight : new SolidBrush(e.ForeColor);
 
             e.DrawBackground();
             e.Graphics.DrawString(itemText, e.Font, brush, e.Bounds);
@@ -244,7 +229,7 @@ namespace MyExample
                 
                 case MouseButtons.Right:
                     {
-                        ContextMenuStrip.Show(Cursor.Position);
+                        ContextMenuStrip1.Show(Cursor.Position);
                     }
                     break;
             }
@@ -263,13 +248,13 @@ namespace MyExample
                 }
                 if (((Competition)listBoxCompetitions.SelectedItem).Finished == false)
                 {
-                    ContextMenuStrip.Items[0].Enabled = true;
-                    ContextMenuStrip.Items[1].Enabled = false;
+                    ContextMenuStrip1.Items[0].Enabled = true;
+                    ContextMenuStrip1.Items[1].Enabled = false;
                 }
                 else
                 {
-                    ContextMenuStrip.Items[0].Enabled = false;
-                    ContextMenuStrip.Items[1].Enabled = true;
+                    ContextMenuStrip1.Items[0].Enabled = false;
+                    ContextMenuStrip1.Items[1].Enabled = true;
                 } 
             }
         }
@@ -278,12 +263,7 @@ namespace MyExample
         #region ToolStripMenuItems
         private void ToolStripMenuCompetitor_DropDownOpening(object sender, EventArgs e)
         {
-            if (dataGridViewCompetitors.SelectedRows.Count == 1)
-            {
-                ToolStripMenuCompetitionEdit.Enabled = true;
-            }
-            else
-                ToolStripMenuCompetitionEdit.Enabled = false;
+            ToolStripMenuCompetitionEdit.Enabled = dataGridViewCompetitors.SelectedRows.Count == 1;
         }
 
         private void ToolStripMenuCompetitorRegister_Click(object sender, EventArgs e)
@@ -320,7 +300,7 @@ namespace MyExample
             else
                 ToolStripMenuCompetitionEdit.Enabled = false;
 
-            if (listBoxCompetitions.SelectedIndex != -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished == true)
+            if (listBoxCompetitions.SelectedIndex != -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished)
             {
                 ToolStripMenuCompetitionResults.Enabled = true;
             }
@@ -347,7 +327,7 @@ namespace MyExample
 
         private void ToolStripMenuCompetitionResults_Click(object sender, EventArgs e)
         {
-            if (listBoxCompetitions.SelectedIndex > -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished == true)
+            if (listBoxCompetitions.SelectedIndex > -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished)
             {
                 var fr = new FormRank(this, _connection);
 
@@ -362,10 +342,11 @@ namespace MyExample
             }
         }
         #endregion
+
         #region ContextMenu
         private void ContextMenuStripResults_Click(object sender, EventArgs e)
         {
-            if (listBoxCompetitions.SelectedIndex > -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished == true)
+            if (listBoxCompetitions.SelectedIndex > -1 && ((Competition)listBoxCompetitions.SelectedItem).Finished)
             {
                 var fr = new FormRank(this, _connection);
 
@@ -402,14 +383,14 @@ namespace MyExample
         {
             var edit = new EditCompetitor(this, _connection);
 
-            edit.textBoxName.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).FirstName.ToString();
+            edit.textBoxName.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).FirstName;
             edit.textBoxName.ReadOnly = true;
-            edit.textBoxLastName.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).LastName.ToString();
+            edit.textBoxLastName.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).LastName;
             edit.textBoxLastName.ReadOnly = true;
             edit.comboBoxTeam.SelectedIndex = -1;
-            edit.comboBoxTeam.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).Team.ToString();
+            edit.comboBoxTeam.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).Team;
             edit.comboBoxTeam.Enabled = false;
-            edit.comboBoxSex.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).Sex.ToString();
+            edit.comboBoxSex.Text = ((Competitor)data.SelectedRows[0].DataBoundItem).Sex;
             edit.comboBoxSex.Enabled = false;
             edit.buttonApply.Visible = false;
             edit.Text = "Information";

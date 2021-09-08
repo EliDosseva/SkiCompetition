@@ -75,7 +75,7 @@ namespace MyExample
             this.ToolStripMenuCompetition = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuCompetitionEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuCompetitionResults = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuStripEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuStripResults = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -96,14 +96,14 @@ namespace MyExample
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFemaleAvg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            this.ContextMenuStrip.SuspendLayout();
+            this.ContextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer
             // 
             this.splitContainer.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitContainer.Location = new System.Drawing.Point(0, 28);
+            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.Location = new System.Drawing.Point(0, 24);
             this.splitContainer.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -115,29 +115,27 @@ namespace MyExample
             // 
             this.splitContainer.Panel2.BackColor = System.Drawing.SystemColors.MenuBar;
             this.splitContainer.Panel2.Controls.Add(this.Tabs);
-            this.splitContainer.Size = new System.Drawing.Size(1426, 544);
+            this.splitContainer.Size = new System.Drawing.Size(1426, 548);
             this.splitContainer.SplitterDistance = 689;
             this.splitContainer.SplitterWidth = 6;
             this.splitContainer.TabIndex = 9;
             // 
             // tableLayoutPanelCompetitors
             // 
-            this.tableLayoutPanelCompetitors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanelCompetitors.BackColor = System.Drawing.Color.Honeydew;
             this.tableLayoutPanelCompetitors.ColumnCount = 1;
             this.tableLayoutPanelCompetitors.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCompetitors.Controls.Add(this.dataGridViewCompetitors, 0, 1);
             this.tableLayoutPanelCompetitors.Controls.Add(this.labelListOfCompetitors, 0, 0);
-            this.tableLayoutPanelCompetitors.Location = new System.Drawing.Point(4, 0);
+            this.tableLayoutPanelCompetitors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelCompetitors.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelCompetitors.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanelCompetitors.Name = "tableLayoutPanelCompetitors";
             this.tableLayoutPanelCompetitors.RowCount = 2;
             this.tableLayoutPanelCompetitors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelCompetitors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 479F));
+            this.tableLayoutPanelCompetitors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 486F));
             this.tableLayoutPanelCompetitors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelCompetitors.Size = new System.Drawing.Size(679, 540);
+            this.tableLayoutPanelCompetitors.Size = new System.Drawing.Size(689, 548);
             this.tableLayoutPanelCompetitors.TabIndex = 26;
             // 
             // dataGridViewCompetitors
@@ -150,12 +148,12 @@ namespace MyExample
             this.dataGridViewCompetitors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ImageColumn});
             this.dataGridViewCompetitors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewCompetitors.Location = new System.Drawing.Point(4, 65);
+            this.dataGridViewCompetitors.Location = new System.Drawing.Point(4, 66);
             this.dataGridViewCompetitors.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewCompetitors.Name = "dataGridViewCompetitors";
             this.dataGridViewCompetitors.ReadOnly = true;
             this.dataGridViewCompetitors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCompetitors.Size = new System.Drawing.Size(671, 471);
+            this.dataGridViewCompetitors.Size = new System.Drawing.Size(681, 478);
             this.dataGridViewCompetitors.TabIndex = 15;
             this.dataGridViewCompetitors.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCompetitors_CellClick);
             this.dataGridViewCompetitors.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCompetitors_CellDoubleClick);
@@ -176,7 +174,7 @@ namespace MyExample
             this.labelListOfCompetitors.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelListOfCompetitors.AutoSize = true;
             this.labelListOfCompetitors.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelListOfCompetitors.Location = new System.Drawing.Point(270, 20);
+            this.labelListOfCompetitors.Location = new System.Drawing.Point(275, 21);
             this.labelListOfCompetitors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelListOfCompetitors.Name = "labelListOfCompetitors";
             this.labelListOfCompetitors.Size = new System.Drawing.Size(139, 20);
@@ -194,7 +192,7 @@ namespace MyExample
             this.Tabs.Margin = new System.Windows.Forms.Padding(4);
             this.Tabs.Name = "Tabs";
             this.Tabs.SelectedIndex = 0;
-            this.Tabs.Size = new System.Drawing.Size(731, 544);
+            this.Tabs.Size = new System.Drawing.Size(731, 548);
             this.Tabs.TabIndex = 32;
             // 
             // Teams
@@ -262,7 +260,7 @@ namespace MyExample
             this.tabPages.Margin = new System.Windows.Forms.Padding(4);
             this.tabPages.Name = "tabPages";
             this.tabPages.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPages.Size = new System.Drawing.Size(723, 496);
+            this.tabPages.Size = new System.Drawing.Size(723, 500);
             this.tabPages.TabIndex = 0;
             this.tabPages.Text = "Competitions";
             // 
@@ -281,7 +279,7 @@ namespace MyExample
             this.tableLayoutPanelCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableLayoutPanelCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCompetitions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
-            this.tableLayoutPanelCompetitions.Size = new System.Drawing.Size(458, 455);
+            this.tableLayoutPanelCompetitions.Size = new System.Drawing.Size(458, 459);
             this.tableLayoutPanelCompetitions.TabIndex = 3;
             // 
             // label1
@@ -303,7 +301,7 @@ namespace MyExample
             this.listBoxCompetitions.ItemHeight = 18;
             this.listBoxCompetitions.Location = new System.Drawing.Point(3, 36);
             this.listBoxCompetitions.Name = "listBoxCompetitions";
-            this.listBoxCompetitions.Size = new System.Drawing.Size(452, 362);
+            this.listBoxCompetitions.Size = new System.Drawing.Size(452, 366);
             this.listBoxCompetitions.TabIndex = 20;
             this.listBoxCompetitions.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxCompetitions_DrawItem);
             this.listBoxCompetitions.DoubleClick += new System.EventHandler(this.ListBoxCompetitions_DoubleClick);
@@ -315,7 +313,7 @@ namespace MyExample
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.ButtonCreateCompetition);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 404);
+            this.panel1.Location = new System.Drawing.Point(3, 408);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(452, 48);
             this.panel1.TabIndex = 22;
@@ -357,7 +355,7 @@ namespace MyExample
             this.BigFinal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BigFinal.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.BigFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BigFinal.Location = new System.Drawing.Point(579, 453);
+            this.BigFinal.Location = new System.Drawing.Point(579, 457);
             this.BigFinal.Margin = new System.Windows.Forms.Padding(4);
             this.BigFinal.Name = "BigFinal";
             this.BigFinal.Size = new System.Drawing.Size(104, 32);
@@ -376,7 +374,7 @@ namespace MyExample
             this.Leaderboard.Margin = new System.Windows.Forms.Padding(4);
             this.Leaderboard.Name = "Leaderboard";
             this.Leaderboard.Padding = new System.Windows.Forms.Padding(4);
-            this.Leaderboard.Size = new System.Drawing.Size(723, 496);
+            this.Leaderboard.Size = new System.Drawing.Size(723, 500);
             this.Leaderboard.TabIndex = 1;
             this.Leaderboard.Text = "Leaderboard";
             // 
@@ -397,7 +395,7 @@ namespace MyExample
             this.tableLayoutLeaderboard.RowCount = 2;
             this.tableLayoutLeaderboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.62325F));
             this.tableLayoutLeaderboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.37675F));
-            this.tableLayoutLeaderboard.Size = new System.Drawing.Size(715, 488);
+            this.tableLayoutLeaderboard.Size = new System.Drawing.Size(715, 492);
             this.tableLayoutLeaderboard.TabIndex = 32;
             // 
             // labelFemale
@@ -433,12 +431,12 @@ namespace MyExample
             this.dataGridViewFemaleAvg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewFemaleAvg.BackgroundColor = System.Drawing.Color.Honeydew;
             this.dataGridViewFemaleAvg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemaleAvg.Location = new System.Drawing.Point(361, 60);
+            this.dataGridViewFemaleAvg.Location = new System.Drawing.Point(361, 61);
             this.dataGridViewFemaleAvg.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewFemaleAvg.Name = "dataGridViewFemaleAvg";
             this.dataGridViewFemaleAvg.ReadOnly = true;
             this.dataGridViewFemaleAvg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFemaleAvg.Size = new System.Drawing.Size(350, 424);
+            this.dataGridViewFemaleAvg.Size = new System.Drawing.Size(350, 427);
             this.dataGridViewFemaleAvg.TabIndex = 26;
             this.dataGridViewFemaleAvg.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewFemaleAvg_CellDoubleClick);
             // 
@@ -451,12 +449,12 @@ namespace MyExample
             this.dataGridViewMaleAvg.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewMaleAvg.BackgroundColor = System.Drawing.Color.Honeydew;
             this.dataGridViewMaleAvg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMaleAvg.Location = new System.Drawing.Point(4, 60);
+            this.dataGridViewMaleAvg.Location = new System.Drawing.Point(4, 61);
             this.dataGridViewMaleAvg.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewMaleAvg.Name = "dataGridViewMaleAvg";
             this.dataGridViewMaleAvg.ReadOnly = true;
             this.dataGridViewMaleAvg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewMaleAvg.Size = new System.Drawing.Size(349, 424);
+            this.dataGridViewMaleAvg.Size = new System.Drawing.Size(349, 427);
             this.dataGridViewMaleAvg.TabIndex = 28;
             this.dataGridViewMaleAvg.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewMaleAvg_CellDoubleClick);
             // 
@@ -545,14 +543,14 @@ namespace MyExample
             // ToolStripMenuCompetitorRegister
             // 
             this.ToolStripMenuCompetitorRegister.Name = "ToolStripMenuCompetitorRegister";
-            this.ToolStripMenuCompetitorRegister.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitorRegister.Size = new System.Drawing.Size(178, 22);
             this.ToolStripMenuCompetitorRegister.Text = "Register competitor";
             this.ToolStripMenuCompetitorRegister.Click += new System.EventHandler(this.ToolStripMenuCompetitorRegister_Click);
             // 
             // ToolStripMenuCompetitorEdit
             // 
             this.ToolStripMenuCompetitorEdit.Name = "ToolStripMenuCompetitorEdit";
-            this.ToolStripMenuCompetitorEdit.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitorEdit.Size = new System.Drawing.Size(178, 22);
             this.ToolStripMenuCompetitorEdit.Text = "Edit";
             this.ToolStripMenuCompetitorEdit.Click += new System.EventHandler(this.ToolStripMenuCompetitorEdit_Click);
             // 
@@ -569,24 +567,24 @@ namespace MyExample
             // ToolStripMenuCompetitionEdit
             // 
             this.ToolStripMenuCompetitionEdit.Name = "ToolStripMenuCompetitionEdit";
-            this.ToolStripMenuCompetitionEdit.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitionEdit.Size = new System.Drawing.Size(111, 22);
             this.ToolStripMenuCompetitionEdit.Text = "Edit";
             this.ToolStripMenuCompetitionEdit.Click += new System.EventHandler(this.ToolStripMenuCompetitionEdit_Click);
             // 
             // ToolStripMenuCompetitionResults
             // 
             this.ToolStripMenuCompetitionResults.Name = "ToolStripMenuCompetitionResults";
-            this.ToolStripMenuCompetitionResults.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuCompetitionResults.Size = new System.Drawing.Size(111, 22);
             this.ToolStripMenuCompetitionResults.Text = "Results";
             this.ToolStripMenuCompetitionResults.Click += new System.EventHandler(this.ToolStripMenuCompetitionResults_Click);
             // 
-            // ContextMenuStrip
+            // ContextMenuStrip1
             // 
-            this.ContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuStripEdit,
             this.ContextMenuStripResults});
-            this.ContextMenuStrip.Name = "contextMenuStrip1";
-            this.ContextMenuStrip.Size = new System.Drawing.Size(112, 48);
+            this.ContextMenuStrip1.Name = "contextMenuStrip1";
+            this.ContextMenuStrip1.Size = new System.Drawing.Size(112, 48);
             // 
             // ContextMenuStripEdit
             // 
@@ -642,7 +640,7 @@ namespace MyExample
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMaleAvg)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.ContextMenuStrip.ResumeLayout(false);
+            this.ContextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -690,7 +688,7 @@ namespace MyExample
         private ToolStripMenuItem ToolStripMenuCompetitionEdit;
         private DataGridViewImageColumn ImageColumn;
         private ToolStripMenuItem ToolStripMenuCompetitionResults;
-        private ContextMenuStrip ContextMenuStrip;
+        private ContextMenuStrip ContextMenuStrip1;
         private ToolStripMenuItem ContextMenuStripEdit;
         private ToolStripMenuItem ContextMenuStripResults;
     }

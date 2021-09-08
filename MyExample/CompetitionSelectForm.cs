@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyExample
@@ -13,7 +7,7 @@ namespace MyExample
     public partial class CompetitionSelectForm : Form
     {
         
-        private DataProvider dataProvider;
+        private readonly DataProvider dataProvider;
         public CompetitionSelectForm(string connection)
         {
             InitializeComponent();
@@ -66,22 +60,19 @@ namespace MyExample
             }
             var finalistsFemale = dataProvider.BigFinalCompetitors(IDs, "female");
             var finalistsMale = dataProvider.BigFinalCompetitors(IDs, "male");
-
-            //var finalistsMale = dataProvider.BigFinalCompetitorsMale(IDs);
-
-
+           
             foreach (var item in finalistsFemale)
             {
                 
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                dataProvider.InsertBigFinalResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),0);
+                dataProvider.InsertBigFinalResults(item.CompetitorId, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),0);
             }
 
             foreach (var item in finalistsMale)
             {
 
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
-                dataProvider.InsertBigFinalResults(item.ID, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),0);
+                dataProvider.InsertBigFinalResults(item.CompetitorId, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),0);
             }
             var fsc = new FormSkiCompetition();
             fsc.BigFinalForm();

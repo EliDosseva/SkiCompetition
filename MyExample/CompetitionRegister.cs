@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyExample
 {
     public partial class CompetitionRegister : Form
     {
-        private FormSkiCompetition skierForm = null;
-        private DataProvider dataProvider;
+        private readonly FormSkiCompetition skierForm;
+        private readonly DataProvider dataProvider;
         public CompetitionRegister(FormSkiCompetition skierForm, string connection)
         {
             InitializeComponent();
@@ -21,20 +14,11 @@ namespace MyExample
             this.dataProvider = new DataProvider(connection);
         }
 
-        private void CreateCompetition(object sender, EventArgs e)
-        {
-            
-
-        }
         private void ButtonRegisterCompetition_Click(object sender, EventArgs e)
         {
-            //WaitForm wf = new WaitForm();
-            //wf.FormClosed += new FormClosedEventHandler(CreateCompetition);
-            //wf.Show();
             Guid guid = Guid.NewGuid();
 
-            if (textBoxCompetitionName.Text == "" || comboBoxLocation.Text == "" 
-                || monthCalendar1.SelectionRange == null || trackBarNumberOfCompetitors.Value == 0)
+            if (textBoxCompetitionName.Text == "" || comboBoxLocation.Text == "" || trackBarNumberOfCompetitors.Value == 0)
             {
                 MessageBox.Show("Please fill in all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
