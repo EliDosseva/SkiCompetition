@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class TeamMembers
+    internal partial class FrmTeamMembers
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeamMembers));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTeamMembers));
             this.ListBoxTeamMembers = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonOK = new System.Windows.Forms.Button();
@@ -83,7 +83,6 @@ namespace MyExample
             this.Name = "TeamMembers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Team members";
-            this.Load += new System.EventHandler(this.TeamMembers_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -92,6 +91,6 @@ namespace MyExample
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button ButtonOK;
-        internal System.Windows.Forms.ListBox ListBoxTeamMembers;
+        private System.Windows.Forms.ListBox ListBoxTeamMembers;
     }
 }

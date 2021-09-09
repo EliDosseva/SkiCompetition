@@ -37,6 +37,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,49 +50,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BigFinalForm.cs">
+    <Compile Include="FrmBigFinal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BigFinalForm.Designer.cs">
-      <DependentUpon>BigFinalForm.cs</DependentUpon>
+    <Compile Include="FrmBigFinal.Designer.cs">
+      <DependentUpon>FrmBigFinal.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompetitionRegister.cs">
+    <Compile Include="FrmCompetitionRegister.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompetitionRegister.Designer.cs">
-      <DependentUpon>CompetitionRegister.cs</DependentUpon>
+    <Compile Include="FrmCompetitionRegister.Designer.cs">
+      <DependentUpon>FrmCompetitionRegister.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompetitionSelectForm.cs">
+    <Compile Include="FrmCompetitionSelect.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompetitionSelectForm.Designer.cs">
-      <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
+    <Compile Include="FrmCompetitionSelect.Designer.cs">
+      <DependentUpon>FrmCompetitionSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="DataProvider.cs" />
-    <Compile Include="EditCompetition.cs">
+    <Compile Include="FrmEditCompetition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditCompetition.Designer.cs">
-      <DependentUpon>EditCompetition.cs</DependentUpon>
+    <Compile Include="FrmEditCompetition.Designer.cs">
+      <DependentUpon>FrmEditCompetition.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditCompetitor.cs">
+    <Compile Include="FrmEditCompetitor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditCompetitor.Designer.cs">
-      <DependentUpon>EditCompetitor.cs</DependentUpon>
+    <Compile Include="FrmEditCompetitor.Designer.cs">
+      <DependentUpon>FrmEditCompetitor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRank.cs">
+    <Compile Include="FrmResults.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRank.Designer.cs">
-      <DependentUpon>FormRank.cs</DependentUpon>
+    <Compile Include="FrmResults.Designer.cs">
+      <DependentUpon>FrmResults.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSkiCompetition.cs">
+    <Compile Include="FrmSkiCompetition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSkiCompetition.Designer.cs">
-      <DependentUpon>FormSkiCompetition.cs</DependentUpon>
+    <Compile Include="FrmSkiCompetition.Designer.cs">
+      <DependentUpon>FrmSkiCompetition.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyMessages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -98,11 +101,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Register.cs">
+    <Compile Include="FrmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Register.Designer.cs">
-      <DependentUpon>Register.cs</DependentUpon>
+    <Compile Include="FrmRegister.Designer.cs">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
     </Compile>
     <Compile Include="SkiCompetitionDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,11 +117,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SkiCompetitionDataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="TeamMembers.cs">
+    <Compile Include="FrmTeamMembers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeamMembers.Designer.cs">
-      <DependentUpon>TeamMembers.cs</DependentUpon>
+    <Compile Include="FrmTeamMembers.Designer.cs">
+      <DependentUpon>FrmTeamMembers.cs</DependentUpon>
     </Compile>
     <Compile Include="WaitForm.cs">
       <SubType>Form</SubType>
@@ -126,38 +129,38 @@
     <Compile Include="WaitForm.Designer.cs">
       <DependentUpon>WaitForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BigFinalForm.resx">
-      <DependentUpon>BigFinalForm.cs</DependentUpon>
+    <EmbeddedResource Include="FrmBigFinal.resx">
+      <DependentUpon>FrmBigFinal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompetitionRegister.resx">
-      <DependentUpon>CompetitionRegister.cs</DependentUpon>
+    <EmbeddedResource Include="FrmCompetitionRegister.resx">
+      <DependentUpon>FrmCompetitionRegister.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompetitionSelectForm.resx">
-      <DependentUpon>CompetitionSelectForm.cs</DependentUpon>
+    <EmbeddedResource Include="FrmCompetitionSelect.resx">
+      <DependentUpon>FrmCompetitionSelect.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditCompetition.resx">
-      <DependentUpon>EditCompetition.cs</DependentUpon>
+    <EmbeddedResource Include="FrmEditCompetition.resx">
+      <DependentUpon>FrmEditCompetition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditCompetitor.resx">
-      <DependentUpon>EditCompetitor.cs</DependentUpon>
+    <EmbeddedResource Include="FrmEditCompetitor.resx">
+      <DependentUpon>FrmEditCompetitor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormRank.resx">
-      <DependentUpon>FormRank.cs</DependentUpon>
+    <EmbeddedResource Include="FrmResults.resx">
+      <DependentUpon>FrmResults.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSkiCompetition.resx">
-      <DependentUpon>FormSkiCompetition.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSkiCompetition.resx">
+      <DependentUpon>FrmSkiCompetition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Register.resx">
-      <DependentUpon>Register.cs</DependentUpon>
+    <EmbeddedResource Include="FrmRegister.resx">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TeamMembers.resx">
-      <DependentUpon>TeamMembers.cs</DependentUpon>
+    <EmbeddedResource Include="FrmTeamMembers.resx">
+      <DependentUpon>FrmTeamMembers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm.resx">
       <DependentUpon>WaitForm.cs</DependentUpon>

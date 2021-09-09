@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class CompetitionRegister
+    partial class FrmCompetitionRegister
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace MyExample
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CompetitionRegister));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCompetitionRegister));
             this.textBoxCompetitionName = new System.Windows.Forms.TextBox();
             this.buttonRegisterCompetition = new System.Windows.Forms.Button();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
@@ -190,9 +190,9 @@ namespace MyExample
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.MonthCalendar monthCalendar1;
-        internal System.Windows.Forms.TrackBar trackBarNumberOfCompetitors;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ComboBox comboBoxLocation;
+        private System.Windows.Forms.TrackBar trackBarNumberOfCompetitors;
     }
 }

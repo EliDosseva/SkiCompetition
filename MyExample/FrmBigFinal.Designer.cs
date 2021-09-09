@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class BigFinalForm
+    internal partial class FrmBigFinal
     {
         /// <summary>
         /// Required designer variable.

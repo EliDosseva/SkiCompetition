@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class EditCompetition
+    internal partial class FrmEditCompetition
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace MyExample
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCompetition));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEditCompetition));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendarEdit = new System.Windows.Forms.MonthCalendar();
@@ -172,7 +172,6 @@ namespace MyExample
             this.Name = "EditCompetition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "EditCompetition";
-            this.Load += new System.EventHandler(this.EditCompetition_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEditNumberOfCompetitors)).EndInit();
@@ -187,11 +186,11 @@ namespace MyExample
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonOK;
-        internal System.Windows.Forms.TrackBar trackBarEditNumberOfCompetitors;
         private System.Windows.Forms.Label label4;
-        internal System.Windows.Forms.TextBox textBoxEditCompetitionName;
-        internal System.Windows.Forms.ComboBox comboBoxEditLocation;
-        internal System.Windows.Forms.MonthCalendar monthCalendarEdit;
         private System.Windows.Forms.ToolTip toolTipEditCompetition;
+        private System.Windows.Forms.TrackBar trackBarEditNumberOfCompetitors;
+        private System.Windows.Forms.TextBox textBoxEditCompetitionName;
+        private System.Windows.Forms.ComboBox comboBoxEditLocation;
+        private System.Windows.Forms.MonthCalendar monthCalendarEdit;
     }
 }

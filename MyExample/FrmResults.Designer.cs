@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class FormRank
+    internal partial class FrmResults
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormRank));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmResults));
             this.dataGridViewMale = new System.Windows.Forms.DataGridView();
             this.labelMaleResults = new System.Windows.Forms.Label();
             this.dataGridViewFemale = new System.Windows.Forms.DataGridView();
@@ -451,13 +451,13 @@ namespace MyExample
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        internal System.Windows.Forms.TextBox textBoxLocation;
-        internal System.Windows.Forms.TextBox textBoxDateStart;
-        internal System.Windows.Forms.TextBox textBoxDateEnd;
         internal System.Windows.Forms.TextBox textBoxCompetitionName;
-        internal System.Windows.Forms.DataGridView dataGridViewMale;
-        internal System.Windows.Forms.DataGridView dataGridViewFemale;
-        internal System.Windows.Forms.ListBox listBoxRankMale;
-        internal System.Windows.Forms.ListBox listBoxRankFemale;
+        private System.Windows.Forms.TextBox textBoxLocation;
+        private System.Windows.Forms.TextBox textBoxDateStart;
+        private System.Windows.Forms.TextBox textBoxDateEnd;
+        private System.Windows.Forms.DataGridView dataGridViewMale;
+        private System.Windows.Forms.DataGridView dataGridViewFemale;
+        private System.Windows.Forms.ListBox listBoxRankMale;
+        private System.Windows.Forms.ListBox listBoxRankFemale;
     }
 }
