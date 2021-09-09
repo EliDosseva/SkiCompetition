@@ -8,7 +8,7 @@ using Data = System.Collections.Generic.KeyValuePair<int, string>;
 
 namespace MyExample
 {
-    public class Competition
+    internal class Competition
     {
         public int CompetitionId { get; set; }
         public string CompetitionName { get; set; }
@@ -18,7 +18,8 @@ namespace MyExample
         public bool Finished { get; set; }
         public int Competitors { get; set; }
     }
-    public class Competitor
+
+    internal class Competitor
     {
         public int CompetitorId { get; set; }
         public string FirstName { get; set; }
@@ -29,7 +30,10 @@ namespace MyExample
         public TimeSpan Time { get; set; }
         public int Position { get; set; }
         public int Points { get; set; }
-
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
     public class Team
     {
@@ -55,7 +59,7 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Competitors (FirstName, LastName, Sex, TeamID, Points) " +
+                using (SqlCommand sc = new SqlCommand("insert into Competitors ([FirstName], [LastName], [Sex], [TeamID], [Points]) " +
                     "VALUES (@FirstName, @LastName, @Sex, @TeamID, @Points)"))
                 {
                     sc.Connection = con;
@@ -68,14 +72,12 @@ namespace MyExample
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Competitor has been registered", "Success",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MyMessages.DisplayInfo("Competitor has been registered");
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Record failed");
-                        return false;
-                    }
+
+                    MyMessages.DisplayError("Record failed");
+                    return false;
                 }
             }
         }
@@ -83,9 +85,9 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitors set FirstName = @FirstName, LastName = @LastName, " +
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 UPDATE [dbo].[Competitors] SET FirstName = @FirstName, LastName = @LastName, " +
                     " Sex = @Sex, TeamID = @TeamID " +
-                    " where ID = @ID SET ROWCOUNT 0"))
+                    " WHERE ID = @ID SET ROWCOUNT 0"))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@ID", id);
@@ -99,11 +101,8 @@ namespace MyExample
                     {
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Record failed");
-                        return false;
-                    }
+
+                    return false;
                 }
             }
         }
@@ -112,8 +111,8 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitors set Points = Points + @Points " +
-                    " where ID = @ID SET ROWCOUNT 0"))
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 UPDATE [dbo].[Competitors] SET Points = Points + @Points " +
+                    " WHERE ID = @ID SET ROWCOUNT 0"))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@ID", ID);
@@ -124,24 +123,20 @@ namespace MyExample
                     {
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Record failed");
-                        return false;
-                    }
+
+                    return false;
                 }
             }
         }
 
-        public List<Competitor> GetCompetitors(int number)
+        internal List<Competitor> GetRandomCompetitors(int number)
         {
             List<Competitor> competitors = new List<Competitor>();
-
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT top (@ID) Competitors.ID, FirstName, LastName, Sex, Teams.TeamName FROM Competitors " +
-                    " join Teams on Competitors.teamid = Teams.id order by newID()";
+                string query = "SELECT TOP (@ID) Competitors.ID, [FirstName], [LastName], [Sex], Teams.TeamName FROM [dbo].[Competitors] " +
+                    " JOIN [dbo].[Teams] ON Competitors.TeamID = Teams.ID ORDER BY newID()";
                 using (var command = new SqlCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@Id", number);
@@ -149,13 +144,13 @@ namespace MyExample
                     {
                         while (reader.Read())
                         {
-                            competitors.Add(new Competitor()
+                            competitors.Add(new Competitor
                             {
                                 CompetitorId = reader.GetInt32(0),
-                                FirstName = (string)reader[1],
-                                LastName = (string)reader[2],
-                                Sex = (string)reader[3],
-                                Team = (string)reader[4]
+                                FirstName = reader[1].ToString(),
+                                LastName = reader[2].ToString(),
+                                Sex = reader[3].ToString(),
+                                Team = reader[4].ToString()
                             });
                         }
                     }
@@ -169,7 +164,7 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT firstName,LastName FROM Competitors where firstName = @Firstname and LastName = @LastName";
+                string query = "SELECT [FirstName], [LastName] FROM [dbo].[Competitors] WHERE [FirstName] = @FirstName and [LastName] = @LastName";
                 using (var command = new SqlCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@Firstname", firstName);
@@ -179,10 +174,8 @@ namespace MyExample
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+                    return false;
                 }
             }
         }
@@ -192,16 +185,16 @@ namespace MyExample
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
-                SqlCommand command = new SqlCommand("delete from Competitors WHERE ID = @ID", conn);
+                SqlCommand command = new SqlCommand("DELETE FROM [dbo].[Competitors] WHERE ID = @ID", conn);
                 command.Parameters.AddWithValue("@ID", insert);
                 int rows = command.ExecuteNonQuery();
                 if (rows > 0)
                 {
-                    MessageBox.Show("Deletion Successful", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MyMessages.DisplayInfo("Deletion Successful");
                     return true;
                 }
-                else
-                    MessageBox.Show("Deletion Unsuccessful");
+
+                MyMessages.DisplayError("Deletion Unsuccessful");
                 return false;
             }
         }
@@ -212,8 +205,8 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("select Competitors.id, Competitors.FirstName, Competitors.LastName, competitors.Sex, Teams.TeamName " +
-                    "from competitors join Teams on Competitors.teamid = Teams.id; ", con);
+                SqlDataAdapter sc = new SqlDataAdapter("select Competitors.ID, [FirstName], [LastName], [Sex], Teams.TeamName " +
+                    "FROM [dbo].[Competitors] JOIN Teams ON Competitors.TeamID = Teams.ID; ", con);
 
                 sc.Fill(dt);
 
@@ -227,7 +220,8 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("insert into Competitions (Guid, CompetitionName, Location,  DateStart, DateEnd, Finished, Competitors) " +
+                using (SqlCommand sc = new SqlCommand("insert into [dbo].[Competitions] " +
+                                                      "([Guid], [CompetitionName], [Location], [DateStart], [DateEnd], [Finished], [Competitors]) " +
                     "VALUES (@Guid, @CompetitionName, @Location, @DateStart, @DateEnd, @Finished, @Competitors)"))
                 {
                     sc.Connection = con;
@@ -242,26 +236,24 @@ namespace MyExample
                     con.Open();
                     if (sc.ExecuteNonQuery() > 0)
                     {
-                        MessageBox.Show("Competition has been registered");
+                        MyMessages.DisplayInfo("Competition has been registered");
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Record failed");
-                        return false;
-                    }
+
+                    MyMessages.DisplayError("Record failed");
+                    return false;
                 }
             }
         }
 
-        public List<Competition> GetCompetition()
+        internal List<Competition> GetCompetition()
         {
             List<Competition> competitions = new List<Competition>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT Id, CompetitionName,Location, DateStart, DateEnd, Finished, Competitors from Competitions";
+                string query = "SELECT [ID], [CompetitionName], [Location], [DateStart], [DateEnd], [Finished], [Competitors] FROM [dbo].[Competitions]";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -271,13 +263,13 @@ namespace MyExample
                         {
                             competitions.Add(new Competition()
                             {
-                                CompetitionId = (int)reader[0],
-                                CompetitionName = (string)reader[1],
-                                Location = (string)reader[2],
+                                CompetitionId = reader.GetInt32(0),
+                                CompetitionName = reader[1].ToString(),
+                                Location = reader[2].ToString(),
                                 DateStart = DateTime.Parse(reader[3].ToString()),
                                 DateEnd = DateTime.Parse(reader[4].ToString()),
                                 Finished = reader.GetBoolean(5),
-                                Competitors = (int)reader[6]
+                                Competitors = reader.GetInt32(6)
                             });
                         }
                     }
@@ -291,7 +283,7 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("update Competitions set finished = 1 where ID = @ID"))
+                using (SqlCommand sc = new SqlCommand("UPDATE [dbo].[Competitions] SET [Finished] = 1 where ID = @ID"))
                     
                 {
                     sc.Connection = con;
@@ -302,11 +294,8 @@ namespace MyExample
                         
                         return true;
                     }
-                    else
-                    {
-                        
-                        return false;
-                    }
+
+                    return false;
                 }
             }
         }
@@ -317,7 +306,7 @@ namespace MyExample
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                SqlCommand sc = new SqlCommand("SELECT Id, CompetitionName from Competitions", con);
+                SqlCommand sc = new SqlCommand("SELECT [ID], [CompetitionName] FROM [dbo].[Competitions]", con);
 
                 con.Open();
 
@@ -338,9 +327,10 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 update Competitions set CompetitionName = @CompetitionName, Location = @Location, " +
-                    "  DateStart = @DateStart, DateEnd = @DateEnd, Finished = @Finished, Competitors = @Competitors " +
-                    " where ID = @ID SET ROWCOUNT 0"))
+                using (SqlCommand sc = new SqlCommand("SET ROWCOUNT 1 UPDATE [dbo].[Competitions] " +
+                                                      "SET [CompetitionName] = @CompetitionName, [Location] = @Location, " +
+                    " [DateStart] = @DateStart, [DateEnd] = @DateEnd, [Finished] = @Finished, [Competitors] = @Competitors " +
+                    " WHERE [ID] = @ID SET ROWCOUNT 0"))
                 {
                     sc.Connection = con;
                     sc.Parameters.AddWithValue("@ID", ID);
@@ -356,11 +346,9 @@ namespace MyExample
                     {
                         return true;
                     }
-                    else
-                    {
-                        MessageBox.Show("Record failed");
-                        return false;
-                    }
+
+                    MessageBox.Show("Record failed");
+                    return false;
                 }
             }
         }
@@ -375,7 +363,7 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT ID, TeamName FROM Teams";
+                string query = "SELECT [ID], [TeamName] FROM [dbo].[Teams]";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -383,10 +371,10 @@ namespace MyExample
                     {
                         while (reader.Read())
                         {
-                            team.Add(new Team()
+                            team.Add(new Team
                             {
-                                TeamID = (int)reader[0],
-                                TeamName = (string)reader[1],
+                                TeamID = reader.GetInt32(0),
+                                TeamName = reader[1].ToString(),
                             });
                         }
                     }
@@ -395,14 +383,14 @@ namespace MyExample
             return team;
         }
 
-        public List<Competitor> GetTeamMembers(int id)
+        internal List<Competitor> GetTeamMembers(int id)
         {
             List<Competitor> competitors = new List<Competitor>();
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
 
                 con.Open();
-                string query = "select [FirstName],[LastName] from Competitors join Teams on Competitors.teamid = Teams.id where teamID = @ID";
+                string query = "SELECT [FirstName],[LastName] FROM [dbo].[Competitors] JOIN [dbo].[Teams] on Competitors.TeamID = Teams.ID where TeamID = @ID";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -414,7 +402,7 @@ namespace MyExample
                         {
                             competitors.Add(new Competitor
                             {
-                                FirstName = (string)reader[0],
+                                FirstName = reader[0].ToString(),
                                 LastName = reader[1].ToString()
                             });
                         }
@@ -426,18 +414,19 @@ namespace MyExample
         #endregion
 
         #region Results
-        public List<Competitor> GetResults(int competitionId, string sex)
+
+        internal List<Competitor> GetResults(int competitionId, string sex)
         {
             List<Competitor> competitors = new List<Competitor>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT [FirstName],[LastName], sex, TeamId, Results.TimeInMs, TeamName, Competitors.ID " +
-                    " FROM Results join competitors on competitors.id = Results.competitorid " +
-                    " join competitions on competitions.id = CompetitionID " +
-                    " join Teams on Competitors.teamid = Teams.id " +
-                    " where CompetitionID = @CompetitionID and competitors.sex = @Sex";
+                string query = "SELECT [FirstName],[LastName], [Sex], [TeamId], [TimeInMs], [TeamName], Competitors.ID " +
+                    " FROM [dbo].[Results] JOIN [dbo].[Competitors] on Competitors.ID = Results.CompetitorID " +
+                    " JOIN [dbo].[Competitions] ON Competitions.ID = CompetitionID " +
+                    " JOIN Teams ON Competitors.TeamID = Teams.ID " +
+                    " WHERE CompetitionID = @CompetitionID and Competitors.Sex = @Sex";
 
                 using (var command = new SqlCommand(query,con))
                 {
@@ -450,12 +439,12 @@ namespace MyExample
                         {
                             competitors.Add(new Competitor
                             {
-                                TeamId = (int)reader[3],
-                                CompetitorId = (int)reader[6],
-                                FirstName = (string)reader[0],
+                                TeamId = reader.GetInt32(3),
+                                CompetitorId = reader.GetInt32(6),
+                                FirstName = reader[0].ToString(),
                                 LastName = reader[1].ToString(),
-                                Sex = (string)reader[2],
-                                Team = (string)reader[5],
+                                Sex = reader[2].ToString(),
+                                Team = reader[5].ToString(),
                                 Time = TimeSpan.Parse(reader[4].ToString())
                             });
                         }
@@ -470,10 +459,8 @@ namespace MyExample
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                try
-                {
-                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID, Position) " +
-                        "VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID, @Position)", con))
+                    using (SqlCommand sc = new SqlCommand("INSERT INTO [dbo].[Results] ([CompetitorID], [TimeInMs], [StartTime], [CompetitionID], [Position]) " +
+                        "VALUES (@CompetitorID, @TimeInMs, @StartTime, @CompetitionID, @Position)", con))
                     {
                         sc.Connection = con;
                         sc.Parameters.AddWithValue("@CompetitorID", id);
@@ -493,28 +480,18 @@ namespace MyExample
                             return false;
                         }
                     }
-
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 2627)
-                    {
-                        MessageBox.Show("Error");
-                    }
-                }
-                return true;
             }
         }
 
-        public List<Competitor> GetSkiersByTime(int competitionId, string sex)
+        internal List<Competitor> GetSkiersByTime(int competitionId, string sex)
         {
             List<Competitor> skiers = new List<Competitor>();
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT [ID],[FirstName],[LastName], dense_rank() over (order by Results.timeinms asc) " +
-                    "FROM Results join competitors on competitors.id = Results.competitorid " +
-                    "where competitors.sex = @Sex and competitionID = @CompetitionID order by timeinms";
+                string query = "SELECT [ID],[FirstName],[LastName], dense_rank() over (ORDER BY Results.TimeInMs asc) " +
+                    "FROM [dbo].[Results] JOIN [dbo].[Competitors] ON Competitors.ID = Results.CompetitorID " +
+                    "WHERE Competitors.Sex = @Sex and competitionID = @CompetitionID";
                 using (var command = new SqlCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@Sex", sex);
@@ -526,8 +503,8 @@ namespace MyExample
                         {
                             skiers.Add(new Competitor
                             {
-                                CompetitorId = (int)reader[0],
-                                FirstName = (string)reader[1],
+                                CompetitorId = reader.GetInt32(0),
+                                FirstName = reader[1].ToString(),
                                 LastName = reader[2].ToString(),
                                 Position = int.Parse(reader[3].ToString())
                             });
@@ -544,8 +521,8 @@ namespace MyExample
         {
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                    using (SqlCommand sc = new SqlCommand("insert into Results (CompetitorID,TimeInMs, StartTime, CompetitionID) " +
-                        "VALUES (@CompetitorID,@TimeInMs,@StartTime, @CompetitionID) ", con))
+                    using (SqlCommand sc = new SqlCommand("INSERT INTO Results ([CompetitorID],[TimeInMs], [StartTime], [CompetitionID]) " +
+                        "VALUES (@CompetitorID, @TimeInMs, @StartTime, @CompetitionID) ", con))
                     {
                         sc.Connection = con;
                         sc.Parameters.AddWithValue("@CompetitorID", id);
@@ -558,32 +535,30 @@ namespace MyExample
                         {
                             return true;
                         }
-                        else
-                        {
-                            return false;
-                        }
+
+                        return false;
                     }
             }
         }
 
-        public List<Competitor> BigFinalCompetitors(List<int> ID, string sex)
+        internal List<Competitor> BigFinalCompetitors(List<int> ID, string sex)
         {
             List<Competitor> competitors = new List<Competitor>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT TOP (3) Competitors.ID, [FirstName],[LastName], " +
-                    "cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime " +
-                " from Results join Competitors on Competitors.id = Results.CompetitorID " +
-                " join Competitions on CompetitionID = Competitions.id " +
-                " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
-                " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
+                string query = "SELECT TOP (3) Competitors.ID, [FirstName], [LastName], " +
+                    "CAST(CAST(avg(CAST(CAST(Results.timeinms as datetime) AS float)) AS datetime) AS time) AverageTime " +
+                " FROM [dbo].[Results] JOIN [dbo].[Competitors] ON Competitors.id = Results.CompetitorID " +
+                " JOIN Competitions ON CompetitionID = Competitions.ID" +
+                " JOIN (SELECT CompetitionID from Results GROUP BY CompetitionID) t " +
+                " ON Results.CompetitionID = t.CompetitionID WHERE Competitions.id IN (" +
                 string.Join(",", ID)
                 + ")" +
-                " and competitors.sex = @Sex " +
-                " group by competitors.ID, [FirstName],[LastName]" +
-                " order by AverageTime ";
+                " AND Competitors.Sex = @Sex " +
+                " GROUP BY Competitors.ID, [FirstName],[LastName]" +
+                " ORDER BY AverageTime ";
                 using (var command = new SqlCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@Sex", sex);
@@ -594,8 +569,8 @@ namespace MyExample
                         {
                             competitors.Add(new Competitor
                             {
-                                CompetitorId = (int)reader[0],
-                                FirstName = (string)reader[1],
+                                CompetitorId = reader.GetInt32(0),
+                                FirstName = reader[1].ToString(),
                                 LastName = reader[2].ToString()
                             });
                         }
@@ -605,22 +580,22 @@ namespace MyExample
             return competitors;
         }
 
-        public DataTable BigFinalResults(string sex)
+        internal DataTable BigFinalResults(string sex)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT FirstName, LastName, " +
-                    "cast(cast(avg(cast(CAST(Results.timeinms as datetime) as float)) as datetime) as time) Result" +
-                    " from Results join competitors on competitors.id = Results.competitorid " +
-                    " join BigFinal on CompetitionID = BigFinal.id " +
-                    " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t " +
-                    " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Results.CompetitionID in(0)" +
-                    " and competitors.sex = @Sex " +
-                    " group by FirstName, LastName " +
-                    " order by Result", con);
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT [FirstName], [LastName], " +
+                    "CAST(CAST(avg(CAST(CAST(Results.TimeInMs as datetime) AS float)) AS datetime) AS time) Result" +
+                    " FROM [dbo].[Results] JOIN competitors ON Competitors.ID = Results.CompetitorID " +
+                    " JOIN BigFinal ON CompetitionID = BigFinal.ID " +
+                    " JOIN (SELECT CompetitionID FROM [dbo].[Results] GROUP BY [CompetitionID]) t " +
+                    " ON Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt WHERE Results.CompetitionID in(0)" +
+                    " and Competitors.Sex = @Sex " +
+                    " GROP BY [FirstName], [LastName] " +
+                    " ORDER BY Result", con);
 
                 sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
                 sc.Fill(dt);
@@ -628,7 +603,7 @@ namespace MyExample
             return dt;
         }
 
-        public DataTable BigFinalQualifiers(List<int> ID, string sex)
+        internal DataTable BigFinalQualifiers(List<int> ID, string sex)
         {
             DataTable dt = new DataTable();
 
@@ -636,16 +611,16 @@ namespace MyExample
             {
 
                 SqlDataAdapter sc = new SqlDataAdapter("SELECT TOP (3) FirstName, LastName, " +
-                    "CAST(CAST(avg(CAST(CAST(Results.timeinms as datetime) as float)) as datetime) as time) AverageTime" +
-                    " from Results join competitors on competitors.id = Results.competitorid" +
-                    " join Competitions on CompetitionID = Competitions.id" +
-                    " join ( select CompetitionID, max(StartTime) as max_dt from Results group by CompetitionID) t" +
-                    " on Results.CompetitionID = t.CompetitionID and Results.StartTime = t.max_dt where Competitions.id in (" +
+                    "CAST(CAST(avg(CAST(CAST(Results.timeinms as datetime) AS float)) AS datetime) AS time) AverageTime" +
+                    " from [dbo].[Results] JOIN Competitors ON Competitors.ID = Results.CompetitorID" +
+                    " JOIN Competitions ON CompetitionID = Competitions.ID" +
+                    " JOIN ( select CompetitionID, FROM [dbo].[Results] GROUP BY CompetitionID) t" +
+                    " ON Results.CompetitionID = t.CompetitionID and WHERE Competitions.ID IN (" +
                     string.Join(",", ID)
                     + ")" +
-                    " and competitors.sex = @Sex" +
-                    " group by FirstName, LastName" +
-                    " order by AverageTime", con);
+                    " and Competitors.Sex = @Sex" +
+                    " GROUP BY FirstName, LastName" +
+                    " ORDER BY AverageTime", con);
                 sc.SelectCommand.Parameters.AddWithValue("@Sex", sex);
                 con.Open();
                 sc.Fill(dt);
@@ -662,9 +637,9 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                SqlDataAdapter sc = new SqlDataAdapter("select dense_rank() over (order by sum(points) desc) as ' '," +
-                    " teamID, TeamName, sum(points) Points from Competitors " +
-                    "join Teams on teams.id = teamid group by TeamID, TeamName", con);
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT dense_rank() OVER (ORDER BY sum(Points) desc) AS ' '," +
+                    " [teamID], [TeamName], sum(Points) FROM [dbo].[Competitors] " +
+                    "JOIN [dbo].[Teams] ON Teams.ID = TeamID GROUP BY TeamID, TeamName", con);
 
                 sc.Fill(dt);
 
@@ -672,17 +647,17 @@ namespace MyExample
             return dt;
         }
 
-        public List<Competitor> AverageTime(string sex)
+        internal List<Competitor> AverageTime(string sex)
         {
             List<Competitor> competitors = new List<Competitor>();
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT dense_rank() over (order by Points desc), Competitors.ID, [FirstName],[LastName], sex, TeamId, TeamName,  " +
-                    " Points from Competitors " +
-                    " join Teams on Competitors.teamid = Teams.id " +
-                    " where competitors.sex = @Sex";
+                string query = "SELECT dense_rank() over (order by Points desc), " +
+                               "Competitors.ID, [FirstName],[LastName], [Sex], [TeamId], [TeamName], [Points] FROM [dbo].[Competitors] " +
+                    " JOIN Teams ON Competitors.TeamID = Teams.ID " +
+                    " WHERE Competitors.Sex = @Sex";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -695,13 +670,13 @@ namespace MyExample
                             competitors.Add(new Competitor
                             {
                                 Position = int.Parse(reader[0].ToString()),
-                                CompetitorId = (int)reader[1],
-                                TeamId = (int)reader[5],
-                                FirstName = (string)reader[2],
+                                CompetitorId = reader.GetInt32(1),
+                                TeamId = reader.GetInt32(5),
+                                FirstName = reader[2].ToString(),
                                 LastName = reader[3].ToString(),
-                                Sex = (string)reader[4],
-                                Team = (string)reader[6],
-                                Points = (int)reader[7]
+                                Sex = reader[4].ToString(),
+                                Team = reader[6].ToString(),
+                                Points = reader.GetInt32(7)
                             });
                         }
                     }
@@ -717,7 +692,7 @@ namespace MyExample
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                SqlDataAdapter sc = new SqlDataAdapter("SELECT * FROM Competitors", con);
+                SqlDataAdapter sc = new SqlDataAdapter("SELECT * FROM [dbo].[Competitors]", con);
 
                 con.Open();
 
@@ -734,7 +709,7 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT LocationId, Location FROM Locations";
+                string query = "SELECT [LocationId], [Location] FROM [dbo].[Locations]";
 
                 using (var command = new SqlCommand(query, con))
                 {
@@ -744,7 +719,7 @@ namespace MyExample
                         {
                             locations.Add(new Location()
                             {
-                                LocationId = (int)reader[0],
+                                LocationId = reader.GetInt32(0),
                                 CompetitionLocation = (string)reader[1],
                             });
                         }

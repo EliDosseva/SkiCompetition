@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace MyExample
 {
-    public partial class CompetitionSelectForm : Form
+    public partial class FrmCompetitionSelect : Form
     {
         
         private readonly DataProvider dataProvider;
-        public CompetitionSelectForm(string connection)
+        public FrmCompetitionSelect(string connection)
         {
             InitializeComponent();
             this.dataProvider = new DataProvider(connection);
@@ -24,15 +24,6 @@ namespace MyExample
 
         private void ButtonGetBigFinalCompetitors(object sender, EventArgs e)
         {
-            //WaitForm wf = new WaitForm();
-            //wf.FormClosed += new FormClosedEventHandler(GetBigFinalCompetitors);
-            //wf.Show(this);
-            GetBigFinalCompetitors();
-        }
-
-        
-        private void GetBigFinalCompetitors()
-        {
             List<int> competitionIDs = new List<int>();
             foreach (var item in listBoxCompetitions.SelectedItems)
             {
@@ -43,7 +34,6 @@ namespace MyExample
             dataGridViewMale.DataSource = dataProvider.BigFinalQualifiers(competitionIDs, "male");
             dataGridViewFemale.DataSource = dataProvider.BigFinalQualifiers(competitionIDs, "female");
         }
-
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
@@ -74,13 +64,13 @@ namespace MyExample
                 var randomTime = start + TimeSpan.FromMilliseconds(random.Next(difference));
                 dataProvider.InsertBigFinalResults(item.CompetitorId, randomTime, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),0);
             }
-            var fsc = new FormSkiCompetition();
+            var fsc = new FrmSkiCompetition();
             fsc.BigFinalForm();
         }
 
         private void ButtonOKCloseForm_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

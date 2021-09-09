@@ -3,13 +3,14 @@ using System.Windows.Forms;
 
 namespace MyExample
 {
-    public partial class BigFinalForm : Form
+    internal partial class FrmBigFinal : Form
     {
         private readonly DataProvider dataProvider;
-        public BigFinalForm(string connection)
+
+        internal FrmBigFinal(string connection)
         {
             InitializeComponent();
-            this.dataProvider = new DataProvider(connection);
+            dataProvider = new DataProvider(connection);
         }
 
         private void BigFinalForm_Load(object sender, EventArgs e)

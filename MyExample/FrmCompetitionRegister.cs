@@ -3,11 +3,12 @@ using System.Windows.Forms;
 
 namespace MyExample
 {
-    public partial class CompetitionRegister : Form
+    public partial class FrmCompetitionRegister : Form
     {
-        private readonly FormSkiCompetition skierForm;
+        private readonly FrmSkiCompetition skierForm;
         private readonly DataProvider dataProvider;
-        public CompetitionRegister(FormSkiCompetition skierForm, string connection)
+
+        internal FrmCompetitionRegister(FrmSkiCompetition skierForm, string connection)
         {
             InitializeComponent();
             this.skierForm = skierForm;
@@ -20,7 +21,7 @@ namespace MyExample
 
             if (textBoxCompetitionName.Text == "" || comboBoxLocation.Text == "" || trackBarNumberOfCompetitors.Value == 0)
             {
-                MessageBox.Show("Please fill in all fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MyMessages.DisplayWarning("Please fill in all fields");
                 return;
             }
 

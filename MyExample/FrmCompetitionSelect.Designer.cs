@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class CompetitionSelectForm
+    partial class FrmCompetitionSelect
     {
         /// <summary>
         /// Required designer variable.
@@ -91,18 +91,18 @@ namespace MyExample
             this.dataGridViewFemale.BackgroundColor = System.Drawing.Color.Azure;
             this.dataGridViewFemale.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewFemale.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFemale.Location = new System.Drawing.Point(467, 72);
+            this.dataGridViewFemale.Location = new System.Drawing.Point(466, 72);
             this.dataGridViewFemale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewFemale.Name = "dataGridViewFemale";
             this.dataGridViewFemale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFemale.Size = new System.Drawing.Size(453, 323);
+            this.dataGridViewFemale.Size = new System.Drawing.Size(451, 323);
             this.dataGridViewFemale.TabIndex = 3;
             // 
             // ButtonStart
             // 
             this.ButtonStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ButtonStart.Location = new System.Drawing.Point(759, 485);
+            this.ButtonStart.Location = new System.Drawing.Point(756, 485);
             this.ButtonStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ButtonStart.Name = "ButtonStart";
             this.ButtonStart.Size = new System.Drawing.Size(170, 34);
@@ -116,7 +116,7 @@ namespace MyExample
             this.labelQualifiersHeader.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelQualifiersHeader.AutoSize = true;
             this.labelQualifiersHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelQualifiersHeader.Location = new System.Drawing.Point(359, 24);
+            this.labelQualifiersHeader.Location = new System.Drawing.Point(358, 24);
             this.labelQualifiersHeader.Name = "labelQualifiersHeader";
             this.labelQualifiersHeader.Size = new System.Drawing.Size(218, 20);
             this.labelQualifiersHeader.TabIndex = 5;
@@ -127,7 +127,7 @@ namespace MyExample
             this.labelFemale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelFemale.AutoSize = true;
             this.labelFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFemale.Location = new System.Drawing.Point(661, 24);
+            this.labelFemale.Location = new System.Drawing.Point(659, 24);
             this.labelFemale.Name = "labelFemale";
             this.labelFemale.Size = new System.Drawing.Size(64, 20);
             this.labelFemale.TabIndex = 7;
@@ -153,7 +153,7 @@ namespace MyExample
             this.tableLayoutPanelQualifiers.RowCount = 2;
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanelQualifiers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84F));
-            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(926, 402);
+            this.tableLayoutPanelQualifiers.Size = new System.Drawing.Size(923, 402);
             this.tableLayoutPanelQualifiers.TabIndex = 8;
             // 
             // dataGridViewMale
@@ -168,7 +168,7 @@ namespace MyExample
             this.dataGridViewMale.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewMale.Name = "dataGridViewMale";
             this.dataGridViewMale.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewMale.Size = new System.Drawing.Size(452, 323);
+            this.dataGridViewMale.Size = new System.Drawing.Size(451, 323);
             this.dataGridViewMale.TabIndex = 2;
             // 
             // labelMale
@@ -176,7 +176,7 @@ namespace MyExample
             this.labelMale.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMale.AutoSize = true;
             this.labelMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMale.Location = new System.Drawing.Point(212, 24);
+            this.labelMale.Location = new System.Drawing.Point(211, 24);
             this.labelMale.Name = "labelMale";
             this.labelMale.Size = new System.Drawing.Size(40, 20);
             this.labelMale.TabIndex = 6;

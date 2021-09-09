@@ -1,7 +1,7 @@
 ﻿
 namespace MyExample
 {
-    partial class EditCompetitor
+    internal partial class FrmEditCompetitor
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace MyExample
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCompetitor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEditCompetitor));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxSex = new System.Windows.Forms.ComboBox();
@@ -39,8 +39,8 @@ namespace MyExample
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonApply = new System.Windows.Forms.Button();
             this.buttonRegister = new System.Windows.Forms.Button();
+            this.buttonApply = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -160,17 +160,6 @@ namespace MyExample
             this.label4.TabIndex = 7;
             this.label4.Text = "Last name";
             // 
-            // buttonApply
-            // 
-            this.buttonApply.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.buttonApply.Location = new System.Drawing.Point(70, 226);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(128, 23);
-            this.buttonApply.TabIndex = 12;
-            this.buttonApply.Text = "Apply changes";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.ButtonApply_Click);
-            // 
             // buttonRegister
             // 
             this.buttonRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -183,6 +172,17 @@ namespace MyExample
             this.buttonRegister.UseVisualStyleBackColor = true;
             this.buttonRegister.Click += new System.EventHandler(this.ButtonEditCompetitor_Click);
             // 
+            // buttonApply
+            // 
+            this.buttonApply.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonApply.Location = new System.Drawing.Point(70, 226);
+            this.buttonApply.Name = "buttonApply";
+            this.buttonApply.Size = new System.Drawing.Size(128, 23);
+            this.buttonApply.TabIndex = 12;
+            this.buttonApply.Text = "Apply changes";
+            this.buttonApply.UseVisualStyleBackColor = true;
+            this.buttonApply.Click += new System.EventHandler(this.ButtonApply_Click);
+            // 
             // EditCompetitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,7 +193,7 @@ namespace MyExample
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditCompetitor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Edit competitor";
+            this.Text = "CompetitorInfo competitor";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -204,14 +204,14 @@ namespace MyExample
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.ComboBox comboBoxSex;
         private System.Windows.Forms.Label label3;
-        internal System.Windows.Forms.ComboBox comboBoxTeam;
-        internal System.Windows.Forms.TextBox textBoxName;
-        internal System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        internal System.Windows.Forms.Button buttonApply;
-        internal System.Windows.Forms.Button buttonRegister;
+        private System.Windows.Forms.ComboBox comboBoxSex;
+        private System.Windows.Forms.ComboBox comboBoxTeam;
+        private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.TextBox textBoxLastName;
+        private System.Windows.Forms.Button buttonApply;
+        private System.Windows.Forms.Button buttonRegister;
     }
 }
