@@ -654,7 +654,7 @@ namespace MyExample
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 con.Open();
-                string query = "SELECT dense_rank() over (order by Points desc), " +
+                string query = "SELECT dense_rank() over (order by Points desc) , " +
                                "Competitors.ID, [FirstName],[LastName], [Sex], [TeamId], [TeamName], [Points] FROM [dbo].[Competitors] " +
                     " JOIN Teams ON Competitors.TeamID = Teams.ID " +
                     " WHERE Competitors.Sex = @Sex";

@@ -21,12 +21,31 @@ namespace MyExample
         internal FrmSkiCompetition()
         {
             InitializeComponent();
-            this.dataProvider = new DataProvider(_connection);
+            dataProvider = new DataProvider(_connection);
             listBoxCompetitions.DrawMode = DrawMode.OwnerDrawFixed;
-
         }
+        
+        //public void AddItemToCache(Object sender, EventArgs e)
+        //{
+            
+        //    onRemove = new CacheItemRemovedCallback(this.RemovedCallback);
+
+        //    if (Cache["Key1"] == null)
+        //        Cache.Add("Key1", "Value 1", null, DateTime.Now.AddSeconds(60), Cache.NoSlidingExpiration, CacheItemPriority.High, onRemove);
+        //}
+
         private void FormSkiCompetition_Load_1(object sender, EventArgs e)
         {
+
+        //    HttpRuntime httpRT = new HttpRuntime(); // our cache object
+            
+        //    FileWatcherClass fd = new FileWatcherClass(@"c:\cust_changed.txt");
+        //    // txt file to monitor for changes, would be created by db when data changed
+
+        //    fd.OnFileChange += new
+        //        WindowsApplication1.FileWatcherClass.FileChange(this.FileHasChanged);
+
+
             listBoxCompetitions.ValueMember = "CompetitionID";
             listBoxCompetitions.DisplayMember = "CompetitionName";
             listBoxCompetitions.SelectedIndex = -1;
@@ -60,6 +79,8 @@ namespace MyExample
             dataGridViewTeamRank.Columns[2].SortMode = DataGridViewColumnSortMode.NotSortable;
             dataGridViewTeamRank.Columns[1].Visible = false;
             dataGridViewTeamRank.Columns[2].HeaderText = "Team";
+            dataGridViewTeamRank.Columns[3].HeaderText = "Points";
+
             dataGridViewTeamRank.Columns[0].Width = 40;
 
             dataGridViewCompetitors.Columns[1].Visible = false;
@@ -409,16 +430,6 @@ namespace MyExample
             edit.CompetitorInfo(data);
 
             edit.ShowDialog();
-        }
-
-        internal void ListBoxCompetitionEdit()
-        {
-            var reg = new FrmEditCompetition(this, _connection);
-
-            reg.CompetitionInfo(listBoxCompetitions);
-
-
-            reg.ShowDialog();
         }
 
         internal void BigFinalForm()
