@@ -362,6 +362,7 @@ namespace MyExample
             this.BigFinal.TabIndex = 2;
             this.BigFinal.Text = "BigFinal";
             this.BigFinal.UseVisualStyleBackColor = false;
+            this.BigFinal.Visible = false;
             this.BigFinal.Click += new System.EventHandler(this.BigFinal_Click);
             // 
             // Leaderboard
